@@ -14,7 +14,9 @@ export class RegisterComponent  {
 
 
   miFormularioRegistro : FormGroup = this.fb.group({
-    name : ['test 1' ,[Validators.required , Validators.minLength(4)] ] , 
+    name : ['test 1' ,[Validators.required] ] ,
+    surname : ['apellidoTest 1' , [Validators.required]],
+    LU : ['4231' , [Validators.required, Validators.minLength(3)]], 
     email: ['test1@test.com' ,[Validators.required , Validators.email]  ], 
     password:['123456' ,[Validators.required , Validators.minLength(6)]] 
   })
@@ -26,9 +28,9 @@ export class RegisterComponent  {
               private authservice : AuthService) { }
 
   registrar(){
-    const {name,password,email} = this.miFormularioRegistro.value
+    const {name,surname,LU,email,password} = this.miFormularioRegistro.value
     
-    this.authservice.registro(name,email,password)
+    this.authservice.registro(name,surname,LU,email,password)
       .subscribe(ok => {
         if (ok === true){
           this.router.navigateByUrl('/dashboard');

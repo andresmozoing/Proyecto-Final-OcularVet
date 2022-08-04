@@ -10,16 +10,31 @@ const { generarJWT } = require('../helpers/jwt');
 const crearUsuario = async(req,res = response)=>{
 
     //Para desestructurar el body: (asi puedo manejarlos por seraparado)
-    const { email, name, password}= req.body;
+    const { name, surname, LU, email, password}= req.body;
     try {
         //Verificar que no exista el email
-        const usuario = await Usuario.findOne({email: email});
-        if (usuario){
+        const usuarioEmail = await Usuario.findOne({email: email});
+        if (usuarioEmail){
             return res.status(400).json({
                 ok:false,
                 msg: ' Ya existe un usuario con el email ingresado'
             });
         }
+
+        console.log("paso la verif del email");
+
+        //Verificar que no exista el LU
+        const usuarioLU = await Usuario.findOne({LU: LU});
+        console.log(usuarioLU);
+        if (usuarioLU){
+            return res.status(400).json({
+                ok:false,
+                msg: ' Ya existe un usuario con el LU ingresado'
+            });
+        }
+
+        console.log("paso la verif del LU");
+
         //Crear usuario con el modelo
         const dbUser = new Usuario(req.body);
         //hashear la contraseña
@@ -37,6 +52,8 @@ const crearUsuario = async(req,res = response)=>{
             ok: true,
             uid: dbUser.id,
             name,
+            surname,
+            LU,
             email,
             token
         })

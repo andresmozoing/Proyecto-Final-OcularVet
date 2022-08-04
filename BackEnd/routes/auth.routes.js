@@ -11,7 +11,9 @@ const router = Router();
 //router.post('/new', crearUsuario);
 router.post('/new',[
 
-    check('name','El nombre es obligatorio y debe tener una longitud minima de 4').not().isEmpty().isLength({min:4}),
+    check('name','El nombre es obligatorio y debe tener al menos 2 letras').not().isEmpty().isLength({min:2}),
+    check('surname','El apellido es obligatorio y debe tener al menos 2 letras').not().isEmpty().isLength({min:2}),
+    check('LU','El LU es obligatorio').not().isEmpty().isNumeric(),
     check('email','El email es obligatorio').isEmail(),
     check('password','La contraseña es obligatoria y debe poseer 6 caracteres').isLength({min:6}),
     validarCampos

@@ -15,6 +15,13 @@ import { AuthService } from '../../auth/services/auth.service';
 })
 export class DashboardComponent  {
 
+  persona = {
+    genero: 'F',
+    notificaciones: true,
+  }
+
+  terminosYCondiciones: boolean = false;
+
   constructor(private router:Router,
               private authservice: AuthService) { }
 
