@@ -5,7 +5,7 @@ import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
+  templateUrl: './index.alumno.html',
   styles: [
     ` * {
           margin : 15px

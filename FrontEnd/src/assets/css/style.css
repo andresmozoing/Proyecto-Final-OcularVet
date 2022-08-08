@@ -14,7 +14,9 @@
 
 body {
   font-family: "Open Sans", sans-serif;
-  background: #f6f9ff;
+  background-image: url('../img/eXpresso.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
   color: #444444;
 }
 
@@ -649,7 +651,8 @@ h6 {
 
   #main,
   #footer {
-    margin-left: 300px;
+    margin-left: 50px;
+    margin-right: 50px;
   }
 }
 
@@ -1242,19 +1245,19 @@ h6 {
 --------------------------------------------------------------*/
 .footer {
   padding: 20px 0;
-  font-size: 14px;
+  font-size: 16px;
   transition: all 0.3s;
   border-top: 1px solid #cddfff;
 }
 
 .footer .copyright {
   text-align: center;
-  color: #012970;
+  color: #ffffff;
 }
 
 .footer .credits {
   padding-top: 5px;
   text-align: center;
   font-size: 13px;
-  color: #012970;
+  color: #ffffff;
 }
