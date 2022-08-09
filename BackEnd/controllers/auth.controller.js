@@ -79,7 +79,7 @@ const crearUsuario = async(req,res = response)=>{
     
 };
 
-const loginUsurario = async (req,res = response)=>{
+const loginUsuario = async (req,res = response)=>{
 
     const { email, password}= req.body;    
     try {
@@ -126,14 +126,17 @@ const revalidarToken = async(req,res = response)=>{
          ok: true,
         uid,
         name,
+        surname:dbUser.surname,
+        LU: dbUser.LU,
         token,
-        email : dbUser.email
+        email : dbUser.email,
+        isAdmin: dbUser.isAdmin
     })
 }
 
 
 module.exports = {
     crearUsuario,
-    loginUsurario,
+    loginUsuario,
     revalidarToken
 }

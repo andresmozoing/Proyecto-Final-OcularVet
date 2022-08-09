@@ -29,7 +29,7 @@ export class AuthService {
       .pipe(
         tap( (resp) => { //Los operadores del pipe se ejecutan en cadena. El map va a recibir lo q le deja el tap. Este tap lo unico q hace es dejarte hacer algo con el resp en caso de q quieras modificarlo para el prox operador
           if (resp.ok){
-            //Si el response tuvo un status 200, seteamos el token porq sino cuando entre al dashboard lo va a sacar, y seteamos el uid del usuario
+            //Si el response tuvo un status 200, seteamos el token porq sino cuando entre al inicio lo va a sacar, y seteamos el uid del usuario
             localStorage.setItem('token',resp.token!);
           }
         }),
@@ -67,9 +67,13 @@ export class AuthService {
           map( resp => {
             localStorage.setItem('token', resp.token!)
             this._usuario = {
-              name: resp.name!,
               uid: resp.uid!,
-              email: resp.email!
+              name: resp.name!,
+              surname: resp.surname!,
+              LU: resp.LU!,
+              email: resp.email!,
+              isAdmin: resp.isAdmin!
+
             }
             return resp.ok
           }),

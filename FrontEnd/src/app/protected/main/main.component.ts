@@ -2,28 +2,23 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../auth/services/auth.service';
 
-
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './index.alumno.html',
+  selector: 'app-main',
+  templateUrl: './main.component.html',
   styles: [
     ` * {
-          margin : 15px
+          margin : 10px
       }
     `
   ]
 })
-export class DashboardComponent  {
-
-  persona = {
-    genero: 'F',
-    notificaciones: true,
-  }
-
-  terminosYCondiciones: boolean = false;
+export class MainComponent implements OnInit {
 
   constructor(private router:Router,
               private authservice: AuthService) { }
+
+  ngOnInit(): void {
+  }
 
   get usuario(){
     return this.authservice.usuario;
@@ -34,6 +29,11 @@ export class DashboardComponent  {
     this.router.navigateByUrl('/auth/login')
   }
 
+  get isAdmin(){
 
-
+    if (this.authservice.usuario.isAdmin)
+      return "PROFESOR";
+    else
+      return "ALUMNO";
+  }
 }

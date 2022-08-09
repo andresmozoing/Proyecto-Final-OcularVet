@@ -60,7 +60,8 @@ const modificarUsuario = async (req,res = response) => {
     catch (error) {
         return res.status(500).json({
             ok:false,
-            msg: 'Error en el controlador de modificarUsuario'
+            msg: 'Error en el controlador de modificarUsuario',
+            error: 'El error es ' + error
         })
     }
 } //Fin modificarUsuario()
@@ -81,7 +82,8 @@ const modificarPassword = async (req,res = response) => {
         if (!validPassword){
         return res.status(400).json({
             ok:false,
-            msg: 'El password no es valido'
+            msg: 'El password no es valido',
+            error: 'El error es ' + error
         });
         }
 
