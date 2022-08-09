@@ -107,7 +107,6 @@ h6 {
 /* Dropdown menus */
 .dropdown-menu {
   border-radius: 4px;
-  padding: 10px 0;
   -webkit-animation-name: dropdown-animate;
   animation-name: dropdown-animate;
   -webkit-animation-duration: 0.2s;
@@ -122,7 +121,8 @@ h6 {
 .dropdown-menu .dropdown-footer {
   text-align: center;
   font-size: 15px;
-  padding: 10px 25px;
+  padding: 2px 5px;
+  
 }
 
 .dropdown-menu .dropdown-footer a {
@@ -140,13 +140,13 @@ h6 {
 }
 
 .dropdown-menu .dropdown-item {
-  font-size: 14px;
-  padding: 10px 15px;
+  font-size: 16px;
+  /* padding: 10px 15px; */
   transition: 0.3s;
 }
 
 .dropdown-menu .dropdown-item i {
-  margin-right: 10px;
+  /* margin-right: 10px; */
   font-size: 18px;
   line-height: 0;
 }
@@ -485,9 +485,9 @@ h6 {
 }
 
 .header-nav .nav-icon {
-  font-size: 22px;
+  font-size: 30px;
   color: #012970;
-  margin-right: 25px;
+  margin-right: 0px;
   position: relative;
 }
 
@@ -586,8 +586,7 @@ h6 {
 }
 
 .header-nav .profile .dropdown-header h6 {
-  font-size: 18px;
-  margin-bottom: 0;
+  font-size: 15px;
   font-weight: 600;
   color: #444444;
 }
@@ -597,13 +596,13 @@ h6 {
 }
 
 .header-nav .profile .dropdown-item {
-  font-size: 14px;
-  padding: 10px 15px;
+  font-size: 16px;
+  padding: 1px ;
   transition: 0.3s;
 }
 
 .header-nav .profile .dropdown-item i {
-  margin-right: 10px;
+  /* margin-right: 10px; */
   font-size: 18px;
   line-height: 0;
 }
@@ -800,7 +799,7 @@ h6 {
 }
 
 .dashboard .filter .dropdown-header {
-  padding: 8px 15px;
+  /* padding: 18px 15px; */
 }
 
 .dashboard .filter .dropdown-header h6 {
@@ -809,12 +808,12 @@ h6 {
   font-weight: 600;
   letter-spacing: 1px;
   color: #aab7cf;
-  margin-bottom: 0;
+  margin: 0;
   padding: 0;
 }
 
 .dashboard .filter .dropdown-item {
-  padding: 8px 15px;
+  padding: 1px 4px;
 }
 
 /* Info Cards */
@@ -985,7 +984,7 @@ h6 {
   max-width: 100%;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 1.25rem;
-  padding-top: 15px;
+  padding-top: 5px;
 }
 
 .iconslist .icon {
@@ -993,7 +992,7 @@ h6 {
   border-radius: 0.25rem;
   text-align: center;
   color: #012970;
-  padding: 15px 0;
+  padding: 5px 0;
 }
 
 .iconslist i {
