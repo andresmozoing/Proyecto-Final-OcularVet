@@ -7,6 +7,7 @@ import { MainComponent } from './main/main.component';
 
 
 
+
 @NgModule({
   declarations: [
     InicioComponent,

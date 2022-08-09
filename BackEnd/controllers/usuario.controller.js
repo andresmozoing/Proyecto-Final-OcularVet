@@ -1,6 +1,7 @@
 const ConfiguracionAdmin = require('../models/ConfiguracionAdmin');
 const { response } =  require('express');
 const Usuario = require('../models/Usuario');
+const bcrypt = require('bcryptjs');
 
 const obtenerUsuario = async (req,res = response) => {
     try {
@@ -71,14 +72,15 @@ const modificarPassword = async (req,res = response) => {
         console.log("Llego al modificarPassword, el body es ", req.body);
 
         const dbUser = await Usuario.findById(req.body._id)
+        console.log("usuario es", dbUser);
         if (!dbUser){
             return res.status(400).json({
-                ok:false,
-                msg: 'El correo no existe'
+                ok: false,
+                msg: 'El usuario no existe'
             });
         }
         //confirmar si el password hace match
-        const validPassword = bcrypt.compareSync(password,dbUser.password);
+        const validPassword = bcrypt.compareSync(req.body.passwordActual,dbUser.password);
         if (!validPassword){
         return res.status(400).json({
             ok:false,
@@ -87,11 +89,14 @@ const modificarPassword = async (req,res = response) => {
         });
         }
 
+        //hashear la contraseña
+        const salt = bcrypt.genSaltSync(10);
+        dbUser.password = bcrypt.hashSync(req.body.passwordNueva, salt);
+        
+        console.log("va a modificar el pass");
         const userModificado = await Usuario.updateOne(
                                 {_id : req.body._id},
-                                {name : req.body.name,
-                                 surname: req.body.surname,
-                                 email: req.body.email})
+                                {password : dbUser.password})
         
         return res.json({
             ok: true,
