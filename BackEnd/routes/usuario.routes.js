@@ -1,15 +1,31 @@
 const {Router} = require('express');
-
-//Importo las funciones del controller
-const { modificarConfiguracionAdmin } = require('../controllers/usuario.controller');
-
+const controllerUsuario  = require('../controllers/usuario.controller');
 
 const router = Router();
 
 //RUTAS
-router.put('/configAdmin',
-            [ ],
-            modificarConfiguracionAdmin)
+router.get('/obtenerUsuario', 
+            [],
+            controllerUsuario.obtenerUsuario)
 
+router.get('/obtenerTodosLosUsuarios', 
+            [],
+            controllerUsuario.obtenerTodosLosUsuarios)
+
+router.put('/modificarUsuario',
+            [],
+            controllerUsuario.modificarUsuario)
+
+router.put('/modificarPassword',
+            [],
+            controllerUsuario.modificarPassword)
+
+router.delete('/eliminarUsuario',
+               [],
+               controllerUsuario.eliminarUsuario)
+
+router.put('/configAdmin',
+            [],
+            controllerUsuario.modificarConfiguracionAdmin)
 
 module.exports = router;
