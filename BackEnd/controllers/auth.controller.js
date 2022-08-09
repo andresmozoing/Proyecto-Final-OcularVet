@@ -131,37 +131,9 @@ const revalidarToken = async(req,res = response)=>{
     })
 }
 
-const modificarConfiguracionAdmin = async (req,res = response) => {
-    //const { cantidadPacientesAResponder, tiempoRespuesta, codigoRegistro, id} = req.body;    
-    try {
-        console.log("Llego al modificarConfiguracionAdmin");
-        const body = req.body;
-        ConfiguracionAdmin.updateOne(
-                {id:1},
-                body,
-                (err,docs) => {
-                    res.send({
-                        items : docs
-                    })
-                })
-
-        return res.json({
-            ok: true
-       })
-        
-    }
-    catch (error) {
-        return res.status(500).json({
-            ok:false,
-            msg: 'Error en el controlador de modificarConfigAdmin'
-        })
-    }
-
-}
 
 module.exports = {
     crearUsuario,
     loginUsurario,
-    revalidarToken,
-    modificarConfiguracionAdmin
+    revalidarToken
 }
