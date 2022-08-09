@@ -84,7 +84,7 @@
 
                     <div class="col-12">
                       <label for="LU" class="form-label">Nº Libreta Universitaria (LU):</label>
-                      <input type="text" formControlName="LU" class="form-control" id="LU" >
+                      <input type="number" formControlName="LU" class="form-control" id="LU" >
                       <div class="invalid-feedback">Por favor, ingreasa una contraseña valida!</div>
                     </div>
 
@@ -98,7 +98,13 @@
                     <div class="col-12">
                       <label for="password" class="form-label">Contraseña:</label>
                       <input type="password" formControlName="password" class="form-control" id="password" required>
-                      <div class="invalid-feedback">Por favor, ingreasa una contraseña valida!</div>
+                      <div class="invalid-feedback">Por favor, ingresa una contraseña valida!</div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="codigoRegistro" class="form-label">Código registro: </label>
+                      <input type="number" formControlName="codigoRegistro" class="form-control" id="codigoRegistro" required>
+                      <div class="invalid-feedback">Por favor ingresa, un código de registro válido!</div>
                     </div>
 
 

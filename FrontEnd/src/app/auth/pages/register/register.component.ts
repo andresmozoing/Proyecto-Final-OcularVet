@@ -18,7 +18,8 @@ export class RegisterComponent  {
     surname : ['apellidoTest 1' , [Validators.required]],
     LU : ['4231' , [Validators.required, Validators.minLength(3)]], 
     email: ['test1@test.com' ,[Validators.required , Validators.email]  ], 
-    password:['123456' ,[Validators.required , Validators.minLength(6)]] 
+    password:['123456' ,[Validators.required , Validators.minLength(6)]],
+    codigoRegistro: ['2022' , [Validators.required]]
   })
 
 
@@ -28,9 +29,9 @@ export class RegisterComponent  {
               private authservice : AuthService) { }
 
   registrar(){
-    const {name,surname,LU,email,password} = this.miFormularioRegistro.value
+    const {name,surname,LU,email,password,codigoRegistro} = this.miFormularioRegistro.value
     
-    this.authservice.registro(name,surname,LU,email,password)
+    this.authservice.registro(name,surname,LU,email,password,codigoRegistro)
       .subscribe(ok => {
         if (ok === true){
           this.router.navigateByUrl('/dashboard');

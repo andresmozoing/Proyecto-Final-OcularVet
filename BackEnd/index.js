@@ -21,6 +21,7 @@ app.use( express.json() );
 
 //RUTAS
 app.use('/api/auth', require('./routes/auth.routes'));
+app.use('/api/nota', require('./routes/nota.routes'));
 
 
 //para levantar la app:
