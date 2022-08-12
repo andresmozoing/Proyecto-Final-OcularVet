@@ -31,7 +31,7 @@ export class LoginComponent {
       .subscribe((ok) => {
         console.log(ok)
         if (ok === true){ //Si no le pones el ===true, evalua q exista el objeto, y siempre existe.
-          this.router.navigateByUrl('/dashboard')
+          this.router.navigateByUrl('/inicio')
         }
         else{
           Swal.fire('Error' , ok, 'error')
