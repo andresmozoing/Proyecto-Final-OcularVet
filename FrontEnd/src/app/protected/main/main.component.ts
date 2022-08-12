@@ -7,7 +7,7 @@ import { AuthService } from '../../auth/services/auth.service';
   templateUrl: './main.component.html',
   styles: [
     ` * {
-          margin : 10px
+          
       }
     `
   ]
