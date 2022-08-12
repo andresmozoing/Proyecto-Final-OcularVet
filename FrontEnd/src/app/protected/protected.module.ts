@@ -5,13 +5,15 @@ import { ProtectedRoutingModule } from './protected-routing.module';
 import { InicioComponent } from './inicioAlumno/inicio.component';
 import { MainComponent } from './main/main.component';
 
+import { EjercicioComponent } from './ejercicio/ejercicio.component';
 
 
 
 @NgModule({
   declarations: [
     InicioComponent,
-    MainComponent
+    MainComponent,
+    EjercicioComponent
   ],
   imports: [
     CommonModule,
