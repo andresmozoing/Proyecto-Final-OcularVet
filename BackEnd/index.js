@@ -23,6 +23,7 @@ app.use( express.json() );
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/nota', require('./routes/nota.routes'));
 app.use('/api/usuario', require('./routes/usuario.routes'));
+app.use('/api/diagnostico', require('./routes/diagnostico.routes'));
 
 
 //para levantar la app:

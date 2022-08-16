@@ -14,7 +14,6 @@ export class AuthService {
   private _usuario! : Usuario;
 
   get usuario(){
-    console.log('el dashborad pide el usuario y le vamo a dar esto ' , this._usuario );
     
     return {...this._usuario};
   }

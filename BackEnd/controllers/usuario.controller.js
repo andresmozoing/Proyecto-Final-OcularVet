@@ -43,6 +43,28 @@ const obtenerTodosLosUsuarios = async (req,res = response) => {
 } //Fin obtenerTodosLosUsuarios()
 
 
+const obtenerCantidadPacientesAResponder = async (req,res = response) => {
+    try {
+        console.log("Llego al obtenerCantidadPacientesAResponder");
+
+        const config = await ConfiguracionAdmin.find({ id: 1})
+
+        const cantidad = config.cantidadPacientesAResponder
+
+        return res.json({
+            ok: true,
+            cantidad
+       })
+    }
+    catch (error) {
+        return res.status(500).json({
+            ok: false,
+            msg: 'Error en el controlador de obtenerTodosLosUsuarios'
+        })
+    }
+} //Fin obtenerTodosLosUsuarios()
+
+
 const modificarUsuario = async (req,res = response) => {
     try {
         console.log("Llego al modificarUsuario, el body es ", req.body);
