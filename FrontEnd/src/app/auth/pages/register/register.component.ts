@@ -34,7 +34,7 @@ export class RegisterComponent  {
     this.authservice.registro(name,surname,LU,email,password,codigoRegistro)
       .subscribe(ok => {
         if (ok === true){
-          this.router.navigateByUrl('/incio');
+          this.router.navigateByUrl('/ocularVet');
         }
         else{
           Swal.fire('Error al registrar usuario',ok,'error')

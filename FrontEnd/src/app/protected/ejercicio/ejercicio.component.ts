@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-ejercicio',
-  templateUrl: './ejercicio.component.html',
-  styleUrls: ['./ejercicio.component.css']
+  templateUrl: './ejercicio.component.html'
 })
 export class EjercicioComponent implements OnInit {
 
