@@ -249,10 +249,16 @@ h6 {
   color: #798eb3;
   padding: 15px;
 }
+.card-header{
+  font-size: 26px;
+  font-weight: 700;
+  color: #021c49;
+  font-family: "Nunito", sans-serif;
+}
 
 .card-title {
   padding: 20px 0 15px 0;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 500;
   color: #012970;
   font-family: "Poppins", sans-serif;
@@ -376,7 +382,7 @@ h6 {
   line-height: 1;
 }
 
-@media (min-width: 768px) {
+@media (max-width: 580px) {
   
   
   .logo span {
@@ -442,6 +448,7 @@ h6 {
 .header-nav .nav-options span {
   font-size: 14px;
   font-weight: 600;
+  margin-left: 8px;
 }
 @media (max-width: 480px) {
   
