@@ -1,0 +1,28 @@
+import { Injectable } from '@angular/core';
+
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { catchError, map, tap } from 'rxjs/operators';
+import { of, Observable } from 'rxjs';
+import { Diagnostico, DiagnosticoResponse } from '../interfaces/Diagnostico';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DiagnosticoService {
+
+  private baseUrl : string = environment.baseURL;
+  
+  constructor(private http: HttpClient) { }
+
+  obtenerTodosLosDiagnosticos (){
+    const url = `${this.baseUrl}/diagnostico/obtenerTodosLosDiagnosticos`
+    const body= {}
+
+    return this.http.get<DiagnosticoResponse>(url, body)
+      .pipe(
+        catchError(err => of(err.error.msg)) //si el resp tiene un status q no es el 200, captura el error. Sino, lo deja pasar y no hace nada este operador 
+        )
+  } 
+
+}

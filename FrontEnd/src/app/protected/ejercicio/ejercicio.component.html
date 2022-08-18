@@ -1,5 +1,3 @@
-<p>ejercicio works!</p>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,41 +45,56 @@
             <div class="card">
                 <div class="card-body">
                     <div>
-                        <button (click)="comenzarEjercicio()">
+                        <button *ngIf=" diagnosticosPosibles.length < 1" (click)="comenzarEjercicio()">
                             Comenzar ejercicio
                         </button>
-                        <p *ngIf=" diagnosticosPosibles.length >0">Diagnosticos posibles: {{ diagnosticosPosibles | json }}</p> 
-
-                        <h4>Diagnostico actual : {{diagnosticoActual.descripcion}}</h4>
                     </div>
 
-
-                    <form [formGroup]="formularioPaciente" (ngSubmit)="onSubmit()">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" formControlName="respuestaElegida"
-                                name="respuestaElegida" id="normal" value="normal" >
-                            <label class="form-check-label" for="exampleRadios1">
-                                Normal
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" formControlName="respuestaElegida"
-                                name="respuestaElegida" id="LNO_D" value="LNO_D">
-                            <label class="form-check-label" for="LNO_D">
-                                Lesión nervio óptico derecho
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" formControlName="respuestaElegida"
-                                name="respuestaElegida" id="LNO_I" value="LNO_I">
-                            <label class="form-check-label" for="LNO_I">
-                                Lesión nervio óptico izquierdo
-                            </label>
-                        </div>
-                        <button type="submit">Submit</button>
-                    </form>
-
-                    <p>Form value: {{ formularioPaciente.value | json }}</p> 
+                    <div *ngIf=" diagnosticoActual !== undefined">
+                        <!-- <p *ngIf=" diagnosticosPosibles.length >0">Diagnosticos posibles: {{ diagnosticosPosibles | json }}</p>  -->
+                        <ul *ngIf=" diagnosticosPosibles.length >0">
+                            <h3>Diagnosticos posibles:</h3>
+                            <li *ngFor=" let diag of diagnosticosPosibles">
+                              <p>{{diag.id}}</p>
+                            </li>
+                           </ul>
+            
+                        <h4 *ngIf=" diagnosticoActual !== undefined">Diagnostico actual : {{diagnosticoActual.descripcion}}</h4>
+                   
+                        <form [formGroup]="formularioPaciente" (ngSubmit)="diagnosticar()">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="respuestaElegida"
+                                    name="respuestaElegida" id="normal" value="normal" >
+                                <label class="form-check-label" for="exampleRadios1">
+                                    Normal
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="respuestaElegida"
+                                    name="respuestaElegida" id="LNO_D" value="LNO_D">
+                                <label class="form-check-label" for="LNO_D">
+                                    Lesión nervio óptico derecho
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" formControlName="respuestaElegida"
+                                    name="respuestaElegida" id="LNO_I" value="LNO_I">
+                                <label class="form-check-label" for="LNO_I">
+                                    Lesión nervio óptico izquierdo
+                                </label>
+                            </div>
+                            <button type="submit">Siguiente paciente</button>
+                        </form>
+    
+                        <p>Cantidad de pacientes a diagnosticar en total: {{cantPacientesADiagnosticar}}</p>
+                        <p>Cantidad de respuestas correctas: {{cantRespuestasCorrectas}}</p>
+                        <p>Cantidad de pacientes diagnosticados: {{cantPacientesRespondidos}}</p>
+                        <p>Tiempo de respuesta: {{tiempoRespuesta}}</p>
+                        <p>Temporizador: {{temporizador}}</p>
+                        <countdown #cd [config]="{ leftTime: 30 }"></countdown>
+                        <button (click) = "cd.begin()"></button>
+                    </div>
+                    
                 </div>
 
             </div>

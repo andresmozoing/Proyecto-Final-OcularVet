@@ -2,21 +2,28 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Diagnostico } from '../interfaces/Diagnostico';
 import Swal from 'sweetalert2';
+import { DiagnosticoService } from '../services/diagnostico.service';
+import { UsuarioService } from '../services/usuario.service';
+import { ConfigAdmin, ConfigAdminResponse } from '../interfaces/ConfigAdmin';
+import { timer } from 'rxjs';
+import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
 
 @Component({
   selector: 'app-ejercicio',
   templateUrl: './ejercicio.component.html'
 })
 export class EjercicioComponent implements OnInit {
+  
+  
 
-  constructor() { }
+  constructor( private diagnosticoService : DiagnosticoService,
+               private usuarioService: UsuarioService ) { }
 
   ngOnInit(): void {
   }
 
-  formularioPaciente = new FormGroup({
-    respuestaElegida: new FormControl(),
-  });
+
+  formularioPaciente = new FormGroup({ respuestaElegida: new FormControl(),});
 
   diagnosticosPosibles : Diagnostico[] = []
 
@@ -28,38 +35,76 @@ export class EjercicioComponent implements OnInit {
 
   cantPacientesRespondidos : number = 0
 
+  tiempoRespuesta: number = 0;
+
+  temporizador : number = 0
+
   get respuestaElegida(): any { //No se si funciona asi pero bueno
     return this.formularioPaciente.get('respuestaElegida');
   }
 
-  comenzarEjercicio(): void {
-    
-    this.diagnosticosPosibles = [
-      { id : 'normal',
-        descripcion : 'Normal',
-        derIluminado_AchicaDer : true,
-        derIluminado_AchicaIzq : true,
-        izqIluminado_AchicaDer : true,
-        izqIluminado_AchicaIzq : true
-      },
-      { id : 'LNO_D',
-        descripcion : 'Lesión nervio óptico derecho',
-        derIluminado_AchicaDer : false,
-        derIluminado_AchicaIzq : false,
-        izqIluminado_AchicaDer : true,
-        izqIluminado_AchicaIzq : true
-      },
-      { id : 'LNO_I',
-        descripcion : 'Lesión nervio óptico izquierdo',
-        derIluminado_AchicaDer : true,
-        derIluminado_AchicaIzq : true,
-        izqIluminado_AchicaDer : false,
-        izqIluminado_AchicaIzq : false
+  comenzarEjercicio() {
+    try{
+      this.diagnosticoService.obtenerTodosLosDiagnosticos()
+        .subscribe((resp) => {
+          console.log("la rta es " , resp.diagnosticos);
+          
+          this.diagnosticosPosibles = resp.diagnosticos
+          console.log("diagnosticosPosibles.length desntor del subscribe es " , this.diagnosticosPosibles.length);
+          if (this.diagnosticosPosibles.length > 0){
+            //To do: Buscar la cant de pacientes
+            this.diagnosticoActual = this.obtenerProximoDiagnostico()
+            console.log("dawdd");
+            
+            this.usuarioService.obtenerConfigAdmin()
+              .subscribe((resp)=>{
+                console.log("resp es ", resp);
+                
+                this.cantPacientesADiagnosticar = resp.cantidadPacientesADiagnosticar
+                this.tiempoRespuesta = resp.tiempoRespuesta
+                this.comenzarTemporizador();
+              })
+          }
+          else{
+            Swal.fire("Error","No existen diagnosticos posibles en la base de datos","error")
+          }
+        })
+       ;
+    }
+    catch(error){
+      console.log("Error en el comenzarEjercicio().  " , error);
+      
+    }
+      
+  }
+
+  comenzarTemporizador() {
+    this.temporizador= this.tiempoRespuesta
+    this.temporizador= 5 //BORRAR
+    const temp = timer(1000,1000);
+    const aux = temp.subscribe(val => {
+      console.log(val, '-');
+      this.temporizador--
+      if (this.temporizador === 0){
+        this.cantPacientesRespondidos++;
+        Swal.fire("Se acabó el tiempo","","error")
+        this.siguientePaciente();
       }
-    ]
-    if (this.diagnosticosPosibles.length > 0){
-      //To do: Buscar la cant de pacientes
+    });
+  }
+
+  siguientePaciente(){
+    if (this.cantPacientesADiagnosticar !== this.cantPacientesRespondidos){ //Si no terminó
       this.diagnosticoActual = this.obtenerProximoDiagnostico()
+      this.formularioPaciente.controls['respuestaElegida'].reset()
+      this.comenzarTemporizador()
+    }
+    else{ //Si ya terminó
+      let stringAux = 'Cantidad de pacientes diagnosticados: ' + this.cantPacientesADiagnosticar
+      stringAux = stringAux + '\n' + 'Cantidad de respuestas correctas: ' + this.cantRespuestasCorrectas
+      console.log(stringAux);
+      
+      Swal.fire('Autoevaluación finalizada', stringAux, 'info')
     }
   }
 
@@ -87,42 +132,20 @@ export class EjercicioComponent implements OnInit {
     return aleatorio;
   }
 
-  onSubmit(): void {
+  diagnosticar(): void {
     console.log("La rta elegida fue ", this.formularioPaciente.value);
     console.log("El diagnostico actual es " , this.diagnosticoActual.id);
+    this.cantPacientesRespondidos++;
     if (this.formularioPaciente.value.respuestaElegida === this.diagnosticoActual.id){
       console.log("rta correcta!");
       this.cantRespuestasCorrectas++;
-      Swal.fire('Bien hecho!', "Rta correcta", 'success')
+      Swal.fire('Bien hecho!', "Respuesta correcta", 'success')
     }
     else{
       console.log("rta incorrecta");
-      Swal.fire('Error' , "Rta incorrecta", 'error')
+      Swal.fire('Error' , "Respuesta incorrecta", 'error')
     }
-
-    if (this.cantPacientesADiagnosticar !== this.cantPacientesRespondidos){ //Si no terminó
-      console.log("El actual es");
-      this.diagnosticoActual = this.obtenerProximoDiagnostico()
-      console.log("Va a buscar el prox");
-    }
-    
-      Swal.fire({
-        title: '<strong>HTML <u>example</u></strong>',
-        icon: 'info',
-        html:
-          'You can use <b>bold text</b>, ' +
-          '<a href="//sweetalert2.github.io">links</a> ' +
-          'and other HTML tags',
-        showCloseButton: true,
-        focusConfirm: false,
-        confirmButtonText:
-          '<i class="fa fa-thumbs-up"></i> Great!',
-        confirmButtonAriaLabel: 'Thumbs up, great!',
-        cancelButtonText:
-          '<i class="fa fa-thumbs-down"></i>',
-        
-      })
-    
+    this.siguientePaciente()
 
   }
 
