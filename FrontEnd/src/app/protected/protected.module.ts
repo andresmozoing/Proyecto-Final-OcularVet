@@ -8,6 +8,7 @@ import { InicioComponent } from './inicioAlumno/inicio.component';
 import { MainComponent } from './main/main.component';
 
 import { EjercicioComponent } from './ejercicio/ejercicio.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 
@@ -15,7 +16,8 @@ import { EjercicioComponent } from './ejercicio/ejercicio.component';
   declarations: [
     InicioComponent,
     MainComponent,
-    EjercicioComponent
+    EjercicioComponent,
+    PerfilComponent
   ],
   imports: [
     CommonModule,

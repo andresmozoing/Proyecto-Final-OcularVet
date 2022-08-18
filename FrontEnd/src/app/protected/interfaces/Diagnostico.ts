@@ -6,6 +6,7 @@ export interface Diagnostico {
     izqIluminado_AchicaDer : boolean;
     izqIluminado_AchicaIzq : boolean;
 }
+<<<<<<< HEAD
 
 export interface DiagnosticoResponse{
     ok: boolean;

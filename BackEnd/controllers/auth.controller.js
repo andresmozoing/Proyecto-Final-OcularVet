@@ -120,12 +120,12 @@ const loginUsuario = async (req,res = response)=>{
 
 const revalidarToken = async(req,res = response)=>{
     const {uid,name} = req;
-    const token = await generarJWT(uid, name);
     const dbUser = await Usuario.findById({_id:uid}); //Para traer el email
+    const token = await generarJWT(uid, dbUser.name);
     return res.json({
          ok: true,
         uid,
-        name,
+        name:dbUser.name,
         surname:dbUser.surname,
         LU: dbUser.LU,
         token,

@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { AuthResponse, Usuario } from '../interfaces/interfaces';
 import { catchError, map, tap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
+import { EmailValidator } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +66,8 @@ export class AuthService {
         .pipe( //Clase 394
           map( resp => {
             localStorage.setItem('token', resp.token!)
+            console.log("va a setear el usuario con", resp);
+            
             this._usuario = {
               uid: resp.uid!,
               name: resp.name!,
@@ -82,5 +85,11 @@ export class AuthService {
 
   logout(){
     localStorage.clear()
+  }
+  editUsuario(name: string, surname: string, email: string){
+    this._usuario.name= name;
+    this._usuario.surname= surname;
+    this._usuario.email= email;
+
   }
 }
