@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule ,  ReactiveFormsModule} from '@angular/forms';
 
 import { FormsModule ,  ReactiveFormsModule} from '@angular/forms';
 import { ProtectedRoutingModule } from './protected-routing.module';
@@ -8,6 +7,7 @@ import { InicioComponent } from './inicioAlumno/inicio.component';
 import { MainComponent } from './main/main.component';
 
 import { EjercicioComponent } from './ejercicio/ejercicio.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 
@@ -15,7 +15,8 @@ import { EjercicioComponent } from './ejercicio/ejercicio.component';
   declarations: [
     InicioComponent,
     MainComponent,
-    EjercicioComponent
+    EjercicioComponent,
+    PerfilComponent
   ],
   imports: [
     CommonModule,

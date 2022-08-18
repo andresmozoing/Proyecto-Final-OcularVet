@@ -74,7 +74,8 @@ const modificarUsuario = async (req,res = response) => {
                                 {name : req.body.name,
                                  surname: req.body.surname,
                                  email: req.body.email})
-        
+
+        console.log("paso el updateOne y va a devolver ", user);
         return res.json({
             ok: true,
             user
@@ -83,7 +84,7 @@ const modificarUsuario = async (req,res = response) => {
     catch (error) {
         return res.status(500).json({
             ok:false,
-            msg: 'Error en el controlador de modificarUsuario',
+            msg: 'Error en el controlador de modificarUsuario. ' + error,
             error: 'El error es ' + error
         })
     }

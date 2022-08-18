@@ -6,4 +6,3 @@ export interface Diagnostico {
     izqIluminado_AchicaDer : boolean;
     izqIluminado_AchicaIzq : boolean;
 }
-
