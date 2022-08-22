@@ -6,3 +6,15 @@ export interface Diagnostico {
     izqIluminado_AchicaDer : boolean;
     izqIluminado_AchicaIzq : boolean;
 }
+<<<<<<< HEAD
+
+export interface DiagnosticoResponse{
+    ok: boolean;
+    id?:string;
+    descripcion?: String;
+    derIluminado_AchicaDer? : boolean;
+    derIluminado_AchicaIzq? : boolean;
+    izqIluminado_AchicaDer? : boolean;
+    izqIluminado_AchicaIzq? : boolean;
+    msg?: string;
+}

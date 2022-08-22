@@ -4,7 +4,7 @@ const ConfiguracionAdminSchema = Schema({
     id: {
         type:Number
     },
-    cantidadPacientesAResponder:{
+    cantidadPacientesADiagnosticar:{
         type: Number
     },
     tiempoRespuesta:{

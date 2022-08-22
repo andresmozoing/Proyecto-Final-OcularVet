@@ -25,8 +25,12 @@ router.delete('/eliminarUsuario',
                [],
                controllerUsuario.eliminarUsuario)
 
-router.put('/configAdmin',
+router.put('/modificarConfigAdmin',
             [],
             controllerUsuario.modificarConfiguracionAdmin)
+
+router.get('/obtenerConfigAdmin', 
+[],
+controllerUsuario.obtenerConfigAdmin)
 
 module.exports = router;

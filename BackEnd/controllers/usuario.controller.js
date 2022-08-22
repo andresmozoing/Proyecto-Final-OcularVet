@@ -43,26 +43,28 @@ const obtenerTodosLosUsuarios = async (req,res = response) => {
 } //Fin obtenerTodosLosUsuarios()
 
 
-const obtenerCantidadPacientesAResponder = async (req,res = response) => {
+const obtenerConfigAdmin = async (req,res = response) => {
     try {
-        console.log("Llego al obtenerCantidadPacientesAResponder");
-
+        console.log("Llego al obtenerConfigAdmin");
+        
         const config = await ConfiguracionAdmin.find({ id: 1})
 
-        const cantidad = config.cantidadPacientesAResponder
-
+        
+        console.log(config);
         return res.json({
             ok: true,
-            cantidad
+            cantidadPacientesADiagnosticar : config[0].cantidadPacientesADiagnosticar,
+            tiempoRespuesta: config[0].tiempoRespuesta,
+            codigoRegistro : config[0].codigoRegistro
        })
     }
     catch (error) {
         return res.status(500).json({
             ok: false,
-            msg: 'Error en el controlador de obtenerTodosLosUsuarios'
+            msg: 'Error en el controlador de obtenerConfigAdmin. ' + error
         })
     }
-} //Fin obtenerTodosLosUsuarios()
+} //Fin obtenerConfigAdmin()
 
 
 const modificarUsuario = async (req,res = response) => {
@@ -157,26 +159,18 @@ const eliminarUsuario = async (req,res = response) => {
 
 const modificarConfiguracionAdmin = async (req,res = response) => {
     try {
-        console.log("Llego al modificarConfiguracionAdmin");
-        const body = req.body;
-        ConfiguracionAdmin.updateOne(
-                {id:1},
-                body,
-                (err,docs) => {
-                    res.send({
-                        items : docs
-                    })
-                })
-
+        console.log("Llego al modificarConfiguracionAdmin, el body es ", req.body);
+        const update = await ConfiguracionAdmin.updateOne({id:1},req.body)
+                
         return res.json({
-            ok: true
+            ok: true,
+            update
        })
-        
     }
     catch (error) {
         return res.status(500).json({
             ok:false,
-            msg: 'Error en el controlador de modificarConfigAdmin'
+            msg: 'Error en el controlador de modificarConfigAdmin. ' + error
         })
     }
 } //Fin modificarConfiguracionAdmin()
@@ -189,5 +183,6 @@ module.exports = {
     modificarUsuario,
     modificarPassword,
     eliminarUsuario,
+    obtenerConfigAdmin,
     modificarConfiguracionAdmin
 }
