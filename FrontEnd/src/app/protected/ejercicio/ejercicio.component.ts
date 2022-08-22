@@ -1,13 +1,10 @@
-import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
-import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import { Diagnostico } from '../interfaces/Diagnostico';
 import Swal from 'sweetalert2';
 import { DiagnosticoService } from '../services/diagnostico.service';
 import { UsuarioService } from '../services/usuario.service';
-import { ConfigAdmin, ConfigAdminResponse } from '../interfaces/ConfigAdmin';
-import { timer } from 'rxjs';
-import { CountdownComponent, CountdownConfig, CountdownEvent } from 'ngx-countdown';
-import { ThisReceiver } from '@angular/compiler';
+
 import {SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
