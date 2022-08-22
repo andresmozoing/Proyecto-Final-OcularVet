@@ -4,6 +4,7 @@ import { InicioComponent } from './inicioAlumno/inicio.component';
 import { MainComponent } from './main/main.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { EjercicioComponent } from './ejercicio/ejercicio.component';
+import { NotasAlumnoComponent } from './notas-alumno/notas-alumno.component';
 
 // const routes: Routes = [
 //   {
@@ -28,6 +29,9 @@ const routes: Routes = [
       },
       {
         path: 'ejercicio', component:EjercicioComponent
+      },
+      {
+        path: 'notas', component:NotasAlumnoComponent
       },
       {
         path: '**', redirectTo:'inicio'

@@ -40,8 +40,8 @@ const crearNota = async(req,res = response)=>{
 };
 
 const obtenerNotas = async(req,res = response)=>{
-    const { LU , anio } = req.body;
-
+    const { anio } = req.body;
+    const LU = req.header('LU');
     try {
         console.log("Llego al controller de obtenerNotas");
         console.log("El body es " , req.body )

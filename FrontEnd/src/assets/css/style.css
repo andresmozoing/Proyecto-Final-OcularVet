@@ -769,13 +769,20 @@ h6 {
 
 .dashboard .top-selling .table thead {
   background: #f6f6fe;
+  text-align: center;
 }
 
-.dashboard .top-selling .table thead th {
+.dashboard .top-selling .table thead tr th {
   border: 0;
+  text-align: center;
 }
 
-.dashboard .top-selling .table tbody td {
+.dashboard .top-selling .table tbody tr  {
+  vertical-align: middle;
+  text-align: center;
+}
+.dashboard .top-selling .table tbody tr td {
+  display: inline-block;
   vertical-align: middle;
 }
 
@@ -1067,4 +1074,11 @@ h6 {
   text-align: center;
   font-size: 13px;
   color: #ffffff;
+}
+table {
+  width: 100%;
+}
+
+th.mat-sort-header-sorted {
+  color: rgb(255, 255, 255);
 }
