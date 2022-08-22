@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import Swal from 'sweetalert2';
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class RegisterComponent  {
 
 
-  miFormularioRegistro : FormGroup = this.fb.group({
+  miFormularioRegistro : UntypedFormGroup = this.fb.group({
     name : ['test 1' ,[Validators.required] ] ,
     surname : ['apellidoTest 1' , [Validators.required]],
     LU : ['4231' , [Validators.required, Validators.minLength(3)]], 
@@ -24,7 +24,7 @@ export class RegisterComponent  {
 
 
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private router : Router,
               private authservice : AuthService) { }
 

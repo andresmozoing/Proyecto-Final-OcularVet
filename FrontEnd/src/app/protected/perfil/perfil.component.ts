@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { UsuarioService } from '../services/usuario.service';
 
-import {FormControl, FormGroup, NgForm} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, NgForm} from '@angular/forms';
 import { Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 
@@ -27,11 +27,11 @@ export class PerfilComponent  {
       return this.authservice.usuario;
     }
 
-    perfilForm = new FormGroup({
-        name: new FormControl(this.authservice.usuario.name,Validators.required),
-        surname: new FormControl(this.authservice.usuario.surname,Validators.required),
-        LU: new FormControl(this.authservice.usuario.LU),
-        email: new FormControl(this.authservice.usuario.email,Validators.required),
+    perfilForm = new UntypedFormGroup({
+        name: new UntypedFormControl(this.authservice.usuario.name,Validators.required),
+        surname: new UntypedFormControl(this.authservice.usuario.surname,Validators.required),
+        LU: new UntypedFormControl(this.authservice.usuario.LU),
+        email: new UntypedFormControl(this.authservice.usuario.email,Validators.required),
       
 
     })

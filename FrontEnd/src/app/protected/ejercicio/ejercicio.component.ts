@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Component, OnInit, ViewChild, Renderer2 } from '@angular/core';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import { Diagnostico } from '../interfaces/Diagnostico';
 import Swal from 'sweetalert2';
 import { DiagnosticoService } from '../services/diagnostico.service';
 import { UsuarioService } from '../services/usuario.service';
 import { ConfigAdmin, ConfigAdminResponse } from '../interfaces/ConfigAdmin';
 import { timer } from 'rxjs';
-import { CountdownConfig, CountdownEvent } from 'ngx-countdown';
+import { CountdownComponent, CountdownConfig, CountdownEvent } from 'ngx-countdown';
+import { ThisReceiver } from '@angular/compiler';
+import {SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 
 @Component({
   selector: 'app-ejercicio',
@@ -20,10 +22,16 @@ export class EjercicioComponent implements OnInit {
                private usuarioService: UsuarioService ) { }
 
   ngOnInit(): void {
+    console.log("entro al ng on init");
+    this.usuarioService.obtenerConfigAdmin() //TO DO: Cambiar esto de lugar, creo que no esta bien hacerlo en el NgOnInit
+              .subscribe((resp)=>{
+                console.log("resp dentro del subscribe de obtenerConfigAdmin es ", resp);
+                this.cantPacientesADiagnosticar = resp.cantidadPacientesADiagnosticar
+                this.tiempoRespuesta = resp.tiempoRespuesta
+            })
   }
 
-
-  formularioPaciente = new FormGroup({ respuestaElegida: new FormControl(),});
+  formularioPaciente = new UntypedFormGroup({ respuestaElegida: new UntypedFormControl(),});
 
   diagnosticosPosibles : Diagnostico[] = []
 
@@ -37,33 +45,71 @@ export class EjercicioComponent implements OnInit {
 
   tiempoRespuesta: number = 0;
 
-  temporizador : number = 0
+  temporizador : number = 0;
 
-  get respuestaElegida(): any { //No se si funciona asi pero bueno
+  intervalo: any;
+
+  get respuestaElegida(): any { //No se si funciona asi
     return this.formularioPaciente.get('respuestaElegida');
   }
+
+  @ViewChild('tiempoTerminadoSwal')
+  public readonly tiempoTerminadoSwal!: SwalComponent;
+
+  @ViewChild('respuestaCorrectaSwal')
+  public readonly respuestaCorrectaSwal!: SwalComponent;
+
+  @ViewChild('respuestaIncorrectaSwal')
+  public readonly respuestaIncorrectaSwal!: SwalComponent;
+
+  @ViewChild('autoevalucionFinalizadaSwal')
+  public readonly autoevalucionFinalizadaSwal!: SwalComponent;
+
+  iniciarTemporizador(){
+    if (this.tiempoRespuesta > 0){
+      this.temporizador=this.tiempoRespuesta
+      this.doCountdown()
+    }
+    else{
+      Swal.fire("error","el temporiuzador no tiene tiempo","error")
+    }
+  }
+
+  reiniciarTemporizador(){
+    this.temporizador=this.tiempoRespuesta
+  }
+
+  doCountdown(){
+    this.intervalo = setTimeout(() => {
+      if (this.temporizador>0 ){
+        this.temporizador--
+        this.processCountdown()
+      }
+    },1000)
+  }
+
+  processCountdown(){
+    if (this.temporizador === 0){
+      this.cantPacientesRespondidos++
+      //this.pararTemporizador=true
+      clearInterval(this.intervalo)
+      this.tiempoTerminadoSwal.fire()
+    }
+    else{
+      this.doCountdown()
+    }
+  }
+
+
 
   comenzarEjercicio() {
     try{
       this.diagnosticoService.obtenerTodosLosDiagnosticos()
-        .subscribe((resp) => {
-          console.log("la rta es " , resp.diagnosticos);
-          
+        .subscribe( (resp) => {
           this.diagnosticosPosibles = resp.diagnosticos
-          console.log("diagnosticosPosibles.length desntor del subscribe es " , this.diagnosticosPosibles.length);
           if (this.diagnosticosPosibles.length > 0){
-            //To do: Buscar la cant de pacientes
-            this.diagnosticoActual = this.obtenerProximoDiagnostico()
-            console.log("dawdd");
-            
-            this.usuarioService.obtenerConfigAdmin()
-              .subscribe((resp)=>{
-                console.log("resp es ", resp);
-                
-                this.cantPacientesADiagnosticar = resp.cantidadPacientesADiagnosticar
-                this.tiempoRespuesta = resp.tiempoRespuesta
-                this.comenzarTemporizador();
-              })
+            this.diagnosticoActual = this.obtenerProximoDiagnostico();
+            this.iniciarTemporizador()        
           }
           else{
             Swal.fire("Error","No existen diagnosticos posibles en la base de datos","error")
@@ -73,44 +119,27 @@ export class EjercicioComponent implements OnInit {
     }
     catch(error){
       console.log("Error en el comenzarEjercicio().  " , error);
-      
     }
-      
   }
 
-  comenzarTemporizador() {
-    this.temporizador= this.tiempoRespuesta
-    this.temporizador= 5 //BORRAR
-    const temp = timer(1000,1000);
-    const aux = temp.subscribe(val => {
-      console.log(val, '-');
-      this.temporizador--
-      if (this.temporizador === 0){
-        this.cantPacientesRespondidos++;
-        Swal.fire("Se acabó el tiempo","","error")
-        this.siguientePaciente();
-      }
-    });
-  }
 
   siguientePaciente(){
     if (this.cantPacientesADiagnosticar !== this.cantPacientesRespondidos){ //Si no terminó
       this.diagnosticoActual = this.obtenerProximoDiagnostico()
-      this.formularioPaciente.controls['respuestaElegida'].reset()
-      this.comenzarTemporizador()
+      //this.formularioPaciente.controls['respuestaElegida'].reset()
+      this.iniciarTemporizador()
     }
     else{ //Si ya terminó
-      let stringAux = 'Cantidad de pacientes diagnosticados: ' + this.cantPacientesADiagnosticar
-      stringAux = stringAux + '\n' + 'Cantidad de respuestas correctas: ' + this.cantRespuestasCorrectas
-      console.log(stringAux);
-      
-      Swal.fire('Autoevaluación finalizada', stringAux, 'info')
+      this.autoevalucionFinalizadaSwal.fire()
     }
   }
 
-  obtenerProximoDiagnostico() : Diagnostico {
-    console.log("Va a buscar el prox");
+  crearNota(){
     
+    console.log("Enviar nota al back");
+  }
+
+  obtenerProximoDiagnostico() : Diagnostico {    
     let limiteRandom = 1000
     let aleatorio : Diagnostico
     do {
@@ -133,20 +162,17 @@ export class EjercicioComponent implements OnInit {
   }
 
   diagnosticar(): void {
-    console.log("La rta elegida fue ", this.formularioPaciente.value);
-    console.log("El diagnostico actual es " , this.diagnosticoActual.id);
+    clearInterval(this.intervalo)
+    this.temporizador=0
+   // this.pararTemporizador = true
     this.cantPacientesRespondidos++;
     if (this.formularioPaciente.value.respuestaElegida === this.diagnosticoActual.id){
-      console.log("rta correcta!");
       this.cantRespuestasCorrectas++;
-      Swal.fire('Bien hecho!', "Respuesta correcta", 'success')
+      this.respuestaCorrectaSwal.fire()
     }
     else{
-      console.log("rta incorrecta");
-      Swal.fire('Error' , "Respuesta incorrecta", 'error')
+      this.respuestaIncorrectaSwal.fire()
     }
-    this.siguientePaciente()
-
   }
 
 
