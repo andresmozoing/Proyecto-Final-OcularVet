@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import Swal from 'sweetalert2';
@@ -13,13 +13,13 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
 
-  miFormulario: FormGroup = this.fb.group({
+  miFormulario: UntypedFormGroup = this.fb.group({
     email: ['test1@test.com', [ Validators.required , Validators.email]],
     password: ['123456', [Validators.required , Validators.minLength(6)]]
   });
 
 
-  constructor(private fb: FormBuilder,
+  constructor(private fb: UntypedFormBuilder,
               private router: Router,
               private authService:AuthService) { }
 

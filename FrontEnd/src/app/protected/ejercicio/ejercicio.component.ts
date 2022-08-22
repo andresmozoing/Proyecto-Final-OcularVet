@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UntypedFormControl, UntypedFormGroup, Validators} from '@angular/forms';
 import { Diagnostico } from '../interfaces/Diagnostico';
 import Swal from 'sweetalert2';
 import { DiagnosticoService } from '../services/diagnostico.service';
@@ -23,7 +23,7 @@ export class EjercicioComponent implements OnInit {
   }
 
 
-  formularioPaciente = new FormGroup({ respuestaElegida: new FormControl(),});
+  formularioPaciente = new UntypedFormGroup({ respuestaElegida: new UntypedFormControl(),});
 
   diagnosticosPosibles : Diagnostico[] = []
 
