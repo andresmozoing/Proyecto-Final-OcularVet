@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/auth/services/auth.service';
-import { UsuarioService } from '../services/usuario.service';
 
 import {UntypedFormControl, UntypedFormGroup, NgForm} from '@angular/forms';
 import { Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
+import { UsuarioService } from '../services/usuario.service';
+
 
 
 @Component({
@@ -17,8 +18,7 @@ export class PerfilComponent  {
 
   
   
-  constructor(private router:Router,
-              private authservice: AuthService,
+  constructor(private authservice: AuthService,
               private usuarioService: UsuarioService) { }
 
 
@@ -52,6 +52,41 @@ export class PerfilComponent  {
                 }
               })
     }
+
+    passwordForm = new FormGroup({
+      passwordActual: new FormControl("",Validators.required),
+      passwordNueva: new FormControl('',Validators.required),
+      repeticionPassword: new FormControl('',Validators.required)
+  })
+
+
+    onSubmitPassword(){
+      let contraseñaNueva : String = this.passwordForm.value.passwordNueva;
+      if( this.passwordForm.value.passwordNueva === this.passwordForm.value.repeticionPassword){
+        if (contraseñaNueva.length > 5){
+          this.usuarioService.modificarPassword(
+              this.authservice.usuario.uid,
+              this.passwordForm.value.passwordActual,
+              this.passwordForm.value.passwordNueva
+          ).subscribe(resp => {                
+            if (resp.ok === true){
+            Swal.fire('Usuario modificado','','success');
+            }
+            else{
+              console.log('Error al editar usuario',resp,'error');
+              Swal.fire('Error al editar usuario','Contraseña mal ingresada','error');
+            }
+          })
+        }
+        else{
+          console.log('Error jojooj','error');
+          Swal.fire('Error al editar contraseña','La contraseña debe poseer mas de 6 caracteres','error');
+        }
+      }
+      else{
+        Swal.fire('Error al editar contraseña','Las contraseñas no coinciden','error');
+      }
+}
     
   
  
