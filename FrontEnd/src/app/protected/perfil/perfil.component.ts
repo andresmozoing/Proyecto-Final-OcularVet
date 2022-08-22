@@ -53,10 +53,10 @@ export class PerfilComponent  {
               })
     }
 
-    passwordForm = new FormGroup({
-      passwordActual: new FormControl("",Validators.required),
-      passwordNueva: new FormControl('',Validators.required),
-      repeticionPassword: new FormControl('',Validators.required)
+    passwordForm = new UntypedFormGroup({
+      passwordActual: new UntypedFormControl("",Validators.required),
+      passwordNueva: new UntypedFormControl('',Validators.required),
+      repeticionPassword: new UntypedFormControl('',Validators.required)
   })
 
 
