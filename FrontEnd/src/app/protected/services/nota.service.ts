@@ -1,14 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { perfilUsuario, Nota, NotaResponse } from '../interfaces/DatosPerfil';
+import { perfilUsuario } from '../interfaces/DatosPerfil';
+import { Nota, NotaResponse } from '../interfaces/Nota'
 
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { of ,Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class NotaService {
 
   private notas! : Nota[] ;
@@ -35,8 +37,22 @@ export class NotaService {
       }),
       catchError(err => of(err.error.msg)) //si el resp tiene un status q no es el 200, captura el error. Sino, lo deja pasar y no hace nada este operador 
       );
+  }
+
+  crearNota ( rtasCorrectas: number, cantidadPreguntas:number, LU: number, calificacion:number){
+    const url = `${this.baseUrl}/nota/crearNota`
+    const body = {LU,cantidadPreguntas,rtasCorrectas,fecha : Date.now(),calificacion}
+
+    return this.http.put<NotaResponse>(url, body)
+      .pipe(
+        tap( (resp) => { 
+          if (resp.ok){
+            console.log("Creo la nota en la base de datos")
+          }
+        }),
+        catchError(err => of(err.error.msg)) 
+        )
       
-    
   }
 
 

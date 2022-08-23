@@ -4,7 +4,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { perfilUsuario, Nota } from '../interfaces/DatosPerfil';
+import { perfilUsuario} from '../interfaces/DatosPerfil';
+import { Nota } from '../interfaces/Nota';
 import { ConfigAdmin, ConfigAdminResponse } from '../interfaces/ConfigAdmin';
 
 @Injectable({

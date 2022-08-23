@@ -1,11 +1,16 @@
+//Imports Angular:
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
-import { Diagnostico } from '../interfaces/Diagnostico';
+import { Router } from '@angular/router';
+//Imports librerias externas:
 import Swal from 'sweetalert2';
+import {SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+//Imports componentes propios:
+import { Diagnostico } from '../interfaces/Diagnostico';
 import { DiagnosticoService } from '../services/diagnostico.service';
 import { UsuarioService } from '../services/usuario.service';
-
-import {SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { AuthService } from '../../auth/services/auth.service';
+import { NotaService } from '../services/nota.service';
 
 @Component({
   selector: 'app-ejercicio',
@@ -13,10 +18,11 @@ import {SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 })
 export class EjercicioComponent implements OnInit {
   
-  
-
-  constructor( private diagnosticoService : DiagnosticoService,
-               private usuarioService: UsuarioService ) { }
+  constructor( private AuthService : AuthService,
+               private diagnosticoService : DiagnosticoService,
+               private usuarioService: UsuarioService,
+               private notaService: NotaService,
+               private router : Router ) { }
 
   ngOnInit(): void {
     console.log("entro al ng on init");
@@ -132,9 +138,33 @@ export class EjercicioComponent implements OnInit {
   }
 
   crearNota(){
-    
-    console.log("Enviar nota al back");
+    const LU = this.AuthService.usuario.LU
+    const cantidadPreguntas = this.cantPacientesADiagnosticar
+    const rtasCorrectas = this.cantRespuestasCorrectas
+    let calificacion = 0
+    if (cantidadPreguntas !== 0){
+      calificacion = rtasCorrectas/cantidadPreguntas
+      //Dejamos el numero con dos decimales
+      let aux = Number((Math.abs(calificacion) * 100).toPrecision(15));
+      calificacion = Math.round(aux) / 100 * Math.sign(calificacion);
+    }
+
+    this.notaService.crearNota(rtasCorrectas,cantidadPreguntas,LU,calificacion)
+      .subscribe((resp) => {
+        //En resp viene un arreglo de notas, con una sola nota
+        Swal.fire("Nota guardada!","Tu calificacion fue de " + resp.notas[0].calificacion, "success")
+        //Redirigir a las notas del usuario?
+        this.router.navigateByUrl('/ocularVet/notas')
+      })
   }
+
+  
+
+
+
+
+
+
 
   obtenerProximoDiagnostico() : Diagnostico {    
     let limiteRandom = 1000

@@ -8,10 +8,8 @@ const crearNota = async(req,res = response)=>{
     try {
         console.log("Llego al controller de crearNota");
         console.log("El body es " , req.body )
-
         //Verificar que exista el LU
         const usuarioLU = await Usuario.findOne({LU: req.body.LU});
-        console.log(usuarioLU);
         if (!usuarioLU){
             return res.status(400).json({
                 ok: false,
@@ -28,7 +26,8 @@ const crearNota = async(req,res = response)=>{
         console.log('pudo guardar ' , dbNota)
 
         return res.status(201).json({
-            ok: true
+            ok: true,
+            notas : [dbNota]
         })
 
     } catch (error) {
