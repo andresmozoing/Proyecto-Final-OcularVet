@@ -13,13 +13,27 @@ import { of ,Observable} from 'rxjs';
 
 export class NotaService {
 
-  private notas! : Nota[] ;
   private baseUrl : string = environment.baseURL;
 
   constructor(private http: HttpClient,
               ) { }
 
-  obtenerNotasUsuario(_id:string, LU:Number,){
+  obtenerNotas(){
+    const url = `${this.baseUrl}/nota/obtenerNotas`
+    
+    
+    return this.http.get<NotaResponse>(url)
+    .pipe(
+      tap( resp => {
+        
+        
+        console.log("rcantidad de preguntas: ", resp);
+        return resp
+      }),
+      catchError(err => of(err.error.msg)) //si el resp tiene un status q no es el 200, captura el error. Sino, lo deja pasar y no hace nada este operador 
+      );
+  }
+  obtenerNotasUsuario(_id:string, LU:Number){
     const url = `${this.baseUrl}/nota/obtenerNotas`
     const body= { LU};
     const headers = new HttpHeaders()
@@ -31,7 +45,7 @@ export class NotaService {
       tap( resp => {
         
         //this.notas = resp.
-        this.notas = resp.notas;
+        //this.notas = resp.notas;
         console.log("rcantidad de preguntas: ", resp);
         return resp
       }),
@@ -39,9 +53,9 @@ export class NotaService {
       );
   }
 
-  crearNota ( rtasCorrectas: number, cantidadPreguntas:number, LU: number, calificacion:number){
+  crearNota ( rtasCorrectas: number, cantidadPreguntas:number, LU: number, calificacion:number, name:String, surname: String){
     const url = `${this.baseUrl}/nota/crearNota`
-    const body = {LU,cantidadPreguntas,rtasCorrectas,fecha : Date.now(),calificacion}
+    const body = {LU,cantidadPreguntas,rtasCorrectas,name, surname,fecha : Date.now(),calificacion}
 
     return this.http.put<NotaResponse>(url, body)
       .pipe(

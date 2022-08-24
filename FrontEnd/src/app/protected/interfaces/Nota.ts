@@ -4,6 +4,8 @@ export interface NotaResponse {
 }
 export interface Nota {
     _id: String,
+    name?: String,
+    surname?: String,
     rtasCorrectas: Number,
     cantidadPreguntas: Number,
     calificacion: Number,

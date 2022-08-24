@@ -39,12 +39,12 @@ const crearNota = async(req,res = response)=>{
 };
 
 const obtenerNotas = async(req,res = response)=>{
-    const { anio } = req.body;
     const LU = req.header('LU');
+    const anio = req.header('anio');
     try {
         console.log("Llego al controller de obtenerNotas");
         console.log("El body es " , req.body )
-
+       
 
         let notas = {}
         if (anio){
@@ -92,7 +92,7 @@ const obtenerNotas = async(req,res = response)=>{
     } catch (error) {
         return res.status(500).json({
             ok:false,
-            msg: 'Por favor hable con su administrador. Error en el controlador de obtenerNotas',
+            msg: 'Por favor hable con su administrador. Error en el controlador de obtenerNotas'+ error,
             error
         })
     }

@@ -13,6 +13,14 @@ const UsuarioSchema = Schema({
         type: Number,
         required: true
     },
+    name:{
+        type: String,
+        required: true
+    },
+    surname:{
+        type: String,
+        required: true
+    },
     fecha: {
         type: Date,
         required: true,

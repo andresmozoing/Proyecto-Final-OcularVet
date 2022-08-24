@@ -141,15 +141,17 @@ export class EjercicioComponent implements OnInit {
     const LU = this.AuthService.usuario.LU
     const cantidadPreguntas = this.cantPacientesADiagnosticar
     const rtasCorrectas = this.cantRespuestasCorrectas
+    const name = this.AuthService.usuario.name
+    const surname = this.AuthService.usuario.surname
     let calificacion = 0
     if (cantidadPreguntas !== 0){
       calificacion = rtasCorrectas/cantidadPreguntas
       //Dejamos el numero con dos decimales
       let aux = Number((Math.abs(calificacion) * 100).toPrecision(15));
-      calificacion = Math.round(aux) / 100 * Math.sign(calificacion);
+      calificacion = (Math.round(aux) / 100 * Math.sign(calificacion))*100;
     }
 
-    this.notaService.crearNota(rtasCorrectas,cantidadPreguntas,LU,calificacion)
+    this.notaService.crearNota(rtasCorrectas,cantidadPreguntas,LU,calificacion, name, surname)
       .subscribe((resp) => {
         //En resp viene un arreglo de notas, con una sola nota
         Swal.fire("Nota guardada!","Tu calificacion fue de " + resp.notas[0].calificacion, "success")

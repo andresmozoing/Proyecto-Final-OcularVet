@@ -15,71 +15,12 @@
       
             
             <div class="card-body">
-              <h5 class="card-title"> notas:</h5>
       
-              <table class="table table-borderless datatable align-items-center">
-                <thead>
-                  <tr>
-                    <th scope="col">LU</th>
-                    <th scope="col">Fecha</th>
-                    <th scope="col">Rtas Correctas</th>
-                    <th scope="col">Cantidad Preguntas</th>
-                    <!-- <th scope="col">Notas</th> -->
-                  </tr>
-                </thead>
-                <tbody> 
-                  <tr *ngFor="let nota of notas; let i = index" class="align-items-center">
-                    <td>{{nota.LU}}</td>
-                    <td placeholder="dd-mm-yyyy">{{nota.fecha | date: "dd MMMM yyyy "}}</td>
-                    <td>{{nota.rtasCorrectas}}</td>
-                    <td>{{nota.cantidadPreguntas}}</td>
-                    <!-- <td>{{((nota.rtasCorrectas / nota.cantidadPreguntas) * 100) | number: '1.0-2'}} %</td> -->
-
-                  </tr>
-                  
-                </tbody>
-              </table>
-              <!-- <table class="table table-borderless datatableNotas" mat-table [dataSource]="dataSourceNotas" matSort (matSortChange)="announceSortChange($event)"
-              >
-                <ng-container matColumnDef="LU">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by LU"> 
-                    LU 
-                  </th>
-                  <td mat-cell *matCellDef="let nota"> {{nota.LU}} </td>
-                </ng-container>
-            
-                <ng-container matColumnDef="fecha">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by fecha"> 
-                    Fecha 
-                  </th>
-                  <td mat-cell *matCellDef="let nota"> {{nota.fecha}} </td>
-                </ng-container>
-            
-                <ng-container matColumnDef="rtasCorrectas">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by rtasCorrectas">
-                     Respuestas Correctas 
-                  </th>
-                  <td mat-cell *matCellDef="let nota" > {{nota.rtasCorrectas}} </td>
-                </ng-container>
-                <ng-container matColumnDef="cantidadPreguntas">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cantidadPreguntas"> 
-                    Cantidad Preguntas 
-                  </th>
-                  <td mat-cell *matCellDef="let nota"> {{nota.cantidadPreguntas}} </td>
-                </ng-container>
-                <ng-container matColumnDef="notas">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header> Nota </th>
-                  <td mat-cell *matCellDef="let nota"> {{((nota.rtasCorrectas / nota.cantidadPreguntas) * 100) | number: '1.0-2'}} </td>
-                </ng-container>
-            
-                <tr mat-header-row *matHeaderRowDef="columnas"></tr>
-                <tr mat-row *matRowDef="let row; columns: columnas;"></tr>
-              </table>
-               -->
+             
               <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
                   class="mat-elevation-z8">
 
-                <!-- Position Column -->
+                <!-- LU Column -->
                 <ng-container matColumnDef="LU">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header disabled sortActionDescription="Sort by LU">
                     LU
@@ -87,7 +28,7 @@
                   <td mat-cell *matCellDef="let element"> {{element.LU}} </td>
                 </ng-container>
 
-                <!-- Name Column -->
+                <!-- fecha Column -->
                 <ng-container matColumnDef="fecha">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by fecha">
                     Fecha
@@ -95,7 +36,7 @@
                   <td mat-cell *matCellDef="let element"> {{element.fecha | date: "dd MMMM yyyy" }} </td>
                 </ng-container>
 
-                <!-- Weight Column -->
+                <!-- rtasCorrectas Column -->
                 <ng-container matColumnDef="rtasCorrectas">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by rtasCorrectas">
                     Respuestas Correctas
@@ -103,18 +44,18 @@
                   <td mat-cell *matCellDef="let element"> {{element.rtasCorrectas}} </td>
                 </ng-container>
 
-                <!-- Symbol Column -->
+                <!-- CANT PREG Column -->
                 <ng-container matColumnDef="cantidadPreguntas">
                   <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cantidadPreguntas">
                     Cantidad Preguntas 
                   </th>
                   <td mat-cell *matCellDef="let element"> {{element.cantidadPreguntas}} </td>
                 </ng-container>
-                <ng-container matColumnDef="nota">
-                  <th mat-header-cell *matHeaderCellDef mat-sort-header disabled sortActionDescription="Sort by nota">
+                <ng-container matColumnDef="calificacion">
+                  <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by calificacion">
                     Nota
                   </th>
-                  <td mat-cell *matCellDef="let element"> {{((element.rtasCorrectas / element.cantidadPreguntas) * 100) | number: '1.0-2'}} </td>
+                  <td mat-cell *matCellDef="let element"> {{element.calificacion | number: '1.0-2'}} </td>
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -132,13 +73,6 @@
     <section class="section dashboard">
       <div class="row">
 
-        <!-- Left side columns -->
-        <!-- <div class="col-lg-8">
-          <div class="row">   -->
-            <!-- Recent Sales -->
-
-          <!-- </div>
-        </div>End Left side columns -->
 
         
 

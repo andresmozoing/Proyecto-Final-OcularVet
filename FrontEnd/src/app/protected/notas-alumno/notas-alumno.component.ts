@@ -11,6 +11,7 @@ export interface ClaseNota {
   _id: String;
     rtasCorrectas: Number;
     cantidadPreguntas: Number;
+    calificacion: Number;
     LU: Number;
     fecha: Date;
     __v?: Number
@@ -23,7 +24,7 @@ export interface ClaseNota {
 export class NotasAlumnoComponent implements AfterViewInit {
   notas!: Nota[];
   
-  displayedColumns: string[] = ['LU', 'fecha', 'rtasCorrectas','cantidadPreguntas','nota']; 
+  displayedColumns: string[] = ['LU', 'fecha', 'rtasCorrectas','cantidadPreguntas','calificacion']; 
   datos: ClaseNota[] = [  ];
   dataSource = new MatTableDataSource(this.datos);
   
