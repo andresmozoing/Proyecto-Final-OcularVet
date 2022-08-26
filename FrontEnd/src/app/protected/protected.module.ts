@@ -5,6 +5,8 @@ import { FormsModule ,  ReactiveFormsModule} from '@angular/forms';
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import {MatButtonModule} from '@angular/material/button';
+//import { CdTimerModule } from 'angular-cd-timer';
 
 
 import { InicioComponent } from './inicioAlumno/inicio.component';
@@ -35,6 +37,8 @@ import { AdministracionUsuariosComponent } from './administracion-usuarios/admin
     SweetAlert2Module,
     MatTableModule,
     MatSortModule,
+    MatButtonModule
+    //CdTimerModule
   ]
 })
 export class ProtectedModule { }
