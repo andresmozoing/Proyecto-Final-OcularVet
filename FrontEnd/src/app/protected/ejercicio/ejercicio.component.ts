@@ -1,5 +1,5 @@
 //Imports Angular:
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
 //Imports librerias externas:
@@ -11,18 +11,22 @@ import { DiagnosticoService } from '../services/diagnostico.service';
 import { UsuarioService } from '../services/usuario.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { NotaService } from '../services/nota.service';
+// import { CdTimerComponent } from 'angular-cd-timer';
 
 @Component({
   selector: 'app-ejercicio',
   templateUrl: './ejercicio.component.html'
 })
-export class EjercicioComponent implements OnInit {
+export class EjercicioComponent implements OnInit, OnDestroy {
   
   constructor( private AuthService : AuthService,
                private diagnosticoService : DiagnosticoService,
                private usuarioService: UsuarioService,
                private notaService: NotaService,
-               private router : Router ) { }
+               private router : Router ) 
+               { 
+                
+               }
 
   ngOnInit(): void {
     console.log("entro al ng on init");
@@ -68,6 +72,9 @@ export class EjercicioComponent implements OnInit {
   @ViewChild('autoevalucionFinalizadaSwal')
   public readonly autoevalucionFinalizadaSwal!: SwalComponent;
 
+  // @ViewChild( 'timer', { static: true } ) 
+  // public readonly timer!: CdTimerComponent ;
+
   iniciarTemporizador(){
     if (this.tiempoRespuesta > 0){
       this.temporizador=this.tiempoRespuesta
@@ -94,7 +101,6 @@ export class EjercicioComponent implements OnInit {
   processCountdown(){
     if (this.temporizador === 0){
       this.cantPacientesRespondidos++
-      //this.pararTemporizador=true
       clearInterval(this.intervalo)
       this.tiempoTerminadoSwal.fire()
     }
@@ -131,6 +137,7 @@ export class EjercicioComponent implements OnInit {
       this.diagnosticoActual = this.obtenerProximoDiagnostico()
       //this.formularioPaciente.controls['respuestaElegida'].reset()
       this.iniciarTemporizador()
+      //this.timer.start()
     }
     else{ //Si ya terminó
       this.autoevalucionFinalizadaSwal.fire()
@@ -191,9 +198,9 @@ export class EjercicioComponent implements OnInit {
   }
 
   diagnosticar(): void {
-    clearInterval(this.intervalo)
+    //clearInterval(this.intervalo)
     this.temporizador=0
-   // this.pararTemporizador = true
+    //this.timer.stop()
     this.cantPacientesRespondidos++;
     if (this.formularioPaciente.value.respuestaElegida === this.diagnosticoActual.id){
       this.cantRespuestasCorrectas++;
@@ -205,4 +212,7 @@ export class EjercicioComponent implements OnInit {
   }
 
 
+  ngOnDestroy(): void {
+    clearInterval(this.intervalo)
+  }
 }

@@ -51,91 +51,51 @@
                     </div>
 
                     <div *ngIf=" diagnosticoActual !== undefined">
-                        <!-- <p *ngIf=" diagnosticosPosibles.length >0">Diagnosticos posibles: {{ diagnosticosPosibles | json }}</p>  -->
-                        <ul *ngIf=" diagnosticosPosibles.length >0">
-                            <h3>Diagnosticos posibles:</h3>
-                            <li *ngFor=" let diag of diagnosticosPosibles">
-                              <p>{{diag.id}}</p>
-                            </li>
-                           </ul>
-            
-                           <h4 *ngIf=" diagnosticoActual !== undefined">Diagnostico actual : {{diagnosticoActual.descripcion}}</h4>
-                           
-                           <form [formGroup]="formularioPaciente" (ngSubmit)="diagnosticar()">
-                               <div *ngFor=" let diag of diagnosticosPosibles" class="form-check" >
-                                   <input class="form-check-input" type="radio" formControlName="respuestaElegida"
-                                       name="respuestaElegida" id="{{diag.id}}" value="{{diag.id}}">
-                                   <label class="form-check-label" for="{{diag.id}}">
-                                       {{diag.descripcion}}
-                                   </label>
-                               </div>
-                               <!-- <div class="form-check">
+                        
+                        <h4 *ngIf=" diagnosticoActual !== undefined">Diagnostico actual :
+                            {{diagnosticoActual.descripcion}}</h4>
+
+                        <form [formGroup]="formularioPaciente" (ngSubmit)="diagnosticar()">
+                            <div *ngFor=" let diag of diagnosticosPosibles" class="form-check">
                                 <input class="form-check-input" type="radio" formControlName="respuestaElegida"
-                                    name="respuestaElegida" id="normal" value="normal" >
-                                <label class="form-check-label" for="exampleRadios1">
-                                    Normal
+                                    name="respuestaElegida" id="{{diag.id}}" value="{{diag.id}}">
+                                <label class="form-check-label" for="{{diag.id}}">
+                                    {{diag.descripcion}}
                                 </label>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" formControlName="respuestaElegida"
-                                    name="respuestaElegida" id="LNO_D" value="LNO_D">
-                                <label class="form-check-label" for="LNO_D">
-                                    Lesión nervio óptico derecho
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" formControlName="respuestaElegida"
-                                    name="respuestaElegida" id="LNO_I" value="LNO_I">
-                                <label class="form-check-label" for="LNO_I">
-                                    Lesión nervio óptico izquierdo
-                                </label>
-                            </div> -->
-
-                            
-                                
-                            
-                            
 
 
-                            <button type="submit">Diagnosticar</button>
+                            <button type="submit" mat-raised-button color="primary">
+                                <i class="bi bi-eye-fill"></i> Diagnosticar
+                            </button>
                         </form>
-    
+
                         <p>Cantidad de pacientes a diagnosticar en total: {{cantPacientesADiagnosticar}}</p>
                         <p>Cantidad de respuestas correctas: {{cantRespuestasCorrectas}}</p>
                         <p>Cantidad de pacientes diagnosticados: {{cantPacientesRespondidos}}</p>
                         <p>Tiempo de respuesta: {{tiempoRespuesta}}</p>
                         <h2>Temporizador: {{temporizador}}</h2>
-                       
-                        <swal
-                            #tiempoTerminadoSwal
-                            title="Se acabó el tiempo"
-                            icon="warning"
+                        <!-- <cd-timer #timer [startTime]="tiempoRespuesta" format="intelli" [countdown]="true">
+                        </cd-timer> -->
+
+                        <swal #tiempoTerminadoSwal title="Se acabó el tiempo" icon="warning"
                             (confirm)="siguientePaciente()">
                         </swal>
 
-                        <swal
-                            #respuestaCorrectaSwal
-                            title="Respuesta correcta!"
-                            icon="success"
+                        <swal #respuestaCorrectaSwal title="Respuesta correcta!" icon="success"
                             (confirm)="siguientePaciente()">
                         </swal>
 
-                        <swal
-                            #respuestaIncorrectaSwal
-                            title="Respuesta incorrecta"
-                            icon="error"
+                        <swal #respuestaIncorrectaSwal title="Respuesta incorrecta" icon="error"
                             (confirm)="siguientePaciente()">
                         </swal>
 
-                        <swal
-                            #autoevalucionFinalizadaSwal
-                            title="Autoevalución Finalizada"
+                        <swal #autoevalucionFinalizadaSwal title="Autoevalución Finalizada"
                             text="Cantidad de respuestas correctas: {{cantRespuestasCorrectas}} / {{cantPacientesADiagnosticar}}"
-                            icon="info"
-                            (confirm)="crearNota()">
+                            icon="info" (confirm)="crearNota()">
                         </swal>
                     </div>
-                    
+
                 </div>
 
             </div>
