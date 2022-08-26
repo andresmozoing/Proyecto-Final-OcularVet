@@ -8,17 +8,6 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 // import { ClaseNota } from './notas-alumno.component';
 
 
-export interface ClaseNotaAdmin {
-  _id: String;
-  name:String;
-  surname:String;
-  rtasCorrectas: Number;
-  cantidadPreguntas: Number;
-  calificacion: Number;
-  LU: Number;
-  fecha: Date;
-  __v?: Number
-}
 
 @Component({
   selector: 'app-notas-admin',
@@ -28,7 +17,7 @@ export class NotasAdminComponent {
   notas!: Nota[];
   
     displayedColumns: string[] = ['LU','name','surname', 'fecha', 'rtasCorrectas','cantidadPreguntas','calificacion']; 
-    datos: ClaseNotaAdmin[] = [  ];
+    datos: Nota[] = [  ];
     dataSource = new MatTableDataSource(this.datos);
     
   

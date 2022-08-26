@@ -32,7 +32,10 @@ const routes: Routes = [
         path: 'ejercicio', component:EjercicioComponent
       },
       {
-        path: 'notas', component:NotasAdminComponent
+        path: 'notas', component:NotasAlumnoComponent
+      },
+      {
+        path: 'notasAdmin', component:NotasAdminComponent
       },
       {
         path: '**', redirectTo:'inicio'

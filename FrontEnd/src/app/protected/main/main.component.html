@@ -41,18 +41,26 @@
                   <i class="nav-icon bx bxl-baidu"></i>
                   <span> Diagnosticar </span>
                 </a><!-- End Ejercicio Iamge Icon -->
-                
-                <a class="nav-link nav-options d-flex align-items-center" routerLink="notas">
-                  <i class="nav-icon bi-list-check"></i>
-                  <span> Mis notas </span>
-                </a><!-- End Ejercicio Iamge Icon -->
+                <div *ngIf="usuario.isAdmin === true">
+                  <a class="nav-link nav-options d-flex align-items-center" routerLink="notasAdmin">
+                    <i class="nav-icon bi-list-check"></i>
+                    <span> Notas </span>
+                  </a>
+                </div>
+        
+                <div *ngIf="usuario.isAdmin === false">
+                  <a class="nav-link nav-options d-flex align-items-center" routerLink="notas">
+                    <i class="nav-icon bi-list-check"></i>
+                    <span> Notas </span>
+                  </a>
+                </div>
         
         
                 <li class="nav-item dropdown pe-3">
         
                   <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    <i class="nav-icon bi-person-lines-fill"></i>
-                    <span class="d-none d-md-block dropdown-toggle ps-2">Mi perfil</span>
+                    <i class="nav-icon bi-gear-fill"></i>
+                    <span class="d-none d-md-block dropdown-toggle ps-2">Configuracion</span>
                   </a><!-- End Profile Iamge Icon -->
         
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
@@ -70,6 +78,16 @@
                         <span>Mis datos</span>
                       </a>
                     </li>
+                    
+                    <div *ngIf="usuario.isAdmin === true">
+                      <li style="margin: 4px;">
+                        <a class="dropdown-item d-flex align-items-center" routerLink="perfil" style="margin: 5px;">
+                          <i class="bi bi-person"></i>
+                          <span>Administrar Usuarios</span>
+                        </a>
+                      </li>
+                    </div>
+
                     <li style="margin: 4px;">
                       <a class="dropdown-item d-flex align-items-center" href="#" style="margin: 5px;" (click)="logOut()">
                         <i class="bi bi-box-arrow-right"></i>

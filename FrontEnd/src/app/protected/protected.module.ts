@@ -15,6 +15,7 @@ import { NotasAlumnoComponent } from './notas-alumno/notas-alumno.component';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { NotasAdminComponent } from './notas-admin/notas-admin.component';
+import { AdministracionUsuariosComponent } from './administracion-usuarios/administracion-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { NotasAdminComponent } from './notas-admin/notas-admin.component';
     EjercicioComponent,
     PerfilComponent,
     NotasAlumnoComponent,
-    NotasAdminComponent
+    NotasAdminComponent,
+    AdministracionUsuariosComponent
   ],
   imports: [
     CommonModule,

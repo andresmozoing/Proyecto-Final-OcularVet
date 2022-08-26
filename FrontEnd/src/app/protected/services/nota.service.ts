@@ -18,7 +18,7 @@ export class NotaService {
   constructor(private http: HttpClient,
               ) { }
 
-  obtenerNotas(){
+  obtenerNotas():Observable<NotaResponse>{
     const url = `${this.baseUrl}/nota/obtenerNotas`
     
     
@@ -33,7 +33,7 @@ export class NotaService {
       catchError(err => of(err.error.msg)) //si el resp tiene un status q no es el 200, captura el error. Sino, lo deja pasar y no hace nada este operador 
       );
   }
-  obtenerNotasUsuario(_id:string, LU:Number){
+  obtenerNotasUsuario(_id:string, LU:Number):Observable<NotaResponse>{
     const url = `${this.baseUrl}/nota/obtenerNotas`
     const body= { LU};
     const headers = new HttpHeaders()
