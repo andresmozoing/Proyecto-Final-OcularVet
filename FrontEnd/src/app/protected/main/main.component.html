@@ -42,14 +42,14 @@
                   <span> Diagnosticar </span>
                 </a><!-- End Ejercicio Iamge Icon -->
                 <div *ngIf="usuario.isAdmin === true">
-                  <a class="nav-link nav-options d-flex align-items-center" routerLink="notasAdmin">
+                  <a class="nav-link nav-options d-flex align-items-center" routerLink="admin/notasAdmin">
                     <i class="nav-icon bi-list-check"></i>
                     <span> Notas </span>
                   </a>
                 </div>
         
                 <div *ngIf="usuario.isAdmin === false">
-                  <a class="nav-link nav-options d-flex align-items-center" routerLink="notas">
+                  <a class="nav-link nav-options d-flex align-items-center" routerLink="alumno/notas">
                     <i class="nav-icon bi-list-check"></i>
                     <span> Notas </span>
                   </a>
@@ -81,7 +81,7 @@
                     
                     <div *ngIf="usuario.isAdmin === true">
                       <li style="margin: 4px;">
-                        <a class="dropdown-item d-flex align-items-center" routerLink="perfil" style="margin: 5px;">
+                        <a class="dropdown-item d-flex align-items-center" routerLink="admin/administracionUsuarios" style="margin: 5px;">
                           <i class="bi bi-person"></i>
                           <span>Administrar Usuarios</span>
                         </a>
@@ -91,7 +91,7 @@
                     <li style="margin: 4px;">
                       <a class="dropdown-item d-flex align-items-center" href="#" style="margin: 5px;" (click)="logOut()">
                         <i class="bi bi-box-arrow-right"></i>
-                        <span >Cerrar Sesion</span>
+                        <span>Cerrar Sesión</span>
                       </a>
                     </li>
         
@@ -103,7 +103,7 @@
         
           </header>
 
-        <div class="nada">
+        <div>
             <router-outlet></router-outlet>
         </div>
 

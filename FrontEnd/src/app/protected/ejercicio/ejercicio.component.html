@@ -45,7 +45,9 @@
             <div class="card">
                 <div class="card-body">
                     <div>
-                        <button *ngIf=" diagnosticosPosibles.length < 1" (click)="comenzarEjercicio()">
+                        <button *ngIf=" diagnosticosPosibles.length < 1" 
+                                (click)="comenzarEjercicio()"
+                                mat-raised-button color="primary">
                             Comenzar ejercicio
                         </button>
                     </div>
