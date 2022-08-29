@@ -1,23 +1,21 @@
+//Modulos de Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule ,  ReactiveFormsModule} from '@angular/forms';
 
+import { MatButtonModule } from '@angular/material/button';
+
+//Modulos de 3ros:
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+
+//Modulos propios:
 import { ProtectedRoutingModule } from './protected-routing.module';
-import { MatTableModule } from '@angular/material/table';
-import { MatSortModule } from '@angular/material/sort';
-import {MatButtonModule} from '@angular/material/button';
-//import { CdTimerModule } from 'angular-cd-timer';
 
-
-import { InicioComponent } from './inicioAlumno/inicio.component';
+//Componentes propios:
+import { InicioComponent } from './alumno/inicioAlumno/inicio.component';
 import { MainComponent } from './main/main.component';
 import { EjercicioComponent } from './ejercicio/ejercicio.component';
 import { PerfilComponent } from './perfil/perfil.component';
-import { NotasAlumnoComponent } from './notas-alumno/notas-alumno.component';
-
-import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { NotasAdminComponent } from './notas-admin/notas-admin.component';
-import { AdministracionUsuariosComponent } from './administracion-usuarios/administracion-usuarios.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +23,6 @@ import { AdministracionUsuariosComponent } from './administracion-usuarios/admin
     MainComponent,
     EjercicioComponent,
     PerfilComponent,
-    NotasAlumnoComponent,
-    NotasAdminComponent,
-    AdministracionUsuariosComponent
   ],
   imports: [
     CommonModule,
@@ -35,10 +30,7 @@ import { AdministracionUsuariosComponent } from './administracion-usuarios/admin
     FormsModule,
     ReactiveFormsModule,
     SweetAlert2Module,
-    MatTableModule,
-    MatSortModule,
     MatButtonModule
-    //CdTimerModule
   ]
 })
 export class ProtectedModule { }

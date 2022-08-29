@@ -1,21 +1,15 @@
+//Modulos de Angular:
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InicioComponent } from './inicioAlumno/inicio.component';
+
+//Guards propios:
+import { ValidarAdminGuard } from '../guards/validar-admin.guard';
+
+//Componentes propios
 import { MainComponent } from './main/main.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { EjercicioComponent } from './ejercicio/ejercicio.component';
-import { NotasAlumnoComponent } from './notas-alumno/notas-alumno.component';
-import { NotasAdminComponent } from './notas-admin/notas-admin.component';
 
-// const routes: Routes = [
-//   {
-//     path:'',
-//     children : [
-//       { path:'' , component:DashboardComponent},
-//       { path:'**' , redirectTo:''},
-//     ]
-//   }
-// ];
 
 const routes: Routes = [
   {
@@ -23,7 +17,14 @@ const routes: Routes = [
     component: MainComponent,
     children: [
       {
-        path: 'inicio', component:InicioComponent
+        path: 'alumno',
+        loadChildren: () => import('./alumno/alumno.module').then( m=> m.AlumnoModule)
+      },
+      {
+        path: 'admin',
+        loadChildren: () => import('./admin/admin.module').then( m=> m.AdminModule),
+        canActivate: [ ValidarAdminGuard],
+        canLoad: [ValidarAdminGuard]
       },
       {
         path: 'perfil', component:PerfilComponent
@@ -32,17 +33,8 @@ const routes: Routes = [
         path: 'ejercicio', component:EjercicioComponent
       },
       {
-        path: 'notas', component:NotasAlumnoComponent
-      },
-      {
-        path: 'notasAdmin', component:NotasAdminComponent
-      },
-      {
-        path: '**', redirectTo:'inicio'
+        path: '**', redirectTo:'ejercicio'
       }
-
-
-      
     ]
   },
 

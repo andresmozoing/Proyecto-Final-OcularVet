@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { NotaService } from '../services/nota.service';
-import { AuthService } from '../../auth/services/auth.service';
-import { Nota } from '../interfaces/Nota';
+import { NotaService } from '../../services/nota.service';
+import { AuthService } from '../../../auth/services/auth.service';
+import { Nota } from '../../interfaces/Nota';
 import { MatTableDataSource } from '@angular/material/table';
 import {MatSort, Sort} from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
