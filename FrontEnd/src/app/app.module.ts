@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule ,  ReactiveFormsModule} from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CdTimerModule } from 'angular-cd-timer';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
@@ -22,8 +21,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     ReactiveFormsModule,
     ReactiveFormsModule,
     SweetAlert2Module.forRoot(),
-    NoopAnimationsModule,
-    CdTimerModule
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
