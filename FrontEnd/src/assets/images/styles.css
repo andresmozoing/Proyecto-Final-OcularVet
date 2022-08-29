@@ -1,0 +1,62 @@
+body {
+    background-color: #eee;
+}
+
+.box {
+    position: relative;
+    left: 50px;
+    top:50px;
+    width: 100px;
+    height: 100px;
+
+    
+    background-color: rgb(153, 153, 162);
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.5);
+
+
+}
+
+.superpuesto {
+    position: relative;
+    left: 50px;
+    bottom: 50px;
+    width: 10px;
+    height: 10px;
+    background-color: rgb(34, 190, 63);
+    box-shadow: 1px 2px 2px rgba(0,0,0,0.5);
+
+}
+
+figure {
+    position: relative;
+    display: inline-block;
+    border: 1px solid red
+}
+
+#perro{
+    position: relative;
+    cursor: url(linterna.png),auto;
+    width: 710px;
+    height: 424px;
+}
+
+#pupilaIzquierda {
+    position: absolute;
+    left: 265px;
+    top: 127px
+}
+
+#pupilaDerecha {
+    position: absolute;
+    right: 234px;
+    bottom: 280px;
+}
+
+#hola {
+    display: inline-block;
+    
+}
+
+.formulario {
+    display: inline-block;
+}
