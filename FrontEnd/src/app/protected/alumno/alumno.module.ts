@@ -9,10 +9,13 @@ import { AlumnoRoutingModule } from './alumno-routing.module';
 
 //Componentes propios:
 import { NotasAlumnoComponent } from './notas-alumno/notas-alumno.component';
+import { AccesoAdminDenegadoComponent } from './acceso-admin-denegado/acceso-admin-denegado.component';
+
 
 @NgModule({
   declarations: [
-    NotasAlumnoComponent
+    NotasAlumnoComponent,
+    AccesoAdminDenegadoComponent
   ],
   imports: [
     CommonModule,

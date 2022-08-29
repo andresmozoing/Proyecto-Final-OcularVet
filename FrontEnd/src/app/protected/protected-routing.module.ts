@@ -1,8 +1,15 @@
+//Modulos de Angular:
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
+//Guards propios:
+import { ValidarAdminGuard } from '../guards/validar-admin.guard';
+
+//Componentes propios
 import { MainComponent } from './main/main.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { EjercicioComponent } from './ejercicio/ejercicio.component';
+
 
 const routes: Routes = [
   {
@@ -15,7 +22,9 @@ const routes: Routes = [
       },
       {
         path: 'admin',
-        loadChildren: () => import('./admin/admin.module').then( m=> m.AdminModule)
+        loadChildren: () => import('./admin/admin.module').then( m=> m.AdminModule),
+        canActivate: [ ValidarAdminGuard],
+        canLoad: [ValidarAdminGuard]
       },
       {
         path: 'perfil', component:PerfilComponent
@@ -26,7 +35,6 @@ const routes: Routes = [
       {
         path: '**', redirectTo:'ejercicio'
       }
-
     ]
   },
 
