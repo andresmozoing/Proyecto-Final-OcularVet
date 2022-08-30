@@ -1,0 +1,27 @@
+figure {
+    position: relative;
+    display: inline-block;
+    border: 1px solid red
+}
+
+#perro{
+    position: relative;
+    width: 710px;
+    height: 424px;
+}
+
+#pupilaDerecha {
+    position: absolute;
+    left: 265px;
+    top: 127px
+}
+
+#pupilaIzquierda {
+    position: absolute;
+    right: 230px;
+    top: 130px
+}
+
+#contenedorImagenPerro {
+    display: inline-block;
+}
