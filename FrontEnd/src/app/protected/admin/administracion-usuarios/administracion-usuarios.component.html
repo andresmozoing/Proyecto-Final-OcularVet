@@ -5,7 +5,7 @@
 <main id="main" class="main">
     <div class="card">
         <div class="card-header">
-            <h1>Usuarios: </h1>
+            <h1 >Usuarios: </h1>
 
 
         </div>
@@ -17,10 +17,10 @@
                 <div class="card-body">
                     <table id="myTable2">
                         <thead align="center">
-                            <th scope="col" (click)='sortTabla("LUAsc")'> LU </th>
-                            <th scope="col" (click)="sortTabla('nameAsc')"> Nombre </th>
-                            <th scope="col" (click)="sortTabla('surnameAsc')"> Apellido </th>
-                            <th scope="col" (click)="sortTabla('emailAsc')"> Email </th>
+                            <th role="button" scope="col" (click)='sortTabla("LUAsc")'> LU </th>
+                            <th role="button" scope="col" (click)="sortTabla('nameAsc')"> Nombre </th>
+                            <th role="button" scope="col" (click)="sortTabla('surnameAsc')"> Apellido </th>
+                            <th role="button" scope="col" (click)="sortTabla('emailAsc')"> Email </th>
                             <th scope="col"> Es admin </th>
                             <th scope="col"> Reiniciar <br> contraseña </th>
                             <th scope="col"> Eliminar </th>
