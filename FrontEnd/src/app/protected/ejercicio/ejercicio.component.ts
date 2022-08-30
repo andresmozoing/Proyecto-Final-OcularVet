@@ -11,15 +11,17 @@ import { DiagnosticoService } from '../services/diagnostico.service';
 import { UsuarioService } from '../services/usuario.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { NotaService } from '../services/nota.service';
+
 // import { CdTimerComponent } from 'angular-cd-timer';
 
 @Component({
   selector: 'app-ejercicio',
-  templateUrl: './ejercicio.component.html'
+  templateUrl: './ejercicio.component.html',
+  styleUrls: ['./ejercicio.component.css']
 })
 export class EjercicioComponent implements OnInit, OnDestroy {
   
-  constructor( private AuthService : AuthService,
+  constructor( private authService : AuthService,
                private diagnosticoService : DiagnosticoService,
                private usuarioService: UsuarioService,
                private notaService: NotaService,
@@ -145,11 +147,11 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   }
 
   crearNota(){
-    const LU = this.AuthService.usuario.LU
+    const LU = this.authService.usuario.LU
     const cantidadPreguntas = this.cantPacientesADiagnosticar
     const rtasCorrectas = this.cantRespuestasCorrectas
-    const name = this.AuthService.usuario.name
-    const surname = this.AuthService.usuario.surname
+    const name = this.authService.usuario.name
+    const surname = this.authService.usuario.surname
     let calificacion = 0
     if (cantidadPreguntas !== 0){
       calificacion = rtasCorrectas/cantidadPreguntas
@@ -163,7 +165,12 @@ export class EjercicioComponent implements OnInit, OnDestroy {
         //En resp viene un arreglo de notas, con una sola nota
         Swal.fire("Nota guardada!","Tu calificacion fue de " + resp.notas[0].calificacion, "success")
         //Redirigir a las notas del usuario?
-        this.router.navigateByUrl('/ocularVet/notas')
+        if (this.authService.usuario.isAdmin){
+          this.router.navigateByUrl('ocularVet/admin/notas')
+        }
+        else{
+          this.router.navigateByUrl('ocularVet/alumno/notas')
+        }
       })
   }
 
@@ -181,7 +188,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
     do {
       aleatorio = this.diagnosticosPosibles[Math.floor(Math.random() * this.diagnosticosPosibles.length)];
       if (this.diagnosticoActual){ //Si ya existe uno antes
-        if (this.diagnosticoActual.id !== aleatorio.id){
+        if (this.diagnosticoActual.id !== aleatorio.id ){
           return aleatorio;
         }
         else{
@@ -215,4 +222,82 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     clearInterval(this.intervalo)
   }
+
+  //Animaciones:
+  
+  iluminarOjoDerecho (){
+    console.log("va a hacer la animacion del ojo derecho")
+    console.log("el diagnostico actual es " , this.diagnosticoActual);
+
+    this.desactivarBotones()
+
+    if (this.diagnosticoActual.derIluminado_AchicaDer){
+      this.animacionPupila("derecha")
+    }
+    if(this.diagnosticoActual.derIluminado_AchicaIzq){
+      this.animacionPupila("izquierda")
+    }
+  }
+
+  iluminarOjoIzquierdo (){
+    console.log("va a hacer la animacion del ojo izquierdo")
+    console.log("el diagnostico actual es " , this.diagnosticoActual);
+
+    this.desactivarBotones()
+
+    if (this.diagnosticoActual.izqIluminado_AchicaDer){
+      this.animacionPupila("derecha")
+    }
+    if(this.diagnosticoActual.izqIluminado_AchicaIzq){
+      this.animacionPupila("izquierda")
+    }
+  }
+
+  desactivarBotones(){
+    //Hacemos disable del boton de los ojos por 5 segundos
+    const botonIluminarDerecho = document.getElementById('botonIluminarOjoDerecho')!;
+    botonIluminarDerecho.setAttribute('disabled','true')
+
+    const botonIluminarOjoIzquierdo = document.getElementById('botonIluminarOjoIzquierdo')!;
+    botonIluminarOjoIzquierdo.setAttribute('disabled','true')
+    
+    console.log("llego al descativar botones");
+    
+    let timerBoton = 
+              setInterval(()=>{
+                botonIluminarDerecho.removeAttribute('disabled')
+                botonIluminarOjoIzquierdo.removeAttribute('disabled')
+                clearInterval(timerBoton)
+              },4000)
+  }
+
+  animacionPupila(posicion : string){
+    let pupila:any
+    if (posicion === "izquierda"){
+      console.log("VA A HACER LA PUPILA IZQUEIERDA");
+
+      pupila = document.getElementById('pupilaIzquierda')!;
+    }
+    else{
+      if (posicion === "derecha"){
+        console.log("VA A HACER LA PUPILA DERECHA");
+        
+        pupila = document.getElementById('pupilaDerecha')!;
+      }
+    }
+
+    //Achicamos la pupila 
+    pupila.style.transform = 'scale(0.7,0.7)';  
+    pupila.style.transition= '1s'  
+
+    //Volvemos la pupila al tamaño original, esperando 5 segundos
+    let timerOjo = 
+    setInterval(()=>{
+      pupila.style.transform = 'scale(1,1)';
+      clearInterval(timerOjo)
+    },4000)
+  }
+
+ 
+
 }
