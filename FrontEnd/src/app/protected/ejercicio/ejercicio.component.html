@@ -43,30 +43,24 @@
             <div class="card">
                 <div class="card-body">
                     <div>
-                        <button *ngIf=" diagnosticosPosibles.length < 1" 
-                                (click)="comenzarEjercicio()"
-                                mat-raised-button color="primary">
+                        <button *ngIf=" diagnosticosPosibles.length < 1" (click)="comenzarEjercicio()" mat-raised-button
+                            color="primary">
                             Comenzar ejercicio
                         </button>
                     </div>
 
-                    
-                    <div *ngIf=" diagnosticoActual !== undefined">
+
+                    <div id="contenedorPrincipal"*ngIf=" diagnosticoActual !== undefined">
                         <div class="col">
-                            <div id="contenedorBotonesOjos">
-                                <button 
-                                    (click)="iluminarOjoDerecho()" 
-                                    id="botonIluminarOjoDerecho"
-                                    style="margin: 3px"
-                                    class="btn btn-info">
-                                        Iluminar ojo derecho 
+                            <div id="contenedorBotonesOjos" >
+                                <button (click)="iluminarOjoDerecho()" id="botonIluminarOjoDerecho" style="margin: 3px"
+                                    class="btn btn-info"
+                                    style="margin:auto">
+                                    Iluminar ojo derecho
                                 </button>
-                                <button 
-                                    (click)="iluminarOjoIzquierdo()" 
-                                    id="botonIluminarOjoIzquierdo"
-                                    style="margin: 3px"
-                                    class="btn btn-info"> 
-                                        Iluminar ojo izquierdo 
+                                <button (click)="iluminarOjoIzquierdo()" id="botonIluminarOjoIzquierdo"
+                                    style="margin: 3px" class="btn btn-info" style="margin:auto">
+                                    Iluminar ojo izquierdo
                                 </button>
                             </div>
                             <div id="contenedorImagenPerro">
@@ -75,13 +69,17 @@
                                     <img src="../../../assets/images/pupilaDerecha.png" id="pupilaDerecha">
                                     <img src="../../../assets/images/pupilaIzquierada.png" id="pupilaIzquierda">
                                 </figure>
+                                <img src="../../../assets/images/flashlight2sinFondo.png" id="linternaOjoIzquierdo">
+                                <img src="../../../assets/images/flashlight2sinFondo.png" id="linternaOjoDerecho">
+
                             </div>
                         </div> <!--  fin columna de foto y botones -->
                         <div class="col">
+                            <h3>Tiempo restante: {{temporizador}}</h3>
 
                             <h4 *ngIf=" diagnosticoActual !== undefined">Diagnostico actual :
                                 {{diagnosticoActual.descripcion}}</h4>
-    
+
                             <form [formGroup]="formularioPaciente" (ngSubmit)="diagnosticar()">
                                 <div *ngFor=" let diag of diagnosticosPosibles" class="form-check">
                                     <input class="form-check-input" type="radio" formControlName="respuestaElegida"
@@ -90,22 +88,20 @@
                                         {{diag.descripcion}}
                                     </label>
                                 </div>
-    
-    
+
+
                                 <button type="submit" mat-raised-button color="primary">
-                                    <i class="bi bi-eye-fill"></i> Diagnosticar
+                                    <i class="bi bi-eye-fill"></i> Siguiente paciente
                                 </button>
                             </form>
-    
+
                             <p>Cantidad de pacientes a diagnosticar en total: {{cantPacientesADiagnosticar}}</p>
                             <p>Cantidad de respuestas correctas: {{cantRespuestasCorrectas}}</p>
                             <p>Cantidad de pacientes diagnosticados: {{cantPacientesRespondidos}}</p>
-                            <p>Tiempo de respuesta: {{tiempoRespuesta}}</p>
-                            <h2>Temporizador: {{temporizador}}</h2>
-                  
+
                         </div> <!--  fin columna de cuestionario -->
-                        
-                        
+
+
 
                         <swal #tiempoTerminadoSwal title="Se acabó el tiempo" icon="warning"
                             (confirm)="siguientePaciente()">
@@ -115,7 +111,8 @@
                             (confirm)="siguientePaciente()">
                         </swal>
 
-                        <swal #respuestaIncorrectaSwal title="Respuesta incorrecta" icon="error"
+                        <swal #respuestaIncorrectaSwal title="Respuesta incorrecta"
+                            text="La respuesta correcta era: {{diagnosticoActual.descripcion}}" icon="error"
                             (confirm)="siguientePaciente()">
                         </swal>
 
@@ -123,7 +120,7 @@
                             text="Cantidad de respuestas correctas: {{cantRespuestasCorrectas}} / {{cantPacientesADiagnosticar}}"
                             icon="info" (confirm)="crearNota()">
                         </swal>
-                    </div>
+                    </div> <!--  Fin contenedor principal -->
 
                 </div>
             </div>

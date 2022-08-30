@@ -1,10 +1,10 @@
 //Imports Angular:
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import {UntypedFormControl, UntypedFormGroup} from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 //Imports librerias externas:
 import Swal from 'sweetalert2';
-import {SwalComponent } from '@sweetalert2/ngx-sweetalert2';
+import { SwalComponent } from '@sweetalert2/ngx-sweetalert2';
 //Imports componentes propios:
 import { Diagnostico } from '../interfaces/Diagnostico';
 import { DiagnosticoService } from '../services/diagnostico.service';
@@ -20,41 +20,41 @@ import { NotaService } from '../services/nota.service';
   styleUrls: ['./ejercicio.component.css']
 })
 export class EjercicioComponent implements OnInit, OnDestroy {
-  
-  constructor( private authService : AuthService,
-               private diagnosticoService : DiagnosticoService,
-               private usuarioService: UsuarioService,
-               private notaService: NotaService,
-               private router : Router ) 
-               { 
-                
-               }
+
+  constructor(private authService: AuthService,
+    private diagnosticoService: DiagnosticoService,
+    private usuarioService: UsuarioService,
+    private notaService: NotaService,
+    private router: Router) {
+
+  }
 
   ngOnInit(): void {
     console.log("entro al ng on init");
     this.usuarioService.obtenerConfigAdmin() //TO DO: Cambiar esto de lugar, creo que no esta bien hacerlo en el NgOnInit
-              .subscribe((resp)=>{
-                console.log("resp dentro del subscribe de obtenerConfigAdmin es ", resp);
-                this.cantPacientesADiagnosticar = resp.cantidadPacientesADiagnosticar
-                this.tiempoRespuesta = resp.tiempoRespuesta
-            })
+      .subscribe((resp) => {
+        console.log("resp dentro del subscribe de obtenerConfigAdmin es ", resp);
+        this.cantPacientesADiagnosticar = resp.cantidadPacientesADiagnosticar
+        this.tiempoRespuesta = resp.tiempoRespuesta
+      })
+    
   }
 
-  formularioPaciente = new UntypedFormGroup({ respuestaElegida: new UntypedFormControl(),});
+  formularioPaciente = new UntypedFormGroup({ respuestaElegida: new UntypedFormControl(), });
 
-  diagnosticosPosibles : Diagnostico[] = []
+  diagnosticosPosibles: Diagnostico[] = []
 
-  diagnosticoActual! : Diagnostico
+  diagnosticoActual!: Diagnostico
 
-  cantPacientesADiagnosticar : number = -1
+  cantPacientesADiagnosticar: number = -1
 
-  cantRespuestasCorrectas : number = 0
+  cantRespuestasCorrectas: number = 0
 
-  cantPacientesRespondidos : number = 0
+  cantPacientesRespondidos: number = 0
 
   tiempoRespuesta: number = 0;
 
-  temporizador : number = 0;
+  temporizador: number = 0;
 
   intervalo: any;
 
@@ -77,36 +77,36 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   // @ViewChild( 'timer', { static: true } ) 
   // public readonly timer!: CdTimerComponent ;
 
-  iniciarTemporizador(){
-    if (this.tiempoRespuesta > 0){
-      this.temporizador=this.tiempoRespuesta
+  iniciarTemporizador() {
+    if (this.tiempoRespuesta > 0) {
+      this.temporizador = this.tiempoRespuesta
       this.doCountdown()
     }
-    else{
-      Swal.fire("error","el temporiuzador no tiene tiempo","error")
+    else {
+      Swal.fire("error", "el temporiuzador no tiene tiempo", "error")
     }
   }
 
-  reiniciarTemporizador(){
-    this.temporizador=this.tiempoRespuesta
+  reiniciarTemporizador() {
+    this.temporizador = this.tiempoRespuesta
   }
 
-  doCountdown(){
+  doCountdown() {
     this.intervalo = setTimeout(() => {
-      if (this.temporizador>0 ){
+      if (this.temporizador > 0) {
         this.temporizador--
         this.processCountdown()
       }
-    },1000)
+    }, 1000)
   }
 
-  processCountdown(){
-    if (this.temporizador === 0){
+  processCountdown() {
+    if (this.temporizador === 0) {
       this.cantPacientesRespondidos++
       clearInterval(this.intervalo)
       this.tiempoTerminadoSwal.fire()
     }
-    else{
+    else {
       this.doCountdown()
     }
   }
@@ -114,67 +114,66 @@ export class EjercicioComponent implements OnInit, OnDestroy {
 
 
   comenzarEjercicio() {
-    try{
+    try {
       this.diagnosticoService.obtenerTodosLosDiagnosticos()
-        .subscribe( (resp) => {
+        .subscribe((resp) => {
           this.diagnosticosPosibles = resp.diagnosticos
-          if (this.diagnosticosPosibles.length > 0){
+          if (this.diagnosticosPosibles.length > 0) {
             this.diagnosticoActual = this.obtenerProximoDiagnostico();
-            this.iniciarTemporizador()        
+            this.iniciarTemporizador()
           }
-          else{
-            Swal.fire("Error","No existen diagnosticos posibles en la base de datos","error")
+          else {
+            Swal.fire("Error", "No existen diagnosticos posibles en la base de datos", "error")
           }
         })
-       ;
+        ;
     }
-    catch(error){
-      console.log("Error en el comenzarEjercicio().  " , error);
+    catch (error) {
+      console.log("Error en el comenzarEjercicio().  ", error);
     }
   }
 
 
-  siguientePaciente(){
-    if (this.cantPacientesADiagnosticar !== this.cantPacientesRespondidos){ //Si no terminó
+  siguientePaciente() {
+    if (this.cantPacientesADiagnosticar !== this.cantPacientesRespondidos) { //Si no terminó
       this.diagnosticoActual = this.obtenerProximoDiagnostico()
       //this.formularioPaciente.controls['respuestaElegida'].reset()
       this.iniciarTemporizador()
       //this.timer.start()
     }
-    else{ //Si ya terminó
+    else { //Si ya terminó
       this.autoevalucionFinalizadaSwal.fire()
     }
   }
 
-  crearNota(){
+  crearNota() {
     const LU = this.authService.usuario.LU
     const cantidadPreguntas = this.cantPacientesADiagnosticar
     const rtasCorrectas = this.cantRespuestasCorrectas
     const name = this.authService.usuario.name
     const surname = this.authService.usuario.surname
     let calificacion = 0
-    if (cantidadPreguntas !== 0){
-      calificacion = rtasCorrectas/cantidadPreguntas
+    if (cantidadPreguntas !== 0) {
+      calificacion = rtasCorrectas / cantidadPreguntas
       //Dejamos el numero con dos decimales
       let aux = Number((Math.abs(calificacion) * 100).toPrecision(15));
-      calificacion = (Math.round(aux) / 100 * Math.sign(calificacion))*100;
+      calificacion = (Math.round(aux) / 100 * Math.sign(calificacion)) * 100;
     }
 
-    this.notaService.crearNota(rtasCorrectas,cantidadPreguntas,LU,calificacion, name, surname)
+    this.notaService.crearNota(rtasCorrectas, cantidadPreguntas, LU, calificacion, name, surname)
       .subscribe((resp) => {
         //En resp viene un arreglo de notas, con una sola nota
-        Swal.fire("Nota guardada!","Tu calificacion fue de " + resp.notas[0].calificacion, "success")
+        Swal.fire("Nota guardada!", "Tu calificacion fue de " + resp.notas[0].calificacion, "success")
         //Redirigir a las notas del usuario?
-        if (this.authService.usuario.isAdmin){
+        if (this.authService.usuario.isAdmin) {
           this.router.navigateByUrl('ocularVet/admin/notas')
         }
-        else{
+        else {
           this.router.navigateByUrl('ocularVet/alumno/notas')
         }
       })
   }
 
-  
 
 
 
@@ -182,20 +181,21 @@ export class EjercicioComponent implements OnInit, OnDestroy {
 
 
 
-  obtenerProximoDiagnostico() : Diagnostico {    
+
+  obtenerProximoDiagnostico(): Diagnostico {
     let limiteRandom = 1000
-    let aleatorio : Diagnostico
+    let aleatorio: Diagnostico
     do {
       aleatorio = this.diagnosticosPosibles[Math.floor(Math.random() * this.diagnosticosPosibles.length)];
-      if (this.diagnosticoActual){ //Si ya existe uno antes
-        if (this.diagnosticoActual.id !== aleatorio.id ){
+      if (this.diagnosticoActual) { //Si ya existe uno antes
+        if (this.diagnosticoActual.id !== aleatorio.id) {
           return aleatorio;
         }
-        else{
-           limiteRandom = limiteRandom-1;
+        else {
+          limiteRandom = limiteRandom - 1;
         }
       }
-      else{
+      else {
         return aleatorio;
       }
     }
@@ -206,14 +206,14 @@ export class EjercicioComponent implements OnInit, OnDestroy {
 
   diagnosticar(): void {
     //clearInterval(this.intervalo)
-    this.temporizador=0
+    this.temporizador = 0
     //this.timer.stop()
     this.cantPacientesRespondidos++;
-    if (this.formularioPaciente.value.respuestaElegida === this.diagnosticoActual.id){
+    if (this.formularioPaciente.value.respuestaElegida === this.diagnosticoActual.id) {
       this.cantRespuestasCorrectas++;
       this.respuestaCorrectaSwal.fire()
     }
-    else{
+    else {
       this.respuestaIncorrectaSwal.fire()
     }
   }
@@ -224,80 +224,90 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   }
 
   //Animaciones:
-  
-  iluminarOjoDerecho (){
-    console.log("va a hacer la animacion del ojo derecho")
-    console.log("el diagnostico actual es " , this.diagnosticoActual);
 
+  iluminarOjoDerecho() {
+    //Mostramos la linterna por 4 segundos
+    const linternaOjoDerecho = document.getElementById('linternaOjoDerecho')!;
+    linternaOjoDerecho.style.display = 'block';
+    let timerLinternaDerecha = setTimeout(() => {
+      linternaOjoDerecho.style.display = 'none';
+      clearInterval(timerLinternaDerecha)
+    }, 4000);
+
+    //Desactivamos los botones 
     this.desactivarBotones()
 
-    if (this.diagnosticoActual.derIluminado_AchicaDer){
+    //Realizamos las animaciones
+    if (this.diagnosticoActual.derIluminado_AchicaDer) {
       this.animacionPupila("derecha")
     }
-    if(this.diagnosticoActual.derIluminado_AchicaIzq){
+    if (this.diagnosticoActual.derIluminado_AchicaIzq) {
       this.animacionPupila("izquierda")
     }
   }
 
-  iluminarOjoIzquierdo (){
-    console.log("va a hacer la animacion del ojo izquierdo")
-    console.log("el diagnostico actual es " , this.diagnosticoActual);
+  iluminarOjoIzquierdo() {
+    //Mostramos la linterna por 4 segundos
+    const linternaOjoIzquierdo = document.getElementById('linternaOjoIzquierdo')!;
+    linternaOjoIzquierdo.style.display = 'block';
+    let timerLinternaIzquierda = setTimeout(() => {
+      linternaOjoIzquierdo.style.display = 'none';
+      clearInterval(timerLinternaIzquierda)
+    }, 4000);
 
+    //Desactivamos los botones 
     this.desactivarBotones()
 
-    if (this.diagnosticoActual.izqIluminado_AchicaDer){
+    //Realizamos las animaciones
+    if (this.diagnosticoActual.izqIluminado_AchicaDer) {
       this.animacionPupila("derecha")
     }
-    if(this.diagnosticoActual.izqIluminado_AchicaIzq){
+    if (this.diagnosticoActual.izqIluminado_AchicaIzq) {
       this.animacionPupila("izquierda")
     }
   }
 
-  desactivarBotones(){
+  desactivarBotones() {
     //Hacemos disable del boton de los ojos por 5 segundos
     const botonIluminarDerecho = document.getElementById('botonIluminarOjoDerecho')!;
-    botonIluminarDerecho.setAttribute('disabled','true')
+    botonIluminarDerecho.setAttribute('disabled', 'true')
 
     const botonIluminarOjoIzquierdo = document.getElementById('botonIluminarOjoIzquierdo')!;
-    botonIluminarOjoIzquierdo.setAttribute('disabled','true')
-    
+    botonIluminarOjoIzquierdo.setAttribute('disabled', 'true')
+
     console.log("llego al descativar botones");
-    
-    let timerBoton = 
-              setInterval(()=>{
-                botonIluminarDerecho.removeAttribute('disabled')
-                botonIluminarOjoIzquierdo.removeAttribute('disabled')
-                clearInterval(timerBoton)
-              },4000)
+
+    let timerBoton =
+      setInterval(() => {
+        botonIluminarDerecho.removeAttribute('disabled')
+        botonIluminarOjoIzquierdo.removeAttribute('disabled')
+        clearInterval(timerBoton)
+      }, 4000)
   }
 
-  animacionPupila(posicion : string){
-    let pupila:any
-    if (posicion === "izquierda"){
-      console.log("VA A HACER LA PUPILA IZQUEIERDA");
-
+  animacionPupila(posicion: string) {
+    let pupila: any
+    if (posicion === "izquierda") {
       pupila = document.getElementById('pupilaIzquierda')!;
     }
-    else{
-      if (posicion === "derecha"){
-        console.log("VA A HACER LA PUPILA DERECHA");
-        
+    else {
+      if (posicion === "derecha") {
         pupila = document.getElementById('pupilaDerecha')!;
       }
     }
 
     //Achicamos la pupila 
-    pupila.style.transform = 'scale(0.7,0.7)';  
-    pupila.style.transition= '1s'  
+    pupila.style.transform = 'scale(0.7,0.7)';
+    pupila.style.transition = '1s'
 
-    //Volvemos la pupila al tamaño original, esperando 5 segundos
-    let timerOjo = 
-    setInterval(()=>{
-      pupila.style.transform = 'scale(1,1)';
-      clearInterval(timerOjo)
-    },4000)
+    //Volvemos la pupila al tamaño original, esperando 4 segundos
+    let timerOjo =
+      setInterval(() => {
+        pupila.style.transform = 'scale(1,1)';
+        clearInterval(timerOjo)
+      }, 4000)
   }
 
- 
+
 
 }
