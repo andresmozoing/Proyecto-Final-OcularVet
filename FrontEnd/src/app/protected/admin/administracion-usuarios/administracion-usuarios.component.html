@@ -1,1 +1,160 @@
-<p>administracion-usuarios works!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+
+<main id="main" class="main">
+    <div class="card">
+        <div class="card-header">
+            <h1>Usuarios: </h1>
+
+
+        </div>
+
+        <div class="col">
+            <div class="card recent-sales overflow-auto">
+
+
+                <div class="card-body">
+                    <table id="myTable2">
+                        <thead align="center">
+                            <th scope="col" (click)='sortTabla("LUAsc")'> LU </th>
+                            <th scope="col" (click)="sortTabla('nameAsc')"> Nombre </th>
+                            <th scope="col" (click)="sortTabla('surnameAsc')"> Apellido </th>
+                            <th scope="col" (click)="sortTabla('emailAsc')"> Email </th>
+                            <th scope="col"> Es admin </th>
+                            <th scope="col"> Reiniciar <br> contraseña </th>
+                            <th scope="col"> Eliminar </th>
+                        </thead>
+                        <tbody align="center">
+                            <tr *ngFor="let usuario of usuarios">
+                                <th scope="row"> {{usuario.LU}} </th>
+                                <td>{{ usuario.name }}</td>
+                                <td>{{ usuario.surname }}</td>
+                                <td>{{ usuario.email }}</td>
+                                <td>{{ usuario.isAdmin }}</td>
+                                <td> 
+                                    <button type="button" name="editbutton" class="btn btn-primary " [swal]="editSwal">
+                                        <i class="bi-arrow-repeat "></i>  
+                                        
+                                        <swal
+                                            #editSwal
+                                            title="Reiniciar contraseña de {{ usuario.name}} {{ usuario.surname }}?"
+                                            text="Esta acción no se puede deshacer. La contraseña será 123456 si confirma."
+                                            icon="warning"
+                                            [swalOptions]="{ confirmButtonText: 'Confrimar' }"
+                                            [showCancelButton]="true"
+                                            [focusCancel]="true"
+                                            (confirm)="reiniciarPassword(usuario._id!)">
+                                        </swal>
+                                    </button>
+                                </td>
+                                <td> 
+                                    <button type="button" name="button" class="btn btn-danger" [swal]="deleteSwal" >
+                                        <i class="bi-trash-fill"></i>  
+                                        
+                                        <swal
+                                            #deleteSwal
+                                            title="Eliminar {{ usuario.name}} {{ usuario.surname }}?"
+                                            text="Esta acción no se puede deshacer."
+                                            icon="warning"
+                                            [swalOptions]="{ confirmButtonText: 'Confrimar' }"
+                                            [showCancelButton]="true"
+                                            [focusCancel]="true"
+                                            (confirm)="eliminarUsuario(usuario._id!)">
+                                        </swal>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+                        class="mat-elevation-z8">
+
+                        
+                        <ng-container matColumnDef="LU">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header 
+                                sortActionDescription="Sort by LU">
+                                LU
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.LU}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+                                Nombre
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+                        </ng-container>
+                        
+                        <ng-container matColumnDef="surname">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                sortActionDescription="Sort by surname">
+                                Apellido
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
+                        </ng-container>
+
+                        
+                        <ng-container matColumnDef="email">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by email">
+                                Email
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.email }} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="isAdmin">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                sortActionDescription="Sort by surname">
+                                isAdmin
+                            </th>
+                            <td mat-cell *matCellDef="let element"> {{element.isAdmin}} </td>
+                        </ng-container>
+                        
+                        <ng-container matColumnDef="ELIMINAR">
+                            <th>
+                                OOKDAWODn
+                            </th>
+                            <td> DAWDA </td>
+                        </ng-container>
+                        
+                    
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table> -->
+
+                </div>
+
+            </div>
+
+        </div><!-- End Recent Sales -->
+
+    </div>
+
+    <section class="section dashboard">
+        <div class="row">
+
+            <!-- Left side columns -->
+            <!-- <div class="col-lg-8">
+          <div class="row">   -->
+            <!-- Recent Sales -->
+
+            <!-- </div>
+        </div>End Left side columns -->
+
+
+
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+        class="bi bi-arrow-up-short"></i></a>
+
+
+
+
+</html>

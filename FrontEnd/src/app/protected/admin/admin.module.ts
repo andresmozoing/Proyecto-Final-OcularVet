@@ -10,6 +10,7 @@ import { AdminRoutingModule } from './admin-routing.module';
 //Componentes propios:
 import { AdministracionUsuariosComponent } from './administracion-usuarios/administracion-usuarios.component';
 import { NotasAdminComponent } from './notas-admin/notas-admin.component';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 
 
@@ -22,7 +23,8 @@ import { NotasAdminComponent } from './notas-admin/notas-admin.component';
     CommonModule,
     MatTableModule,
     MatSortModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    SweetAlert2Module
   ]
 })
 export class AdminModule { }
