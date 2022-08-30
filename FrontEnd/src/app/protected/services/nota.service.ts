@@ -1,7 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
-import { perfilUsuario } from '../interfaces/DatosPerfil';
 import { Nota, NotaResponse } from '../interfaces/Nota'
 
 import { catchError, map, tap } from 'rxjs/operators';

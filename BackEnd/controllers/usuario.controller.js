@@ -136,12 +136,48 @@ const modificarPassword = async (req,res = response) => {
     }
 } //Fin modificarPassword()
 
+const reiniciarPassword = async (req,res = response) => {
+    try {
+        console.log("Llego al reiniciarPassword, el body es ", req.body);
+
+        const dbUser = await Usuario.findById(req.body._id)
+        console.log("usuario es", dbUser);
+        if (!dbUser){
+            return res.status(400).json({
+                ok: false,
+                msg: 'El usuario no existe'
+            });
+        }
+
+        //hashear la contraseña
+        const salt = bcrypt.genSaltSync(10);
+        dbUser.password = bcrypt.hashSync(req.body.passwordNueva, salt);
+        
+        console.log("va a modificar el pass");
+        const userModificado = await Usuario.updateOne(
+                                {_id : req.body._id},
+                                {password : dbUser.password})
+        
+        return res.json({
+            ok: true,
+            userModificado
+       })
+    }
+    catch (error) {
+        return res.status(500).json({
+            ok:false,
+            msg: 'Error en el controlador de modificarPassword'
+        })
+    }
+} //Fin modificarPassword()
+
 
 const eliminarUsuario = async (req,res = response) => {
     try {
-        console.log("Llego al eliminarUsuario, el body es " , req.body);
+        const _id = req.header('_id')
+        console.log("Llego al eliminarUsuario, el header es " , _id);
         
-        const user = await Usuario.findByIdAndDelete(req.body._id)
+        const user = await Usuario.findByIdAndDelete(_id)
 
         return res.json({
             ok: true,
@@ -182,7 +218,9 @@ module.exports = {
     obtenerTodosLosUsuarios,
     modificarUsuario,
     modificarPassword,
+    reiniciarPassword,
     eliminarUsuario,
     obtenerConfigAdmin,
     modificarConfiguracionAdmin
+
 }
