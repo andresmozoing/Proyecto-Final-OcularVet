@@ -1,7 +1,22 @@
+#contenedorPrincipal{
+    column-count: 2;
+    column-gap: 3em;
+    column-width: 690px;
+    display: flex;
+    justify-content: center;
+}
+
+#contenedorBotonesOjos{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
 figure {
     position: relative;
     display: inline-block;
-    border: 1px solid red
+    border: 1px solid red;
+    column-span:all
 }
 
 #perro{
@@ -24,4 +39,26 @@ figure {
 
 #contenedorImagenPerro {
     display: inline-block;
+}
+
+#linternaOjoIzquierdo {
+    position:absolute;
+    height:120px;
+    width:120px;
+    top: 200px;
+    left : 500px;
+    transform: rotate(45deg);
+    display: none;
+    z-index: 1;
+}
+
+#linternaOjoDerecho {
+    position:absolute;
+    height:120px;
+    width:120px;
+    top: 200px;
+    left : 180px;
+    transform: rotate(135deg);
+    display: none;
+    z-index: 1;
 }
