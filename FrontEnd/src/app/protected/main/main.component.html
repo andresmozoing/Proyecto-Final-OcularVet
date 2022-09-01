@@ -44,14 +44,14 @@
                 <div *ngIf="usuario.isAdmin === true">
                   <a class="nav-link nav-options d-flex align-items-center" routerLink="admin/notasAdmin">
                     <i class="nav-icon bi-list-check"></i>
-                    <span> Notas </span>
+                    <span class="p-1"> Notas </span>
                   </a>
                 </div>
         
                 <div *ngIf="usuario.isAdmin === false">
                   <a class="nav-link nav-options d-flex align-items-center" routerLink="alumno/notas">
                     <i class="nav-icon bi-list-check"></i>
-                    <span> Notas </span>
+                    <span class="p-1"> Notas </span>
                   </a>
                 </div>
         
@@ -75,15 +75,24 @@
                     <li style="margin: 4px;">
                       <a class="dropdown-item d-flex align-items-center" routerLink="perfil" style="margin: 5px;">
                         <i class="bi bi-person"></i>
-                        <span>Mis datos</span>
+                        <span class="p-1">Mis datos</span>
                       </a>
                     </li>
                     
                     <div *ngIf="usuario.isAdmin === true">
                       <li style="margin: 4px;">
                         <a class="dropdown-item d-flex align-items-center" routerLink="admin/administracionUsuarios" style="margin: 5px;">
-                          <i class="bi bi-person"></i>
-                          <span>Administrar Usuarios</span>
+                          <i class="bi bi-people"></i>
+                          <span class="p-1">Administrar Usuarios</span>
+                        </a>
+                      </li>
+                    </div>
+
+                    <div *ngIf="usuario.isAdmin === true">
+                      <li style="margin: 4px;">
+                        <a class="dropdown-item d-flex align-items-center" routerLink="admin/configAdmin" style="margin: 5px;">
+                          <i class="bi bi-wrench"></i>
+                          <span class="p-1">Configuración Administrador </span>
                         </a>
                       </li>
                     </div>
@@ -91,7 +100,7 @@
                     <li style="margin: 4px;">
                       <a class="dropdown-item d-flex align-items-center" href="#" style="margin: 5px;" (click)="logOut()">
                         <i class="bi bi-box-arrow-right"></i>
-                        <span>Cerrar Sesión</span>
+                        <span class="p-1">Cerrar Sesión</span>
                       </a>
                     </li>
         

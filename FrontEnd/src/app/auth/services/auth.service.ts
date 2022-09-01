@@ -5,6 +5,7 @@ import { AuthResponse, Usuario } from '../interfaces/interfaces';
 import { catchError, map, tap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import { EmailValidator } from '@angular/forms';
+import { UsuarioService } from '../../protected/services/usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +16,11 @@ export class AuthService {
   private _usuario! : Usuario;
 
   get usuario(){
-    
     return {...this._usuario};
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private usuarioService:UsuarioService) { }
 
   registro ( name:string,surname:string,LU:number, email: string, password: string, codigoRegistro:number){
     const url = `${this.baseUrl}/auth/new`
@@ -51,7 +52,7 @@ export class AuthService {
             localStorage.setItem('token', resp.token!)
           }
         }),
-        map( resp => resp.ok), //El map sirve para cuando solo quiero retornar una parte del response. En este caso solo tomo el ok
+        //map( resp => resp.ok), //El map sirve para cuando solo quiero retornar una parte del response. En este caso solo tomo el ok
         catchError(err => of(err.error.msg)
         ) //si el resp tiene un status q no es el 200, captura el error. Sino, lo deja pasar y no hace nada este operador 
       )
@@ -65,9 +66,7 @@ export class AuthService {
     return this.http.get<AuthResponse>(url,{headers})
         .pipe( //Clase 394
           map( resp => {
-            localStorage.setItem('token', resp.token!)
-            console.log("va a setear el usuario con", resp);
-            
+            localStorage.setItem('token', resp.token!)            
             this._usuario = {
               uid: resp.uid!,
               name: resp.name!,
@@ -75,8 +74,13 @@ export class AuthService {
               LU: resp.LU!,
               email: resp.email!,
               isAdmin: resp.isAdmin!
-
             }
+            //Obtenemos la configuracion del administrador
+            this.usuarioService.obtenerConfigAdmin()
+                .subscribe((resp) => {
+                  console.log("Recargo satisfactoriamente la config del admin ", resp);
+                  
+                })
             return resp.ok
           }),
           catchError(err => of(false))
@@ -86,10 +90,14 @@ export class AuthService {
   logout(){
     localStorage.clear()
   }
+  
   editUsuario(name: string, surname: string, email: string){
     this._usuario.name= name;
     this._usuario.surname= surname;
     this._usuario.email= email;
+  }
 
+  cargarDatosConfigAdmin(){
+    this.usuarioService.obtenerConfigAdmin
   }
 }

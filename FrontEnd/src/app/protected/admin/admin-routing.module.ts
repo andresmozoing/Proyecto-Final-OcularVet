@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { NotasAdminComponent } from './notas-admin/notas-admin.component';
 import { AdministracionUsuariosComponent } from './administracion-usuarios/administracion-usuarios.component';
+import { ConfigAdminComponent } from './config-admin/config-admin.component';
 
 const routes: Routes = [
   {
@@ -9,6 +10,9 @@ const routes: Routes = [
   },
   {
     path:'administracionUsuarios', component: AdministracionUsuariosComponent
+  },
+  {
+    path:'configAdmin', component: ConfigAdminComponent
   },
   { //Se agrega esta ruta para que funcione el routerLink de la barra de arriba
     path: '',

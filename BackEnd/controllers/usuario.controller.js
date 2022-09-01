@@ -166,7 +166,7 @@ const reiniciarPassword = async (req,res = response) => {
     catch (error) {
         return res.status(500).json({
             ok:false,
-            msg: 'Error en el controlador de modificarPassword'
+            msg: 'Error en el controlador de reiniciarPassword ' + error
         })
     }
 } //Fin modificarPassword()

@@ -108,7 +108,8 @@ const loginUsuario = async (req,res = response)=>{
             msg:'Login existoso',
             name: dbUser.name,
             token,
-            email
+            email,
+            isAdmin : dbUser.isAdmin
         })
     } catch (error) {
         return res.status(500).json({

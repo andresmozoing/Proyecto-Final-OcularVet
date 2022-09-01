@@ -1,5 +1,5 @@
 export interface ConfigAdmin {
-    cantidadPacientesAResponder: Number,
+    cantidadPacientesADiagnosticar: Number,
     tiempoRespuesta: Number,
     codigoRegistro: Number
 }

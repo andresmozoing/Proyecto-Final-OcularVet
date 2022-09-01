@@ -24,17 +24,22 @@ export class LoginComponent {
               private authService:AuthService) { }
 
   login(){
-    console.log(this.miFormulario.value)
     const {email,password} = this.miFormulario.value
 
     this.authService.login(email,password)
-      .subscribe((ok) => {
-        console.log(ok)
-        if (ok === true){ //Si no le pones el ===true, evalua q exista el objeto, y siempre existe.
-          this.router.navigateByUrl('/ocularVet')
+      .subscribe((resp) => {
+        if (resp.ok === true){ //Si no le pones el ===true, evalua q exista el objeto, y siempre existe.
+          console.log("El usuariuo es ", resp.isAdmin);
+          
+          if(resp.isAdmin){
+            this.router.navigateByUrl('/ocularVet/admin/configAdmin')
+          }
+          else{
+            this.router.navigateByUrl('/ocularVet/alumno/ejercicio')
+          }
         }
         else{
-          Swal.fire('Error' , ok, 'error')
+          Swal.fire('Error' , resp.ok, 'error')
           //mostrar error
         }
       })

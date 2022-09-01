@@ -31,12 +31,20 @@ export class EjercicioComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     console.log("entro al ng on init");
-    this.usuarioService.obtenerConfigAdmin() //TO DO: Cambiar esto de lugar, creo que no esta bien hacerlo en el NgOnInit
-      .subscribe((resp) => {
-        console.log("resp dentro del subscribe de obtenerConfigAdmin es ", resp);
-        this.cantPacientesADiagnosticar = resp.cantidadPacientesADiagnosticar
-        this.tiempoRespuesta = resp.tiempoRespuesta
-      })
+    // this.usuarioService.obtenerConfigAdmin()
+    //   .subscribe((resp) => {
+    //     console.log("resp dentro del subscribe de obtenerConfigAdmin es ", resp);
+    //     this.cantPacientesADiagnosticar = resp.cantidadPacientesADiagnosticar
+    //     this.tiempoRespuesta = resp.tiempoRespuesta
+    //   })
+    console.log("cant " , this.cantPacientesADiagnosticar);
+    console.log("tiempo " , this.tiempoRespuesta);
+    
+    this.cantPacientesADiagnosticar = this.usuarioService.configuracionAdmin.cantidadPacientesADiagnosticar as number
+    this.tiempoRespuesta = this.usuarioService.configuracionAdmin.tiempoRespuesta as number
+
+    console.log("cant " , this.cantPacientesADiagnosticar);
+    console.log("tiempo " , this.tiempoRespuesta);
     
   }
 
