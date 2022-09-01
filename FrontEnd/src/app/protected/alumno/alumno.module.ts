@@ -19,8 +19,6 @@ import { AccesoAdminDenegadoComponent } from './acceso-admin-denegado/acceso-adm
   ],
   imports: [
     CommonModule,
-    MatTableModule,
-    MatSortModule,
     AlumnoRoutingModule
   ]
 })

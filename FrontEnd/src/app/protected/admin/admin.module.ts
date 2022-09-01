@@ -13,6 +13,7 @@ import { AdministracionUsuariosComponent } from './administracion-usuarios/admin
 import { NotasAdminComponent } from './notas-admin/notas-admin.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ConfigAdminComponent } from './config-admin/config-admin.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -24,12 +25,11 @@ import { ConfigAdminComponent } from './config-admin/config-admin.component';
   ],
   imports: [
     CommonModule,
-    MatTableModule,
-    MatSortModule,
     AdminRoutingModule,
     SweetAlert2Module,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatButtonModule
   ]
 })
 export class AdminModule { }

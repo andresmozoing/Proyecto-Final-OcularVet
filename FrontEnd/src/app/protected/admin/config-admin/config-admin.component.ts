@@ -23,6 +23,9 @@ export class ConfigAdminComponent implements OnInit {
   notas() {
     this.router.navigateByUrl('ocularVet/admin/notasAdmin')
   }
+  usuarios() {
+    this.router.navigateByUrl('ocularVet/admin/administracionUsuarios')
+  }
 
   configAdminForm = new UntypedFormGroup({
     cantidadPacientesADiagnosticar: new UntypedFormControl(this.configuracionAdmin.cantidadPacientesADiagnosticar),
