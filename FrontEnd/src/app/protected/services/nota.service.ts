@@ -68,5 +68,20 @@ export class NotaService {
       
   }
 
+  eliminarNota(_id : String){
+      const url = `${this.baseUrl}/nota/eliminarNota`
+      const headers = new HttpHeaders()
+      .set('_id' , _id.toString())
+     
+
+    return this.http.delete(url, {headers})
+      .pipe(
+        tap( (resp) => { 
+          console.log("Elimino la nota, respuesta: ",resp)
+          
+        }),
+        catchError(err => of(err.error.msg)) 
+        )
+  }
 
 }

@@ -43,7 +43,7 @@ const obtenerNotas = async(req,res = response)=>{
     const anio = req.header('anio');
     try {
         console.log("Llego al controller de obtenerNotas");
-        console.log("El body es " , req.body )
+        console.log("El Header es " , req.header )
        
 
         let notas = {}
@@ -101,9 +101,9 @@ const obtenerNotas = async(req,res = response)=>{
 const eliminarNota = async(req,res = response)=>{
     try {
         console.log("Llego al controller de borrarNota");
-        console.log("El body es " , req.body )
+        console.log("El header es " , req.header('_id') )
 
-        await Nota.findByIdAndDelete(req.body._id)
+        await Nota.findByIdAndDelete(req.header('_id'))
 
         return res.status(201).json({
             ok: true

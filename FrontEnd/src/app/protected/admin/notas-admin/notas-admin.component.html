@@ -1,116 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  
-  <main id="main" class="main">
-    <div class="card">
-      <div class="card-header">
-        <h1>Notas alumnos: </h1>
-          
 
-      </div>
-      
-        <div class="col">
-          <div class="card recent-sales overflow-auto">
-      
-            
-            <div class="card-body">
+<main id="main" class="main">
+  <div class="card">
+    <div class="card-header">
+      <h1>Notas alumnos: </h1>
 
 
-              <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
-                  class="mat-elevation-z8">
-
-                 <!-- LU Column -->
-                 <ng-container matColumnDef="LU">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header disabled sortActionDescription="Sort by LU">
-                      LU
-                    </th>
-                    <td mat-cell *matCellDef="let element"> {{element.LU}} </td>
-                  </ng-container>
-
-                 <!-- nombre Column -->
-                 <ng-container matColumnDef="name">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header  sortActionDescription="Sort by name">
-                      Nombre
-                    </th>
-                    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
-                  </ng-container>
-                 <!-- LU Column -->
-                 <ng-container matColumnDef="surname">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header  sortActionDescription="Sort by surname">
-                        Apellido
-                    </th>
-                    <td mat-cell *matCellDef="let element"> {{element.surname}} </td>
-                  </ng-container>
-  
-                  <!-- fecha Column -->
-                  <ng-container matColumnDef="fecha">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by fecha">
-                      Fecha
-                    </th>
-                    <td mat-cell *matCellDef="let element"> {{element.fecha | date: "dd MMMM yyyy" }} </td>
-                  </ng-container>
-  
-                  <!-- rtasCorrectas Column -->
-                  <ng-container matColumnDef="rtasCorrectas">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by rtasCorrectas">
-                      Respuestas Correctas
-                    </th>
-                    <td mat-cell *matCellDef="let element"> {{element.rtasCorrectas}} </td>
-                  </ng-container>
-  
-                  <!-- CANT PREG Column -->
-                  <ng-container matColumnDef="cantidadPreguntas">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cantidadPreguntas">
-                      Cantidad Preguntas 
-                    </th>
-                    <td mat-cell *matCellDef="let element"> {{element.cantidadPreguntas}} </td>
-                  </ng-container>
-                  <ng-container matColumnDef="calificacion">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by calificacion">
-                      Nota
-                    </th>
-                    <td mat-cell *matCellDef="let element"> {{element.calificacion | number: '1.0-2'}} </td>
-                  </ng-container>
-
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-              </table>
-
-            </div>
-            
-          </div>
-          
-        </div><!-- End Recent Sales -->
-      
     </div>
 
-    <section class="section dashboard">
-      <div class="row">
+    <div class="col">
+      <div class="card recent-sales overflow-auto">
+        <div class="card-body">
+          <table id="myTable2">
+            <thead align="center">
+              <th role="button" scope="col" (click)='sortTabla("LUAsc")'> LU </th>
+              <th role="button" scope="col" (click)="sortTabla('nameAsc')"> Nombre </th>
+              <th role="button" scope="col" (click)="sortTabla('surnameAsc')"> Apellido </th>
+              <th role="button" scope="col" (click)="sortTabla('rtasCorrectasAsc')"> Respuestas <br> Correctas </th>
+              <th role="button" scope="col" (click)="sortTabla('cantidadPreguntasAsc')"> Cantidad <br> Preguntas </th>
+              <th role="button" scope="col" (click)="sortTabla('calificacionAsc')"> Nota </th>
+            </thead>
+            <tbody align="center">
+              <tr *ngFor="let nota of notas">
+                <th scope="row"> {{nota.LU}} </th>
+                <td>{{ nota.name }}</td>
+                <td>{{ nota.surname }}</td>
+                <td>{{ nota.rtasCorrectas }}</td>
+                <td>{{ nota.cantidadPreguntas }}</td>
+                <td>{{ nota.calificacion }}</td>
 
-        <!-- Left side columns -->
-        <!-- <div class="col-lg-8">
-          <div class="row">   -->
-            <!-- Recent Sales -->
+                <td>
+                  <button type="button" name="button" class="btn btn-danger" [swal]="deleteSwal">
+                    <i class="bi-trash-fill"></i>
 
-          <!-- </div>
-        </div>End Left side columns -->
+                    <swal #deleteSwal title="Eliminar nota de {{ nota.name}} {{ nota.surname }}?"
+                      text="Esta acción no se puede deshacer." icon="warning"
+                      [swalOptions]="{ confirmButtonText: 'Confrimar' }" [showCancelButton]="true" [focusCancel]="true"
+                      (confirm)="eliminarNota(nota._id!)">
+                    </swal>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
-        
+        </div>
 
       </div>
-    </section>
 
-  </main><!-- End #main -->
+    </div>
 
-  
+  </div>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
+  <section class="section dashboard">
+    <div class="row">
 
 
-  <!-- Template Main JS File -->
+    </div>
+  </section>
+
+</main><!-- End #main -->
+
+
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+    class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+
+
+<!-- Template Main JS File -->
 
 
 

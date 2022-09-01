@@ -39,7 +39,7 @@
             <h1>Diagnóstico</h1>
         </div>
 
-        <div class="col">
+        <div>
             <div class="card">
                 <div class="card-body">
                     <div>
@@ -50,8 +50,8 @@
                     </div>
 
 
-                    <div id="contenedorPrincipal"*ngIf=" diagnosticoActual !== undefined">
-                        <div class="col">
+                    <div class="grid" id="contenedorPrincipal" *ngIf=" diagnosticoActual !== undefined">
+                        <div class="columna">
                             <div id="contenedorBotonesOjos" >
                                 <button (click)="iluminarOjoDerecho()" id="botonIluminarOjoDerecho" style="margin: 3px"
                                     class="btn btn-info"
@@ -68,13 +68,13 @@
                                     <img src="../../../assets/images/perroSinPupilas.jpeg" id="perro">
                                     <img src="../../../assets/images/pupilaDerecha.png" id="pupilaDerecha">
                                     <img src="../../../assets/images/pupilaIzquierada.png" id="pupilaIzquierda">
+                                    <img src="../../../assets/images/flashlight2sinFondo.png" id="linternaOjoIzquierdo">
+                                    <img src="../../../assets/images/flashlight2sinFondo.png" id="linternaOjoDerecho">
                                 </figure>
-                                <img src="../../../assets/images/flashlight2sinFondo.png" id="linternaOjoIzquierdo">
-                                <img src="../../../assets/images/flashlight2sinFondo.png" id="linternaOjoDerecho">
 
                             </div>
                         </div> <!--  fin columna de foto y botones -->
-                        <div class="col">
+                        <div class="columna">
                             <h3>Tiempo restante: {{temporizador}}</h3>
 
                             <h4 *ngIf=" diagnosticoActual !== undefined">Diagnostico actual :
@@ -103,24 +103,24 @@
 
 
 
-                        <swal #tiempoTerminadoSwal title="Se acabó el tiempo" icon="warning"
-                            (confirm)="siguientePaciente()">
-                        </swal>
-
-                        <swal #respuestaCorrectaSwal title="Respuesta correcta!" icon="success"
-                            (confirm)="siguientePaciente()">
-                        </swal>
-
-                        <swal #respuestaIncorrectaSwal title="Respuesta incorrecta"
-                            text="La respuesta correcta era: {{diagnosticoActual.descripcion}}" icon="error"
-                            (confirm)="siguientePaciente()">
-                        </swal>
-
-                        <swal #autoevalucionFinalizadaSwal title="Autoevalución Finalizada"
-                            text="Cantidad de respuestas correctas: {{cantRespuestasCorrectas}} / {{cantPacientesADiagnosticar}}"
-                            icon="info" (confirm)="crearNota()">
-                        </swal>
                     </div> <!--  Fin contenedor principal -->
+                    <swal #tiempoTerminadoSwal title="Se acabó el tiempo" icon="warning"
+                        (confirm)="siguientePaciente()">
+                    </swal>
+
+                    <swal #respuestaCorrectaSwal title="Respuesta correcta!" icon="success"
+                        (confirm)="siguientePaciente()">
+                    </swal>
+
+                    <swal #respuestaIncorrectaSwal title="Respuesta incorrecta"
+                        text="La respuesta correcta era: {{diagnosticoActual.descripcion}}" icon="error"
+                        (confirm)="siguientePaciente()">
+                    </swal>
+
+                    <swal #autoevalucionFinalizadaSwal title="Autoevalución Finalizada"
+                        text="Cantidad de respuestas correctas: {{cantRespuestasCorrectas}} / {{cantPacientesADiagnosticar}}"
+                        icon="info" (confirm)="crearNota()">
+                    </swal>
 
                 </div>
             </div>
