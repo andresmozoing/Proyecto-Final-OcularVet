@@ -1,10 +1,20 @@
-#contenedorPrincipal{
-    column-count: 2;
-    column-gap: 3em;
-    column-width: 690px;
-    display: flex;
-    justify-content: center;
-}
+.grid {
+    --gap: 20px;
+    --column-size: 400px;
+    --columns-amount: 2;
+    
+    --column-size-max: calc(100% / var(--columns-amount) - var(--gap));
+    --column-size-min: min(var(--column-size), 100%);
+  
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(max(var(--column-size-min), var(--column-size-max)), 1fr));
+    grid-auto-flow: row dense;
+    grid-auto-rows: minmax(170px, auto);
+    gap: var(--gap);
+    width: 100%;
+    margin: 0 auto;
+  }
+
 
 #contenedorBotonesOjos{
     display: flex;
@@ -16,25 +26,29 @@ figure {
     position: relative;
     display: inline-block;
     border: 1px solid red;
-    column-span:all
+}
+#contenedorPrincipal .grid .columna{
+    padding-left: 30px;
 }
 
 #perro{
     position: relative;
-    width: 710px;
-    height: 424px;
+    width: 100%;
+    height: 60%;
 }
 
 #pupilaDerecha {
     position: absolute;
-    left: 265px;
-    top: 127px
+    left:calc(36.8%);
+    top:calc(30%);
+    width: 3.5%;
 }
 
 #pupilaIzquierda {
     position: absolute;
-    right: 230px;
-    top: 130px
+    left:calc(64%);
+    top:calc(31%);
+    width: 3.5%;
 }
 
 #contenedorImagenPerro {
@@ -43,10 +57,10 @@ figure {
 
 #linternaOjoIzquierdo {
     position:absolute;
-    height:120px;
-    width:120px;
-    top: 200px;
-    left : 500px;
+    width: 25%;
+    height: 25%;
+    top:calc(37%);
+    left:calc(66%);
     transform: rotate(45deg);
     display: none;
     z-index: 1;
@@ -54,10 +68,10 @@ figure {
 
 #linternaOjoDerecho {
     position:absolute;
-    height:120px;
-    width:120px;
-    top: 200px;
-    left : 180px;
+    width: 25%;
+    height: 25%;
+    top:calc(37%);
+    left:calc(13%);
     transform: rotate(135deg);
     display: none;
     z-index: 1;
