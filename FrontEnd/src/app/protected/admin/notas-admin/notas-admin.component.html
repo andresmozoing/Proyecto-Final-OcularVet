@@ -37,7 +37,7 @@
 
                     <swal #deleteSwal title="Eliminar nota de {{ nota.name}} {{ nota.surname }}?"
                       text="Esta acción no se puede deshacer." icon="warning"
-                      [swalOptions]="{ confirmButtonText: 'Confrimar' }" [showCancelButton]="true" [focusCancel]="true"
+                      [swalOptions]="{ confirmButtonText: 'Confirmar' , cancelButtonText:'Cancelar' }" [showCancelButton]="true" [focusCancel]="true"
                       (confirm)="eliminarNota(nota._id!)">
                     </swal>
                   </button>
