@@ -43,7 +43,7 @@
             <div class="card">
                 <div class="card-body">
                   <div>
-                    <button mat-raised-button color="primary" style="margin-right:8px" (click)="notas()"> Ir a Notas </button>
+                    <button mat-raised-button color="accent" style="margin-right:8px" (click)="notas()"> Ir a Notas </button>
                     <button mat-raised-button color="accent" (click)="usuarios()"> Ir a Admin Alumnos </button>
                   </div>
                     <!-- Profile Edit Form -->
@@ -51,27 +51,27 @@
                     
                     <div class="row mb-3">
                       <label for="name" class="col-md-4 col-lg-3 col-form-label">Cantidad de pacientes a diagnosticar</label>
-                      <div class="col-md-8 col-lg-9">
+                      <div class="col-md-8 col-lg-4">
                         <input name="cantidadPacientesADiagnosticar" type="number" formControlName="cantidadPacientesADiagnosticar" class="form-control" id="cantidadPacientesADiagnosticar" value="{{configuracionAdmin.cantidadPacientesADiagnosticar}}">
                       </div>
                     </div>
                     <div class="row mb-3">
                       <label for="surname" class="col-md-4 col-lg-3 col-form-label">Tiempo de respuesta para cada paciente: </label>
-                      <div class="col-md-8 col-lg-9">
+                      <div class="col-md-8 col-lg-4">
                         <input name="tiempoRespuesta" type="number" formControlName="tiempoRespuesta" class="form-control" id="tiempoRespuesta" value="{{configuracionAdmin.tiempoRespuesta}}">
                       </div>
                     </div>
 
                     <div class="row mb-3">
                       <label for="LU" class="col-md-4 col-lg-3 col-form-label">Código para registro de usuarios:</label>
-                      <div class="col-md-8 col-lg-9">
+                      <div class="col-md-8 col-lg-4">
                         <input name="codigoRegistro" type="number" class="form-control" id="codigoRegistro" value="{{configuracionAdmin.codigoRegistro}}">
                       </div>
                     </div>
 
                    
                     <div class="text-center">
-                      <button type="submit" [disabled]="!configAdminForm.valid" class="btn btn-primary">Cambiar Datos</button>
+                      <button type="submit" [disabled]="!configAdminForm.valid" mat-raised-button color="primary">Cambiar Datos</button>
                     </div>
                   </form><!-- End Profile Edit Form -->
                 </div>

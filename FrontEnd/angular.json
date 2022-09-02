@@ -35,7 +35,8 @@
               "src/assets/vendor/quill/quill.bubble.css",
               "src/assets/vendor/quill/quill.snow.css",
               "src/assets/vendor/remixicon/remixicon.css",
-              "src/assets/vendor/simple-datatables/style.css"
+              "src/assets/vendor/simple-datatables/style.css",
+              "./node_modules/animate.css/animate.min.css"
 
             ],
             "scripts": [
