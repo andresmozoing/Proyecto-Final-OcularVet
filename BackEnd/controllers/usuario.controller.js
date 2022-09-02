@@ -2,6 +2,9 @@ const ConfiguracionAdmin = require('../models/ConfiguracionAdmin');
 const { response } =  require('express');
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcryptjs');
+const controllerNota = require('../controllers/nota.controller');
+const Nota = require('../models/Nota');
+
 
 const obtenerUsuario = async (req,res = response) => {
     try {
@@ -178,7 +181,8 @@ const eliminarUsuario = async (req,res = response) => {
         console.log("Llego al eliminarUsuario, el header es " , _id);
         
         const user = await Usuario.findByIdAndDelete(_id)
-
+        
+        
         return res.json({
             ok: true,
             user

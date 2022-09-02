@@ -99,7 +99,7 @@ export class UsuarioService {
     const headers = new HttpHeaders()
       .set('_id', _id)
 
-    return this.http.delete(url, { headers })
+    return this.http.delete<User>(url, { headers })
       .pipe(
         tap(resp => {
           return resp

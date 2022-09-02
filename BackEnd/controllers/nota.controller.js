@@ -83,7 +83,7 @@ const obtenerNotas = async(req,res = response)=>{
             }
         }
 
-        console.log("ntoas es " , notas);
+        
 
         return res.status(201).json({
             ok: true,
@@ -112,7 +112,31 @@ const eliminarNota = async(req,res = response)=>{
     } catch (error) {
         return res.status(500).json({
             ok:false,
-            msg: 'Por favor hable con su administrador. Error en el controlador de crearNota'
+            msg: 'Por favor hable con su administrador. Error en el controlador de eliminarNota'
+        })
+    }
+};
+const eliminarNotasUsuario = async(req,res = response)=>{
+    try {
+        console.log("Llego al controller de eliminarNotasUsuario");
+        console.log("El LU es " , req.header('LU') )
+
+        const LU = req.header('LU')
+        notas = await Nota.find({ LU : LU });
+
+        console.log("NOTAS TIENE:",notas);
+        notas.forEach(async e => { 
+            await Nota.findByIdAndDelete(e._id)
+        });
+
+        return res.status(201).json({
+            ok: true
+        })
+        
+    } catch (error) {
+        return res.status(500).json({
+            ok:false,
+            msg: 'Por favor hable con su administrador. Error en el controlador de eliminarNotasUsuario'
         })
     }
 };
@@ -120,5 +144,6 @@ const eliminarNota = async(req,res = response)=>{
 module.exports = {
     crearNota,
     obtenerNotas,
-    eliminarNota
+    eliminarNota,
+    eliminarNotasUsuario
 }
