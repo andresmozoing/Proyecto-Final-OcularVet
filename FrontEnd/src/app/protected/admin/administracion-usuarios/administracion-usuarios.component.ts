@@ -7,6 +7,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { UsuarioService } from '../../services/usuario.service';
 import { User } from '../../interfaces/Usuario';
 import { Usuario } from '../../../auth/interfaces/interfaces';
+import { NotaService } from '../../services/nota.service';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class AdministracionUsuariosComponent {
 
   constructor( private authservice: AuthService,
     private usuarioService : UsuarioService,
+    private notaService : NotaService
     ) {}
     
     @ViewChild(MatSort) sort!: MatSort;
@@ -39,12 +41,26 @@ export class AdministracionUsuariosComponent {
   }
 
   eliminarUsuario(_id: string){
-    console.log("entro a eliminar ussuario, id:",_id);
+    console.log("entro a eliminar usuario, id:",_id);
     
     
     this.usuarioService.eliminarUsuario(_id).subscribe(
       (resp)=>{
         console.log("Retorno, resp:", resp);
+        if (resp.ok){
+          console.log(2232);
+          
+          this.notaService.eliminarNotasUsuario
+            (resp.user.LU).subscribe(
+            resp=>{
+              if(resp.ok){
+                console.log("Se eliminaron las notas del usuario eliminado correctamente");
+              }else{
+                console.log("Error al eliminar notas de usuario");
+              }
+            }
+          )
+        }
         console.log();
         
         this.obtenerUsuarios();

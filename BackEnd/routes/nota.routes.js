@@ -24,4 +24,6 @@ router.get('/obtenerNotas', controllerNota.obtenerNotas)
 
 router.delete('/eliminarNota',controllerNota.eliminarNota )
 
+router.delete('/eliminarNotasUsuario',controllerNota.eliminarNotasUsuario )
+
 module.exports = router;
