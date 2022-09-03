@@ -1,12 +1,15 @@
+//Imports de Angular
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from 'src/app/auth/services/auth.service';
-
-import { UntypedFormControl, UntypedFormGroup, NgForm } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import Swal from 'sweetalert2';
-import { UsuarioService } from '../services/usuario.service';
 
+//Imports librerias de 3ros
+import Swal from 'sweetalert2';
+
+//Imports Servicios propios
+import { UsuarioService } from '../services/usuario.service';
+import { NotaService } from '../services/nota.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 
 @Component({
@@ -17,7 +20,8 @@ import { UsuarioService } from '../services/usuario.service';
 export class PerfilComponent {
 
   constructor(private authservice: AuthService,
-    private usuarioService: UsuarioService) { }
+    private usuarioService: UsuarioService,
+    private notaService: NotaService) { }
 
   get usuario() {
     return this.authservice.usuario;
@@ -44,7 +48,17 @@ export class PerfilComponent {
       this.perfilForm.value.email
     ).subscribe(resp => {
       if (resp.ok === true) {
+        //Modificamos el nombre y apellido en las notas del usuario
+        if (this.authservice.usuario.name !== this.perfilForm.value.name 
+            || this.authservice.usuario.surname !== this.perfilForm.value.surname){
+              this.notaService.modificarNombre_y_apellido(this.authservice.usuario.LU,this.perfilForm.value.name,this.perfilForm.value.surname)
+                .subscribe(()=>{
+                  console.log("TERMINO DE MODIFICAR ");
+                })
+            }
+        //Modificamos el _usuario del authService
         this.authservice.editUsuario(this.perfilForm.value.name, this.perfilForm.value.surname, this.perfilForm.value.email);
+        
         Swal.fire('Usuario modificado', '', 'success');
       }
       else {

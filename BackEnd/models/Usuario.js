@@ -26,6 +26,11 @@ const UsuarioSchema = Schema({
     isAdmin:{
         type: Boolean,
         required: true
+    },
+    fechaAlta:{
+        type: Date,
+        required: true,
+        default: Date.now
     }
 })
 
