@@ -3,41 +3,6 @@ const { response } =  require('express');
 const Nota = require('../models/Nota');
 const Usuario = require('../models/Usuario');
 
-const crearNota = async(req,res = response)=>{
-
-    try {
-        console.log("Llego al controller de crearNota");
-        console.log("El body es " , req.body )
-        //Verificar que exista el LU
-        const usuarioLU = await Usuario.findOne({LU: req.body.LU});
-        if (!usuarioLU){
-            return res.status(400).json({
-                ok: false,
-                msg: ' No existe un usuario con el LU ingresado'
-            });
-        }
-
-        //Crear nota con el modelo
-        const dbNota = new Nota(req.body);        
-        console.log('nota es ' , dbNota)
-
-        // Guardar en BD
-        await dbNota.save();
-        console.log('pudo guardar ' , dbNota)
-
-        return res.status(201).json({
-            ok: true,
-            notas : [dbNota]
-        })
-
-    } catch (error) {
-        return res.status(500).json({
-            ok:false,
-            msg: 'Por favor hable con su administrador. Error en el controlador de crearNota'
-        })
-    }
-};
-
 const obtenerNotas = async(req,res = response)=>{
     const LU = req.header('LU');
     const anio = req.header('anio');
@@ -98,6 +63,67 @@ const obtenerNotas = async(req,res = response)=>{
     }
 };
 
+
+const crearNota = async(req,res = response)=>{
+    
+    try {
+        console.log("Llego al controller de crearNota");
+        console.log("El body es " , req.body )
+        
+        //Verificar que exista el LU
+        const usuarioLU = await Usuario.findOne({LU: req.body.LU});
+        if (!usuarioLU){
+            return res.status(400).json({
+                ok: false,
+                msg: ' No existe un usuario con el LU ingresado'
+            });
+        }
+
+        //Crear nota con el modelo
+        const dbNota = new Nota(req.body);        
+        console.log('nota es ' , dbNota)
+
+        // Guardar en BD
+        await dbNota.save();
+        console.log('pudo guardar ' , dbNota)
+
+        return res.status(201).json({
+            ok: true,
+            notas : [dbNota]
+        })
+
+    } catch (error) {
+        return res.status(500).json({
+            ok:false,
+            msg: 'Por favor hable con su administrador. Error en el controlador de crearNota'
+        })
+    }
+};
+
+const modificarNombre_y_apellido = async (req,res = response) => {
+    try {
+        console.log("Llego al modificarNombre_y_apellido, el body es ", req.body);
+
+        const nota = await Nota.updateMany(
+                                {LU : req.body.LU},
+                                {name : req.body.name,
+                                 surname: req.body.surname
+                                })
+
+        return res.json({
+            ok: true,
+            nota
+       })
+    }
+    catch (error) {
+        return res.status(500).json({
+            ok:false,
+            msg: 'Error en el controlador de modificarNombre_y_apellido. ' + error,
+            error: 'El error es ' + error
+        })
+    }
+} //Fin modificarNota()
+
 const eliminarNota = async(req,res = response)=>{
     try {
         console.log("Llego al controller de borrarNota");
@@ -116,6 +142,8 @@ const eliminarNota = async(req,res = response)=>{
         })
     }
 };
+
+
 const eliminarNotasUsuario = async(req,res = response)=>{
     try {
         console.log("Llego al controller de eliminarNotasUsuario");
@@ -144,6 +172,7 @@ const eliminarNotasUsuario = async(req,res = response)=>{
 module.exports = {
     crearNota,
     obtenerNotas,
+    modificarNombre_y_apellido,
     eliminarNota,
     eliminarNotasUsuario
 }

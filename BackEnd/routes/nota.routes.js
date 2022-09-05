@@ -7,7 +7,7 @@ const { validarCampos } = require('../middlewares/validar-campos');
 const router = Router();
 
 //Guardar Nota
-router.put('/crearNota' 
+router.post('/crearNota' 
     // , [
     // check('rtasCorrectas','rtasCorrectas debe ser un numero válido').isNumeric,
     // check('cantidadPreguntas','cantidadPreguntas debe ser un numero válido').isNumeric,
@@ -21,6 +21,8 @@ router.put('/crearNota'
 
 //Obtener las notas
 router.get('/obtenerNotas', controllerNota.obtenerNotas)
+
+router.put('/modificarNombre_y_apellido', controllerNota.modificarNombre_y_apellido)
 
 router.delete('/eliminarNota',controllerNota.eliminarNota )
 

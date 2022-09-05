@@ -80,7 +80,6 @@ const modificarUsuario = async (req,res = response) => {
                                  surname: req.body.surname,
                                  email: req.body.email})
 
-        console.log("paso el updateOne y va a devolver ", user);
         return res.json({
             ok: true,
             user

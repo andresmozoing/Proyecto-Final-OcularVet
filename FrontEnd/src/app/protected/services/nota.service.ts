@@ -20,7 +20,6 @@ export class NotaService {
   obtenerNotas():Observable<NotaResponse>{
     const url = `${this.baseUrl}/nota/obtenerNotas`
     
-    
     return this.http.get<NotaResponse>(url)
     .pipe(
       tap( resp => {
@@ -32,6 +31,7 @@ export class NotaService {
       catchError(err => of(err.error.msg)) //si el resp tiene un status q no es el 200, captura el error. Sino, lo deja pasar y no hace nada este operador 
       );
   }
+
   obtenerNotasUsuario(_id:string, LU:Number):Observable<NotaResponse>{
     const url = `${this.baseUrl}/nota/obtenerNotas`
     const body= { LU};
@@ -54,9 +54,9 @@ export class NotaService {
 
   crearNota ( rtasCorrectas: number, cantidadPreguntas:number, LU: number, calificacion:number, name:String, surname: String){
     const url = `${this.baseUrl}/nota/crearNota`
-    const body = {LU,cantidadPreguntas,rtasCorrectas,name, surname,fecha : Date.now(),calificacion}
+    const body = {LU,cantidadPreguntas,rtasCorrectas,name, surname,calificacion}
 
-    return this.http.put<NotaResponse>(url, body)
+    return this.http.post<NotaResponse>(url, body)
       .pipe(
         tap( (resp) => { 
           if (resp.ok){
@@ -66,6 +66,21 @@ export class NotaService {
         catchError(err => of(err.error.msg)) 
         )
       
+  }
+
+  modificarNombre_y_apellido(LU: number , name: string , surname : string){
+    const url = `${this.baseUrl}/nota/modificarNombre_y_apellido`
+    const body = {LU,name, surname}
+
+    return this.http.put<NotaResponse>(url, body)
+      .pipe(
+        tap( (resp) => { 
+          if (resp.ok){
+            console.log("Modifico el nombre y apellido de la nota en la base de datos")
+          }
+        }),
+        catchError(err => of(err.error.msg)) 
+        )
   }
 
   eliminarNota(_id : String){

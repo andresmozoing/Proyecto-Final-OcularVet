@@ -82,9 +82,6 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   @ViewChild('autoevalucionFinalizadaSwal')
   public readonly autoevalucionFinalizadaSwal!: SwalComponent;
 
-  // @ViewChild( 'timer', { static: true } ) 
-  // public readonly timer!: CdTimerComponent ;
-
   iniciarTemporizador() {
     if (this.tiempoRespuesta > 0) {
       this.temporizador = this.tiempoRespuesta
@@ -119,8 +116,6 @@ export class EjercicioComponent implements OnInit, OnDestroy {
     }
   }
 
-
-
   comenzarEjercicio() {
     try {
       this.diagnosticoService.obtenerTodosLosDiagnosticos()
@@ -147,7 +142,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
       this.diagnosticoActual = this.obtenerProximoDiagnostico()
       //this.formularioPaciente.controls['respuestaElegida'].reset()
       this.iniciarTemporizador()
-      //this.timer.start()
+
     }
     else { //Si ya terminó
       this.autoevalucionFinalizadaSwal.fire()

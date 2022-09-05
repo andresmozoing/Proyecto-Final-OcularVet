@@ -11,7 +11,7 @@ export interface User {
     LU ?: number;
     email ?: string;
     msg?: string;
-    isAdmin:boolean,
-    fechaAlta?:Date
+    isAdmin:boolean;
+    fechaAlta:Date;
 }
 
