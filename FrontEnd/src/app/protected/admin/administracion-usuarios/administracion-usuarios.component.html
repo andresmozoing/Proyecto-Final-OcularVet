@@ -15,6 +15,10 @@
 
 
                 <div class="card-body">
+                    <input type="text" id="myInput" oninput="buscarApellido()" placeholder="Buscar por apellido.." title="Type in a name">
+                    <button type="button" name="searchButton" class="btn btn-primary" (click)="buscarApellido()">
+                        <i class="bi-search "></i>  
+                    </button>
                     <table id="myTable2">
                         <thead align="center">
                             <th role="button" scope="col" (click)='sortTabla("LUAsc")'> LU </th>
@@ -25,8 +29,8 @@
                             <th scope="col"> Reiniciar <br> contraseña </th>
                             <th scope="col"> Eliminar </th>
                         </thead>
-                        <tbody align="center">
-                            <tr *ngFor="let usuario of usuarios">
+                        <tbody id="tbody" align="center">
+                            <tr *ngFor="let usuario of usuariosFiltrados">
                                 <th scope="row"> {{usuario.LU}} </th>
                                 <td>{{ usuario.name }}</td>
                                 <td>{{ usuario.surname }}</td>

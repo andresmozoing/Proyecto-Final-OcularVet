@@ -18,7 +18,9 @@ export class AdministracionUsuariosComponent {
 
 
   usuarios: User[] =[] ;
+  usuariosFiltrados: User[] =[] ;
   ordenTabla :string= "";
+  ordenActual="LUAsc"
 
   constructor( private authservice: AuthService,
     private usuarioService : UsuarioService,
@@ -35,16 +37,17 @@ export class AdministracionUsuariosComponent {
       console.log("RESPUESTA de usuarios :", resp);
       
       this.usuarios = resp.users;
-      this.usuarios.sort((a,b)=> a.LU! - b.LU!)
+      this.usuariosFiltrados = this.usuarios
+      this.sortTabla(this.ordenActual)
       this.ordenTabla="LUAsc";
     });
   }
 
-  eliminarUsuario(_id: string){
+  async eliminarUsuario(_id: string){
     console.log("entro a eliminar usuario, id:",_id);
     
     
-    this.usuarioService.eliminarUsuario(_id).subscribe(
+    await this.usuarioService.eliminarUsuario(_id).subscribe(
       (resp)=>{
         console.log("Retorno, resp:", resp);
         if (resp.ok){
@@ -66,6 +69,7 @@ export class AdministracionUsuariosComponent {
         this.obtenerUsuarios();
       }
     );
+    this.sortTabla(this.ordenTabla)
   }
   reiniciarPassword(_id: string){
     console.log("entro a reiniciar Password, id:",_id);
@@ -79,93 +83,98 @@ export class AdministracionUsuariosComponent {
     );
   }
   
-  sortTabla( orden:string) {
-    console.log("ORDEN: ",orden, " oRDEN TABLA:", this.ordenTabla);
-    
-    if(orden === this.ordenTabla){
-      switch( orden ){
-        case 'LUAsc':
-          this.usuarios.sort((a,b)=> b.LU! - a.LU!);
-          this.ordenTabla = 'LUDsc';
-          break
-        case 'nameAsc':
-          this.usuarios.sort((a, b)=>{
-            var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
-            if (nameA < nameB)
-              return 1 ;
-            if (nameA > nameB)
-              return -1 ;
-            return 0;
-           });
-           this.ordenTabla = 'nameDsc';
-           break
-        case 'surnameAsc':
-          this.usuarios.sort((a, b) => {
-            var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
-            if (surnameA < surnameB)
-              return 1;
-            if (surnameA > surnameB)
-              return -1;
-            return 0;
-           });
-           this.ordenTabla = 'emailDsc';
-           break
-        case 'emailAsc':
-          this.usuarios.sort((a, b) => {
-            var emailA = a.email!.toLowerCase(), emailB = b.email!.toLowerCase();
-            if (emailA < emailB)
-              return 1;
-            if (emailA > emailB)
-              return -1;
-            return 0;
-           });
-           this.ordenTabla = 'emailDsc';
-           break
+  sortTabla( ordenNuevo:string, recarga : boolean = false) {
+    if (recarga){ 
+      //Cuando eliminamos una nota queremos que mantenga el orden
+      this.ordenActual="";
+    }
+    if (ordenNuevo === this.ordenActual) {  //Significa que selecciono dos veces el mismo, cambiamos de Dsc a Asc
+      if(this.ordenActual.includes("Asc")){
+        ordenNuevo = ordenNuevo.replace("Asc","Dsc") 
       }
-    } else{
-      switch( orden ){
-        case 'LUAsc':
-          this.usuarios.sort((a,b)=> a.LU! - b.LU!);
-          this.ordenTabla = 'LUAsc';
-          break
-        case 'nameAsc':
-          this.usuarios.sort((a, b)=>{
-            var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
-            if (nameA < nameB)
-              return -1 ;
-            if (nameA > nameB)
-              return 1 ;
-            return 0;
-           });
-           this.ordenTabla = 'nameAsc';
-           break
-        case 'surnameAsc':
-          this.usuarios.sort((a, b) => {
-            var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
-            if (surnameA < surnameB)
-              return -1;
-            if (surnameA > surnameB)
-              return 1;
-            return 0;
-           });
-           this.ordenTabla = 'surnameAsc';
-           break
-        case 'emailAsc':
-          this.usuarios.sort((a, b) => {
-            var emailA = a.email!.toLowerCase(), emailB = b.email!.toLowerCase();
-            if (emailA < emailB)
-              return -1;
-            if (emailA > emailB)
-              return 1;
-            return 0;
-           });
-           this.ordenTabla = 'emailAsc';
-           break
-      }
+    }  
+    this.ordenActual = ordenNuevo //Actualizamos el ordenActual
+    switch (ordenNuevo) { 
+      //Descendentes
+      case 'LUDsc':
+        this.usuarios.sort((a, b) => b.LU! - a.LU!);
+        break
+      case 'nameDsc':
+        this.usuarios.sort((a, b) => {
+          var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
+          if (nameA < nameB)
+            return 1;
+          if (nameA > nameB)
+            return -1;
+          return 0;
+        });
+        break
+      case 'surnameDsc':
+      case 'emailDsc':
+        this.usuarios.sort((a, b) => {
+          var emailA = a.email!.toLowerCase(), emailB = b.email!.toLowerCase();
+          if (emailA < emailB)
+            return 1;
+          if (emailA > emailB)
+            return -1;
+          return 0;
+        });
+        break
+      //Ascendentes
+      case 'LUAsc':
+        this.usuarios.sort((a, b) => a.LU! - b.LU!);
+        break
+      case 'nameAsc':
+        this.usuarios.sort((a, b) => {
+          var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
+          if (nameA < nameB)
+            return -1;
+          if (nameA > nameB)
+            return 1;
+          return 0;
+        });
+        break
+      case 'surnameAsc':
+        this.usuarios.sort((a, b) => {
+          var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
+          if (surnameA < surnameB)
+            return -1;
+          if (surnameA > surnameB)
+            return 1;
+          return 0;
+        });
+        break
+      case 'emailAsc':
+        this.usuarios.sort((a, b) => {
+          var emailA = a.email!.toLowerCase(), emailB = b.email!.toLowerCase();
+          if (emailA < emailB)
+            return -1;
+          if (emailA > emailB)
+            return 1;
+          return 0;
+        });
+        break
+          
     }
 
+    this.buscarApellido();
   }
+  
+  buscarApellido() {
+    const input = <HTMLInputElement>document.getElementById("myInput");
+    this.usuariosFiltrados = this.usuarios.filter(function(user){
+      if (user.surname?.toUpperCase().indexOf(input.value.toUpperCase())! > -1){
+        return true
+      }
+      return false;
+    })
+    console.log("USuarios filtred", this.usuariosFiltrados);
+    
+  }
+}
 
   
-}  
-
+  
+  
+  
+  
