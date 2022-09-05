@@ -77,8 +77,13 @@ export class AdministracionUsuariosComponent {
     
     this.usuarioService.reiniciarPassword(_id,"123456").subscribe(
       (resp)=>{
-        console.log("Retorno, resp:", resp);        
-        this.obtenerUsuarios();
+        if (resp.ok)
+          console.log("Retorno de reiniciar Password, resp:", resp);        
+        else
+          console.log("ERROR",resp.console.error());
+          
+          
+          
       }
     );
   }
@@ -162,7 +167,7 @@ export class AdministracionUsuariosComponent {
   
   buscarApellido() {
     const input = <HTMLInputElement>document.getElementById("myInput");
-    this.usuariosFiltrados = this.usuarios.filter(function(user){
+    this.usuariosFiltrados = this.usuarios.filter(function(user:User){
       if (user.surname?.toUpperCase().indexOf(input.value.toUpperCase())! > -1){
         return true
       }

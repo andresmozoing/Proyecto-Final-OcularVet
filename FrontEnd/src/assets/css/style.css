@@ -53,6 +53,9 @@ h6 {
     padding: 20px;
   }
 }
+button:disabled {
+  color:green
+}
 
 /*--------------------------------------------------------------
 # Page Title
