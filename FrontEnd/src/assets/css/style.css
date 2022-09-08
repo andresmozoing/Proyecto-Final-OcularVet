@@ -53,10 +53,29 @@ h6 {
     padding: 20px;
   }
 }
-button:disabled {
-  color:green
+.btn-primary{
+  color: white;
+  background: #7b1fa2;
+  border-color: #7b1fa2;
+}
+.btn-info{
+  color: white;
+  background: #4e94c7
+  ;
+  border-color: #4e94c7;
+}
+.btn-info:disabled{
+  color: white;
+  background: #73bde2;
 }
 
+.btn-primary:disabled {
+  /*css declaration to make 
+  font-color of disable input
+  black*/
+  background-color: #7b1fa2;
+  border-color: #7b1fa2;
+}
 /*--------------------------------------------------------------
 # Page Title
 --------------------------------------------------------------*/
