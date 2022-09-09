@@ -43,8 +43,7 @@
             <div class="card">
                 <div class="card-body">
                     <div>
-                        <button *ngIf=" diagnosticosPosibles.length < 1" (click)="comenzarEjercicio()" mat-raised-button
-                            color="primary">
+                        <button *ngIf=" diagnosticosPosibles.length < 1" (click)="comenzarEjercicio()" class="btn btn-primary">
                             Comenzar ejercicio
                         </button>
                     </div>
@@ -53,19 +52,19 @@
                     <div class="grid" id="contenedorPrincipal" *ngIf=" diagnosticoActual !== undefined">
                         <div class="columna">
                             <div id="contenedorBotonesOjos" >
-                                <button (click)="iluminarOjoDerecho()" id="botonIluminarOjoDerecho" style="margin: 3px"
+                                <button (click)="iluminarOjoDerecho()" id="botonIluminarOjoDerecho"
                                     class="btn btn-info"
                                     style="margin:auto">
                                     Iluminar ojo derecho
                                 </button>
                                 <button (click)="iluminarOjoIzquierdo()" id="botonIluminarOjoIzquierdo"
-                                    style="margin: 3px" class="btn btn-info" style="margin:auto">
+                                    class="btn btn-info" style="margin:auto">
                                     Iluminar ojo izquierdo
                                 </button>
                             </div>
                             <div id="contenedorImagenPerro">
-                                <figure>
-                                    <img src="../../../assets/images/perroSinPupilas.jpeg" id="perro">
+                                <figure >
+                                    <img src="../../../assets/images/perroSinPupilas.jpeg" id="perro" >
                                     <img src="../../../assets/images/pupilaDerecha.png" id="pupilaDerecha">
                                     <img src="../../../assets/images/pupilaIzquierada.png" id="pupilaIzquierda">
                                     <img src="../../../assets/images/flashlight2sinFondo.png" id="linternaOjoIzquierdo">
@@ -90,7 +89,7 @@
                                 </div>
 
 
-                                <button type="submit" mat-raised-button color="primary">
+                                <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-eye-fill"></i> Siguiente paciente
                                 </button>
                             </form>

@@ -232,8 +232,13 @@ export class EjercicioComponent implements OnInit, OnDestroy {
     //Mostramos la linterna por 4 segundos
     const linternaOjoDerecho = document.getElementById('linternaOjoDerecho')!;
     linternaOjoDerecho.style.display = 'block';
+
+    const perro = document.getElementById('perro')!;
+    // perro.style.filter = 'sepia(30%)';
+
     let timerLinternaDerecha = setTimeout(() => {
       linternaOjoDerecho.style.display = 'none';
+      perro.style.filter = '';
       clearInterval(timerLinternaDerecha)
     }, 4000);
 
