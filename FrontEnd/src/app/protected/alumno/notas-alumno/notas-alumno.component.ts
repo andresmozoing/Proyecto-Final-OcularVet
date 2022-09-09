@@ -68,6 +68,15 @@ export class NotasAlumnoComponent implements AfterViewInit {
           return 0;
         });
         break
+      case 'fechaDsc':
+        this.notas.sort(function(a, b)  {
+          if (a.fecha < b.fecha)
+            return 1
+          if (a.fecha > b.fecha)
+            return -1;
+          return 0;
+        });
+        break    
       case 'rtasCorrectasDsc':
         this.notas.sort((a, b) => b.rtasCorrectas! - a.rtasCorrectas!);
         break
@@ -98,6 +107,17 @@ export class NotasAlumnoComponent implements AfterViewInit {
           if (surnameA < surnameB)
             return -1;
           if (surnameA > surnameB)
+            return 1;
+          return 0;
+        });
+        break
+      case 'fechaAsc':
+        console.log("A  ");
+        this.notas.sort((a, b) =>{
+          if (a.fecha < b.fecha){
+            return -1
+          }
+          if (a.fecha > b.fecha)
             return 1;
           return 0;
         });

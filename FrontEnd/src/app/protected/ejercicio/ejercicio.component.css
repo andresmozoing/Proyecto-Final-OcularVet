@@ -42,7 +42,9 @@ figure {
     
 }
 #perro:hover{
-    filter: saturate(18%)
+     
+    /* filter: hue-rotate(80deg) */
+
 }
 
 #pupilaDerecha {
