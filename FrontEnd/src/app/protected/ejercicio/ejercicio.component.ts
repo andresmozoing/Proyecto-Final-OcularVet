@@ -11,6 +11,7 @@ import { DiagnosticoService } from '../services/diagnostico.service';
 import { UsuarioService } from '../services/usuario.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { NotaService } from '../services/nota.service';
+import { provideProtractorTestingSupport } from '@angular/platform-browser';
 
 // import { CdTimerComponent } from 'angular-cd-timer';
 
@@ -28,6 +29,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
     private router: Router) {
 
   }
+  
 
   ngOnInit(): void {
     console.log("entro al ng on init");
@@ -141,6 +143,28 @@ export class EjercicioComponent implements OnInit, OnDestroy {
     if (this.cantPacientesADiagnosticar !== this.cantPacientesRespondidos) { //Si no terminó
       this.diagnosticoActual = this.obtenerProximoDiagnostico()
       //this.formularioPaciente.controls['respuestaElegida'].reset()
+      const aleatorio:number = Math.floor(Math.random() * 5);
+      switch(aleatorio){
+        case 1:
+          console.log("100 gray");
+          this.cambiarColorPerro(100,0,0,100)
+          break
+        case 2:
+          console.log("160 saturate");
+          this.cambiarColorPerro(0,160,0,90)
+          break
+        case 3:
+          console.log("60 SEPIA");
+          this.cambiarColorPerro(0,0,60,100)
+          break
+        case 4:
+          console.log("SEPIA");          
+          this.cambiarColorPerro(0,0,60,100)
+          break
+        default:
+          this.cambiarColorPerro(0,100,0,100)
+          break
+      }
       this.iniciarTemporizador()
 
     }
@@ -150,11 +174,9 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   }
 
   crearNota() {
-    const LU = this.authService.usuario.LU
+    const {LU,name, surname} = this.authService.usuario
     const cantidadPreguntas = this.cantPacientesADiagnosticar
     const rtasCorrectas = this.cantRespuestasCorrectas
-    const name = this.authService.usuario.name
-    const surname = this.authService.usuario.surname
     let calificacion = 0
     if (cantidadPreguntas !== 0) {
       calificacion = rtasCorrectas / cantidadPreguntas
@@ -176,14 +198,6 @@ export class EjercicioComponent implements OnInit, OnDestroy {
         }
       })
   }
-
-
-
-
-
-
-
-
 
   obtenerProximoDiagnostico(): Diagnostico {
     let limiteRandom = 1000
@@ -233,12 +247,11 @@ export class EjercicioComponent implements OnInit, OnDestroy {
     const linternaOjoDerecho = document.getElementById('linternaOjoDerecho')!;
     linternaOjoDerecho.style.display = 'block';
 
-    const perro = document.getElementById('perro')!;
     // perro.style.filter = 'sepia(30%)';
 
     let timerLinternaDerecha = setTimeout(() => {
       linternaOjoDerecho.style.display = 'none';
-      perro.style.filter = '';
+      // perro.style.filter = '';
       clearInterval(timerLinternaDerecha)
     }, 4000);
 
@@ -316,6 +329,13 @@ export class EjercicioComponent implements OnInit, OnDestroy {
       }, 4000)
   }
 
+  cambiarColorPerro(grayscale: number, saturate: number, sepia: number, contrast: number){
+    const perro = document.getElementById('perro')!;
+    perro.style.filter = `grayscale(${grayscale}%) 
+                          saturate(${saturate}%)
+                          sepia(${sepia}%)
+                          contrast(${contrast}%)`
+  }
 
 
 }
