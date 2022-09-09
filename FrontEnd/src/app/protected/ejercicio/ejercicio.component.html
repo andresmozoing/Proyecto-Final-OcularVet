@@ -76,8 +76,8 @@
                         <div class="columna">
                             <h3>Tiempo restante: {{temporizador}}</h3>
 
-                            <h4 *ngIf=" diagnosticoActual !== undefined">Diagnostico actual :
-                                {{diagnosticoActual.descripcion}}</h4>
+                            <!-- <h4 *ngIf=" diagnosticoActual !== undefined">Diagnostico actual :
+                                {{diagnosticoActual.descripcion}}</h4> -->
 
                             <form [formGroup]="formularioPaciente" (ngSubmit)="diagnosticar()">
                                 <div *ngFor=" let diag of diagnosticosPosibles" class="form-check">
@@ -94,9 +94,8 @@
                                 </button>
                             </form>
 
-                            <p>Cantidad de pacientes a diagnosticar en total: {{cantPacientesADiagnosticar}}</p>
-                            <p>Cantidad de respuestas correctas: {{cantRespuestasCorrectas}}</p>
-                            <p>Cantidad de pacientes diagnosticados: {{cantPacientesRespondidos}}</p>
+                            <p>Cantidad de pacientes diagnosticados: <strong> {{cantPacientesRespondidos}} / {{cantPacientesADiagnosticar}} </strong></p>
+                            <p>Cantidad de respuestas correctas: <strong>{{cantRespuestasCorrectas}}</strong></p>
 
                         </div> <!--  fin columna de cuestionario -->
 

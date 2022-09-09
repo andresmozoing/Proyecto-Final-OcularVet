@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 import { AuthResponse, Usuario } from '../interfaces/interfaces';
 import { catchError, map, tap } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
-import { EmailValidator } from '@angular/forms';
+import { AbstractControl, EmailValidator, ValidationErrors } from '@angular/forms';
 import { UsuarioService } from '../../protected/services/usuario.service';
 
 @Injectable({
@@ -99,5 +99,23 @@ export class AuthService {
 
   cargarDatosConfigAdmin(){
     this.usuarioService.obtenerConfigAdmin
+  }
+
+  camposIguales( campo1: string, campo2: string ) {
+    //Retorna una funcion para que pueda ser llamada cuando se ejecuta la validación
+    return ( formGroup: AbstractControl ): ValidationErrors | null => {
+
+      //Tomamos la info de los campos del formulario
+      const pass1 = formGroup.get(campo1)?.value;
+      const pass2 = formGroup.get(campo2)?.value;
+
+      if ( pass1 !== pass2 ) {
+        formGroup.get(campo2)?.setErrors({ noIguales: true }); //Le seteo el error al campo para que se muestre en ESE campo y no en otro.
+        return { noIguales: true }
+      } 
+      formGroup.get(campo2)?.setErrors(null); //Cuando sean iguales, le saco el error
+      return null
+    }
+
   }
 }
