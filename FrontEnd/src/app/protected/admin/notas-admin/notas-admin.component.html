@@ -48,6 +48,25 @@
             </tbody>
           </table>
 
+
+          <!-- <canvas baseChart
+            [type]="'pie'"
+            [datasets]="pieChartDatasets"
+            [labels]="pieChartLabels"
+            [options]="pieChartOptions"
+            
+            [legend]=true>
+          </canvas> -->
+
+          <div #contenedorDatos style="width: 400px; height: 400px;">
+            <div class="col">
+              <canvas id="canvasChartPie">{{chartPie}}</canvas>
+            </div>
+            <div class="col">
+              <canvas id="canvasChartBar">{{chartBar}}</canvas>
+            </div>
+          </div>
+          
         </div>
 
       </div>

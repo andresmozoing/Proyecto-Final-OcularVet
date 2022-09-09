@@ -5,6 +5,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { FormsModule ,  ReactiveFormsModule} from '@angular/forms';
 
+//Modulos de 3ros
+import { NgChartsModule } from 'ng2-charts';
+
 //Modulos propios:
 import { AdminRoutingModule } from './admin-routing.module';
 
@@ -29,7 +32,8 @@ import { MatButtonModule } from '@angular/material/button';
     SweetAlert2Module,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgChartsModule
   ]
 })
 export class AdminModule { }

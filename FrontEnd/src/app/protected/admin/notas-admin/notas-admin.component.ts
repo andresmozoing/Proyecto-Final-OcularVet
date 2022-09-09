@@ -1,16 +1,20 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { NotaService } from '../../services/nota.service';
 import { Nota } from '../../interfaces/Nota';
-
-
+import {ChartOptions} from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 
 @Component({
   selector: 'app-notas-admin',
   templateUrl: './notas-admin.component.html'
 })
 export class NotasAdminComponent{
+
   notas!: Nota[];
   ordenActual: string = "LUAsc";
+  chartPie: any = [];
+  chartBar: any = [];
+
 
   constructor(
     private notaService: NotaService) { }
@@ -19,11 +23,64 @@ export class NotasAdminComponent{
     this.notasAlumno();
   }
 
+  setearGraficos(){
+    let cantidad_0_40 = 0
+    let cantidad_40_70 = 0
+    let cantidad_70_100 = 0
+    let arregloCantidadNotas : number [] = []
+    this.notas.forEach(nota => {
+      if (nota.calificacion < 40){ cantidad_0_40 = cantidad_0_40 + 1;}
+      else{
+        if (nota.calificacion < 70){ cantidad_40_70 = cantidad_40_70 + 1}
+        else{cantidad_70_100 = cantidad_70_100 + 1}
+      }
+    });
+
+    arregloCantidadNotas.push(cantidad_0_40,cantidad_40_70,cantidad_70_100)
+
+    this.chartPie = new Chart('canvasChartPie', {
+        type: 'pie',
+        data: {
+          labels: [ [ '0-40' ], [ '40-70' ], '70-100' ],
+          datasets: [
+            {
+              data: arregloCantidadNotas,
+              label: 'Notas',
+              borderWidth: 3,
+            },
+          ],
+        },
+      });
+
+    this.chartBar = new Chart('canvasChartBar', {
+      type: 'bar',
+      data: {
+        labels: [ [ '0-40' ], [ '40-70' ], '70-100' ],
+        datasets: [
+          {
+            data: arregloCantidadNotas,
+            label: 'Notas',
+            borderWidth: 3,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+    
+
+  }
+
   notasAlumno() {
     return this.notaService.obtenerNotas().subscribe((resp) => {
       // obtengo las notas y actualizo el contenido de mi tabla
       this.notas = resp.notas;
-      
+      this.setearGraficos()
     });
   }
 
