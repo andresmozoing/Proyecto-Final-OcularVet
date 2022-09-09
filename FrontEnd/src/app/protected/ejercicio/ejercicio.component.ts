@@ -109,7 +109,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
     if (this.temporizador === 0) {
       this.cantPacientesRespondidos++
       clearInterval(this.intervalo)
-      this.tiempoTerminadoSwal.fire()
+      this.tiempoTerminadoSwal.fire() //TODO: DAWDWAD
     }
     else {
       this.doCountdown()
