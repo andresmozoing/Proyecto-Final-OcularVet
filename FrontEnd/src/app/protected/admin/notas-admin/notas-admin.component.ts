@@ -46,6 +46,8 @@ export class NotasAdminComponent{
         ordenNuevo = ordenNuevo.replace("Asc","Dsc") 
       }
     }  
+    console.log("orden nuevo:",ordenNuevo," y el actual:",this.ordenActual);
+    
     this.ordenActual = ordenNuevo //Actualizamos el ordenActual
     switch (ordenNuevo) { 
       //Descendentes
@@ -63,15 +65,24 @@ export class NotasAdminComponent{
         });
         break
       case 'surnameDsc':
-        this.notas.sort((a, b) => {
-          var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
-          if (surnameA < surnameB)
-            return 1;
-          if (surnameA > surnameB)
+          this.notas.sort((a, b) => {
+            var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
+            if (surnameA < surnameB)
+              return 1;
+            if (surnameA > surnameB)
+              return -1;
+            return 0;
+          });
+          break
+      case 'fechaDsc':
+        this.notas.sort(function(a, b)  {
+          if (a.fecha < b.fecha)
+            return 1
+          if (a.fecha > b.fecha)
             return -1;
           return 0;
         });
-        break
+        break    
       case 'rtasCorrectasDsc':
         this.notas.sort((a, b) => b.rtasCorrectas! - a.rtasCorrectas!);
         break
@@ -102,6 +113,17 @@ export class NotasAdminComponent{
           if (surnameA < surnameB)
             return -1;
           if (surnameA > surnameB)
+            return 1;
+          return 0;
+        });
+        break
+      case 'fechaAsc':
+        console.log("A  ");
+        this.notas.sort((a, b) =>{
+          if (a.fecha < b.fecha){
+            return -1
+          }
+          if (a.fecha > b.fecha)
             return 1;
           return 0;
         });
