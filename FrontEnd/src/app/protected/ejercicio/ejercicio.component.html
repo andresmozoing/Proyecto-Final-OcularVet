@@ -104,20 +104,21 @@
 
 
                     </div> <!--  Fin contenedor principal -->
-                    <swal #tiempoTerminadoSwal title="Se acabó el tiempo" icon="warning"
+                    <swal #tiempoTerminadoSwal title="Se acabó el tiempo" icon="warning" [allowOutsideClick]="false"
+                    
                         (confirm)="siguientePaciente()">
                     </swal>
 
-                    <swal #respuestaCorrectaSwal title="Respuesta correcta!" icon="success"
+                    <swal #respuestaCorrectaSwal title="Respuesta correcta!" icon="success" [allowOutsideClick]="false"
                         (confirm)="siguientePaciente()">
                     </swal>
 
-                    <swal #respuestaIncorrectaSwal title="Respuesta incorrecta"
+                    <swal #respuestaIncorrectaSwal title="Respuesta incorrecta" [allowOutsideClick]="false"
                         text="La respuesta correcta era: {{diagnosticoActual.descripcion}}" icon="error"
                         (confirm)="siguientePaciente()">
                     </swal>
 
-                    <swal #autoevalucionFinalizadaSwal title="Autoevalución Finalizada"
+                    <swal #autoevalucionFinalizadaSwal title="Autoevalución Finalizada" [allowOutsideClick]="false"
                         text="Cantidad de respuestas correctas: {{cantRespuestasCorrectas}} / {{cantPacientesADiagnosticar}}"
                         icon="info" (confirm)="crearNota()">
                     </swal>
