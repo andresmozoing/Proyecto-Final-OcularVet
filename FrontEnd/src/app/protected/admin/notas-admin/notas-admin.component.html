@@ -13,7 +13,11 @@
     <div class="col">
       <div class="card recent-sales overflow-auto">
         <div class="card-body">
-          <table id="myTable2">
+          <input type="number" id="myInput" oninput="buscaPorAnio()" placeholder="Buscar por Año.." title="Type in a name" >
+          <button type="button" name="searchButton" class="btn btn-primary" (click)="buscaPorAnio()">
+              <i class="bi-search "></i>  
+          </button>
+          <table id="myTable2" style="display: none;">
             <thead align="center">
               <th role="button" scope="col" (click)='sortTabla("LUAsc")'> LU </th>
               <th role="button" scope="col" (click)="sortTabla('nameAsc')"> Nombre </th>
@@ -24,7 +28,7 @@
               <th role="button" scope="col" (click)="sortTabla('calificacionAsc')"> Nota </th>
             </thead>
             <tbody align="center">
-              <tr *ngFor="let nota of notas">
+              <tr *ngFor="let nota of notasFiltradas">
                 <th scope="row"> {{nota.LU}} </th>
                 <td>{{ nota.name }}</td>
                 <td>{{ nota.surname }}</td>
@@ -47,7 +51,48 @@
               </tr>
             </tbody>
           </table>
-
+          <div>
+            <table style="width: 100%;" mat-table [dataSource]="dataSource" 
+            matSort (matSortChange)="announceSortChange($event)"  class="mat-elevation-z8">
+              <ng-container matColumnDef="LU">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">LU</th>
+                <td mat-cell *matCellDef="let row">{{ row.LU }}</td>
+              </ng-container>
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">name</th>
+                <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+              </ng-container>
+              <ng-container matColumnDef="surname">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by surname">surname</th>
+                <td mat-cell *matCellDef="let row">{{ row.surname }}</td>
+              </ng-container>
+              <ng-container matColumnDef="fecha">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by fecha">fecha</th>
+                <td mat-cell *matCellDef="let row">{{ row.fecha | date:"dd-MM-YYYY" }}</td>
+              </ng-container>
+              <ng-container matColumnDef="rtasCorrectas">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by rtasCorrectas">rtasCorrectas</th>
+                <td mat-cell *matCellDef="let row">{{ row.rtasCorrectas }}</td>
+              </ng-container>
+              <ng-container matColumnDef="cantidadPreguntas">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cantidadPreguntas">
+                  cantidadPreguntas</th>
+                <td mat-cell *matCellDef="let row">{{ row.cantidadPreguntas }}</td>
+              </ng-container>
+              <ng-container matColumnDef="calificacion">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by calificacion">nota</th>
+                <td mat-cell *matCellDef="let row">{{ row.calificacion }}</td>
+              </ng-container>
+              
+              <tr mat-header-row *matHeaderRowDef="columns"></tr>
+              <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+            </table>
+            <mat-paginator [length]="notasFiltradas.length"
+              [pageSize]="20"
+              [pageSizeOptions]="[5,10, 20, 50, 100]"
+              aria-label="Select page">
+            </mat-paginator>  
+        </div>  
 
           <!-- <canvas baseChart
             [type]="'pie'"
@@ -67,6 +112,8 @@
             </div>
           </div>
           
+        
+
         </div>
 
       </div>
