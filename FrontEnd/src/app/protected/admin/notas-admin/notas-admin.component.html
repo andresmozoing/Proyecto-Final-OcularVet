@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <main id="main" class="main">
   <div class="card">
@@ -58,11 +58,11 @@
             [legend]=true>
           </canvas> -->
 
-          <div #contenedorDatos style="width: 400px; height: 400px;">
-            <div class="col">
+          <div id="contenedorDatos">
+            <div id="divChartPie">
               <canvas id="canvasChartPie">{{chartPie}}</canvas>
             </div>
-            <div class="col">
+            <div id="divChartBar">
               <canvas id="canvasChartBar">{{chartBar}}</canvas>
             </div>
           </div>

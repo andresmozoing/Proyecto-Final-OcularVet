@@ -40,7 +40,7 @@ const crearUsuario = async(req,res = response)=>{
         if (!configAdmin){
             return res.status(400).json({
                 ok: false,
-                msg: 'El codigoRegistro no es válido'
+                msg: 'El código de registro no es válido'
             });
         }
 
@@ -88,7 +88,7 @@ const loginUsuario = async (req,res = response)=>{
         if (!dbUser){
             return res.status(400).json({
                 ok:false,
-                msg: 'El correo no existe'
+                msg: 'El correo no existe. Por favor ingrese uno válido.'
             });
         }
         //confirmar si el password hace match
@@ -96,7 +96,7 @@ const loginUsuario = async (req,res = response)=>{
         if (!validPassword){
             return res.status(400).json({
                 ok:false,
-                msg: 'El password no es valido'
+                msg: 'La contraseña no es válida'
             });
         }
         //Generar el JWT 

@@ -191,7 +191,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
         Swal.fire("Nota guardada!", "Tu calificacion fue de " + resp.notas[0].calificacion, "success")
         //Redirigir a las notas del usuario?
         if (this.authService.usuario.isAdmin) {
-          this.router.navigateByUrl('ocularVet/admin/notas')
+          this.router.navigateByUrl('ocularVet/admin/notasAdmin')
         }
         else {
           this.router.navigateByUrl('ocularVet/alumno/notas')
@@ -319,7 +319,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
 
     //Achicamos la pupila 
     pupila.style.transform = 'scale(0.7,0.7)';
-    pupila.style.transition = '1s'
+    pupila.style.transition = '0.5s'
 
     //Volvemos la pupila al tamaño original, esperando 4 segundos
     let timerOjo =

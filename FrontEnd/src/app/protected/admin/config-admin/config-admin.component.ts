@@ -6,7 +6,8 @@ import { UsuarioService } from '../../services/usuario.service';
 
 @Component({
   selector: 'app-config-admin',
-  templateUrl: './config-admin.component.html'
+  templateUrl: './config-admin.component.html',
+  styleUrls: ['./config-admin.component.css']
 })
 export class ConfigAdminComponent implements OnInit {
 

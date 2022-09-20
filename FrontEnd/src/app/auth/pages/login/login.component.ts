@@ -18,6 +18,8 @@ export class LoginComponent {
     password: ['123456', [Validators.required , Validators.minLength(6)]]
   });
 
+  mostrarOcultarPassword: boolean = false;
+
 
   constructor(private fb: UntypedFormBuilder,
               private router: Router,
@@ -39,11 +41,22 @@ export class LoginComponent {
           }
         }
         else{
-          Swal.fire('Error' , resp.ok, 'error')
+          console.log('resp es ', resp);
+          
+          Swal.fire('Error' , resp, 'error')
           //mostrar error
         }
       })
       
+  } //fin de login()
+
+  campoNoValido( campo: string ) {
+    return this.miFormulario.get(campo)?.invalid
+            && this.miFormulario.get(campo)?.touched;
   }
 
+  mostrarOcultarPasswordFunction(){
+    console.log("holsss");
+    this.mostrarOcultarPassword = !this.mostrarOcultarPassword;
+  }
 }

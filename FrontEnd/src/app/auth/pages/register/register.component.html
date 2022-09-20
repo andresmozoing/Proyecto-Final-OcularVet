@@ -53,7 +53,7 @@
                 <div class="card-header">
                   <div class="d-flex justify-content-center">
                     <a href="index.html" class="logo d-flex align-items-center w-auto">
-                      <img src="../../../../assets/vet_unicen.png" alt="" width="150">
+                      <img src="../../../../assets/images/logo.png" alt="" width="150">
                       <span class="d-lg-block">OcularVet</span>
                     </a>
                   </div><!-- End Logo -->
@@ -98,14 +98,17 @@
                       <label for="email" class="form-label">Email:</label>
                       <input type="email" formControlName="email" class="form-control" id="email" >
                       <span class="form-text text-danger" *ngIf="campoNoValido('email')">
-                        Por favor, ingrese un email valido
+                        Por favor, ingrese un email válido
                       </span>
                     </div>
 
 
                     <div class="col-12">
                       <label for="password" class="form-label">Contraseña:</label>
-                      <input type="password" formControlName="password" class="form-control" id="password" required>
+                      <input [type]="mostrarOcultarPassword ? 'text' : 'password'" formControlName="password" class="form-control" id="password" required>
+                      <span class="small mb-0" (click)="mostrarOcultarPasswordFunction()" style="cursor: pointer;"> 
+                        <i class="bi bi-eye-fill small mb-0 text-center"> Mostrar/ocultar contraseñas </i> 
+                      </span>
                       <span class="form-text text-danger" *ngIf="campoNoValido('password')">
                         La contraseña debe tener una longitud minima de 6 caracteres.
                       </span>
@@ -113,14 +116,17 @@
 
                     <div class="col-12">
                       <label for="rePassword" class="form-label">Repetir contraseña:</label>
-                      <input type="password" formControlName="rePassword" class="form-control" id="rePassword" required>
+                      <input [type]="mostrarOcultarPassword ? 'text' : 'password'" formControlName="rePassword" class="form-control" id="rePassword" required>
+                      <span class="small mb-0" (click)="mostrarOcultarPasswordFunction()" style="cursor: pointer;"> 
+                        <i class="bi bi-eye-fill small mb-0 text-center"> Mostrar/ocultar contraseñas </i> 
+                      </span>
                       <span class="form-text text-danger" *ngIf="campoNoValido('rePassword')">
                         Este campo es requerido, y las contraseñas deben coincidir.
                       </span>
                     </div>
 
                     <div class="col-12">
-                      <label for="codigoRegistro" class="form-label">Código registro: </label>
+                      <label for="codigoRegistro" class="form-label">Código de registro: </label>
                       <input type="number" formControlName="codigoRegistro" class="form-control" id="codigoRegistro" required>
                       <span class="form-text text-danger" *ngIf="campoNoValido('codigoRegistro')">
                         Este campo es requerido.

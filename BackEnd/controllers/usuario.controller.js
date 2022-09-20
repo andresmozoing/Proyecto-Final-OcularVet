@@ -111,7 +111,7 @@ const modificarPassword = async (req,res = response) => {
         if (!validPassword){
         return res.status(400).json({
             ok:false,
-            msg: 'El password no es valido',
+            msg: 'La contraseña actual no es correcta',
             error: 'El error es ' + error
         });
         }

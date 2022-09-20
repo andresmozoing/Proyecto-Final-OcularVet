@@ -168,11 +168,12 @@ export class AdministracionUsuariosComponent {
   buscarApellido() {
     const input = <HTMLInputElement>document.getElementById("myInput");
     this.usuariosFiltrados = this.usuarios.filter(function(user:User){
-      if (user.surname?.toUpperCase().indexOf(input.value.toUpperCase())! > -1){
-        return true
+      if (user.surname?.toUpperCase().indexOf(input.value.toUpperCase())! > -1 ){
+        return true;
       }
       return false;
     })
+
     console.log("USuarios filtred", this.usuariosFiltrados);
     
   }

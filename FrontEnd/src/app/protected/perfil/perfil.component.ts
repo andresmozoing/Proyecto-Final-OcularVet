@@ -23,6 +23,8 @@ export class PerfilComponent {
     private usuarioService: UsuarioService,
     private notaService: NotaService) { }
 
+
+
   get usuario() {
     return this.authservice.usuario;
   }
@@ -31,14 +33,17 @@ export class PerfilComponent {
     name: new UntypedFormControl(this.authservice.usuario.name, Validators.required),
     surname: new UntypedFormControl(this.authservice.usuario.surname, Validators.required),
     LU: new UntypedFormControl(this.authservice.usuario.LU),
-    email: new UntypedFormControl(this.authservice.usuario.email, Validators.required),
+    email: new UntypedFormControl(this.authservice.usuario.email, [Validators.required, Validators.email]),
   })
 
   passwordForm = new UntypedFormGroup({
-    passwordActual: new UntypedFormControl("", Validators.required),
-    passwordNueva: new UntypedFormControl('', Validators.required),
-    repeticionPassword: new UntypedFormControl('', Validators.required)
+    passwordActual: new UntypedFormControl("", [Validators.required, Validators.minLength(6)]),
+    passwordNueva: new UntypedFormControl('', [Validators.required, Validators.minLength(6)]),
+    repeticionPassword: new UntypedFormControl('', [Validators.required, Validators.minLength(6)])
   })
+
+  mostrarOcultarPassword: boolean = false;
+
 
   onSubmitProfile() {
     this.usuarioService.modificarUsuario(
@@ -78,23 +83,38 @@ export class PerfilComponent {
           this.passwordForm.value.passwordNueva
         ).subscribe(resp => {
           if (resp.ok === true) {
-            Swal.fire('Usuario modificado', '', 'success');
+            Swal.fire('Contraseña modificada exitosamente!', '', 'success');
           }
           else {
             console.log('Error al editar usuario', resp, 'error');
-            Swal.fire('Error al editar usuario', 'Contraseña mal ingresada', 'error');
+            Swal.fire('Error al editar contraseña', 'La contraseña actual ingresada no es válida', 'error');
           }
         })
       }
       else {
-        console.log('Error jojooj', 'error');
         Swal.fire('Error al editar contraseña', 'La contraseña debe poseer mas de 6 caracteres', 'error');
       }
     }
     else {
-      Swal.fire('Error al editar contraseña', 'Las contraseñas no coinciden', 'error');
+      Swal.fire('Error al editar contraseña', 'Las contraseñas nuevas no coinciden', 'error');
     }
+  } //Fin onSubmitPassword()
+
+  campoNoValidoPerfilForm( campo: string ) {
+    return this.perfilForm.get(campo)?.invalid
+            && this.perfilForm.get(campo)?.touched;
   }
+
+  campoNoValidoPasswordForm( campo: string ) {
+    return this.passwordForm.get(campo)?.invalid
+            && this.passwordForm.get(campo)?.touched;
+  }
+
+  mostrarOcultarPasswordFunction(){
+    console.log("holsss");
+    this.mostrarOcultarPassword = !this.mostrarOcultarPassword;
+  }
+
 }
 
 
