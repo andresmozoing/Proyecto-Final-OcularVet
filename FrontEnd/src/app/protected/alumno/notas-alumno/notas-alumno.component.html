@@ -17,9 +17,6 @@
         <div class="card-body">
           <table id="myTable2">
             <thead align="center">
-              <th role="button" scope="col" (click)='sortTabla("LUAsc")'> LU </th>
-              <th role="button" scope="col" (click)="sortTabla('nameAsc')"> Nombre </th>
-              <th role="button" scope="col" (click)="sortTabla('surnameAsc')"> Apellido </th>
               <th role="button" scope="col" (click)='sortTabla("fechaAsc")'> Fecha </th>
               <th role="button" scope="col" (click)="sortTabla('rtasCorrectasAsc')"> Respuestas <br> Correctas </th>
               <th role="button" scope="col" (click)="sortTabla('cantidadPreguntasAsc')"> Cantidad <br> Preguntas </th>
@@ -27,9 +24,7 @@
             </thead>
             <tbody align="center">
               <tr *ngFor="let nota of notas">
-                <th scope="row"> {{nota.LU}} </th>
-                <td>{{ nota.name }}</td>
-                <td>{{ nota.surname }}</td>
+                
                 <td>{{ nota.fecha | date:"dd-MM-YYYY" }}</td>
                 <td>{{ nota.rtasCorrectas }}</td>
                 <td>{{ nota.cantidadPreguntas }}</td>

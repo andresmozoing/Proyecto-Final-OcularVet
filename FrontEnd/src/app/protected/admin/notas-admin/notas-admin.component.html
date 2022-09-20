@@ -17,7 +17,7 @@
           <button type="button" name="searchButton" class="btn btn-primary" (click)="buscaPorAnio()">
               <i class="bi-search "></i>  
           </button>
-          <table id="myTable2" style="display: none;">
+          <!-- <table id="myTable2" style="display: none;">
             <thead align="center">
               <th role="button" scope="col" (click)='sortTabla("LUAsc")'> LU </th>
               <th role="button" scope="col" (click)="sortTabla('nameAsc')"> Nombre </th>
@@ -50,38 +50,52 @@
                 </td>
               </tr>
             </tbody>
-          </table>
+          </table> -->
           <div>
             <table style="width: 100%;" mat-table [dataSource]="dataSource" 
             matSort (matSortChange)="announceSortChange($event)"  class="mat-elevation-z8">
-              <ng-container matColumnDef="LU">
+              <ng-container matColumnDef="LU" >
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">LU</th>
                 <td mat-cell *matCellDef="let row">{{ row.LU }}</td>
               </ng-container>
               <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">name</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Nombre</th>
                 <td mat-cell *matCellDef="let row">{{ row.name }}</td>
               </ng-container>
               <ng-container matColumnDef="surname">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by surname">surname</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by surname">Apellido</th>
                 <td mat-cell *matCellDef="let row">{{ row.surname }}</td>
               </ng-container>
               <ng-container matColumnDef="fecha">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by fecha">fecha</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by fecha">Fecha</th>
                 <td mat-cell *matCellDef="let row">{{ row.fecha | date:"dd-MM-YYYY" }}</td>
               </ng-container>
               <ng-container matColumnDef="rtasCorrectas">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by rtasCorrectas">rtasCorrectas</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by rtasCorrectas">Aciertos </th>
                 <td mat-cell *matCellDef="let row">{{ row.rtasCorrectas }}</td>
               </ng-container>
               <ng-container matColumnDef="cantidadPreguntas">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by cantidadPreguntas">
-                  cantidadPreguntas</th>
+                  Cantidad de<br> preguntas</th>
                 <td mat-cell *matCellDef="let row">{{ row.cantidadPreguntas }}</td>
               </ng-container>
               <ng-container matColumnDef="calificacion">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by calificacion">nota</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by calificacion">Nota</th>
                 <td mat-cell *matCellDef="let row">{{ row.calificacion }}</td>
+              </ng-container>
+              <ng-container matColumnDef="borrar">
+                <th mat-header-cell *matHeaderCellDef >Borrar</th>
+                <td mat-cell *matCellDef="let row">
+                  <button  class="btn btn-danger" [swal]="deleteSwal">
+                    <i class="bi-trash-fill"></i>
+
+                    <swal #deleteSwal  title="Eliminar nota de {{ row.name}} {{ row.surname }}?"
+                      text="Esta acción no se puede deshacer." icon="warning"
+                      [swalOptions]="{ confirmButtonText: 'Confirmar' , cancelButtonText:'Cancelar' }" [showCancelButton]="true" [focusCancel]="true"
+                      (confirm)="eliminarNota(row._id!)">
+                    </swal>
+                  </button>
+                </td>
               </ng-container>
               
               <tr mat-header-row *matHeaderRowDef="columns"></tr>

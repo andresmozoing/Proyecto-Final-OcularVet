@@ -24,7 +24,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
 
   dataSource!: MatTableDataSource<Nota> 
   notasData: Nota[]=[]
-  columns: string[]=['LU','name','surname','fecha','rtasCorrectas','cantidadPreguntas','calificacion']
+  columns: string[]=['LU','name','surname','fecha','rtasCorrectas','cantidadPreguntas','calificacion','borrar']
 
   @ViewChild(MatSort, {static: true}) sort!: MatSort;
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
@@ -97,7 +97,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
       // obtengo las notas y actualizo el contenido de mi tabla
       this.notas = resp.notas;
       this.notasFiltradas = this.notas;
-      this.sortTabla(this.ordenActual)
+      // this.sortTabla(this.ordenActual)
       this.setearGraficos()
       this.notasData = resp.notas;
       this.dataSource = new MatTableDataSource(this.notasData);
@@ -113,114 +113,117 @@ export class NotasAdminComponent implements MatPaginatorIntl {
           this.notasAlumno();
         }
       ) 
-    this.sortTabla(this.ordenActual,true); 
+    this.notas = this.notas.filter(function(nota:Nota) {
+      return (nota._id !== _id)
+    })
+    this.buscaPorAnio(); 
   }
 
-  sortTabla(ordenNuevo: string, recarga : boolean = false) {
-    if (recarga){ 
-      //Cuando eliminamos una nota queremos que mantenga el orden
-      this.ordenActual="";
-    }
-    if (ordenNuevo === this.ordenActual) {  //Significa que selecciono dos veces el mismo, cambiamos de Dsc a Asc
-      if(this.ordenActual.includes("Asc")){
-        ordenNuevo = ordenNuevo.replace("Asc","Dsc") 
-      }
-    }  
-    console.log("orden nuevo:",ordenNuevo," y el actual:",this.ordenActual);
+  // sortTabla(ordenNuevo: string, recarga : boolean = false) {
+  //   if (recarga){ 
+  //     //Cuando eliminamos una nota queremos que mantenga el orden
+  //     this.ordenActual="";
+  //   }
+  //   if (ordenNuevo === this.ordenActual) {  //Significa que selecciono dos veces el mismo, cambiamos de Dsc a Asc
+  //     if(this.ordenActual.includes("Asc")){
+  //       ordenNuevo = ordenNuevo.replace("Asc","Dsc") 
+  //     }
+  //   }  
+  //   console.log("orden nuevo:",ordenNuevo," y el actual:",this.ordenActual);
     
-    this.ordenActual = ordenNuevo //Actualizamos el ordenActual
-    switch (ordenNuevo) { 
-      //Descendentes
-      case 'LUDsc':
-        this.notasFiltradas.sort((a, b) => b.LU! - a.LU!);
-        break
-      case 'nameDsc':
-        this.notasFiltradas.sort((a, b) => {
-          var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
-          if (nameA < nameB)
-            return 1;
-          if (nameA > nameB)
-            return -1;
-          return 0;
-        });
-        break
-      case 'surnameDsc':
-          this.notasFiltradas.sort((a, b) => {
-            var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
-            if (surnameA < surnameB)
-              return 1;
-            if (surnameA > surnameB)
-              return -1;
-            return 0;
-          });
-          break
-      case 'fechaDsc':
-        this.notasFiltradas.sort(function(a, b)  {
-          if (a.fecha < b.fecha)
-            return 1
-          if (a.fecha > b.fecha)
-            return -1;
-          return 0;
-        });
-        break    
-      case 'rtasCorrectasDsc':
-        this.notasFiltradas.sort((a, b) => b.rtasCorrectas! - a.rtasCorrectas!);
-        break
-      case 'cantidadPreguntasDsc':
-        this.notasFiltradas.sort((a, b) => b.cantidadPreguntas! - a.cantidadPreguntas!);
-        break
-      case 'calificacionDsc':
-        this.notasFiltradas.sort((a, b) => b.calificacion! - a.calificacion!);
+  //   this.ordenActual = ordenNuevo //Actualizamos el ordenActual
+  //   switch (ordenNuevo) { 
+  //     //Descendentes
+  //     case 'LUDsc':
+  //       this.notasFiltradas.sort((a, b) => b.LU! - a.LU!);
+  //       break
+  //     case 'nameDsc':
+  //       this.notasFiltradas.sort((a, b) => {
+  //         var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
+  //         if (nameA < nameB)
+  //           return 1;
+  //         if (nameA > nameB)
+  //           return -1;
+  //         return 0;
+  //       });
+  //       break
+  //     case 'surnameDsc':
+  //         this.notasFiltradas.sort((a, b) => {
+  //           var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
+  //           if (surnameA < surnameB)
+  //             return 1;
+  //           if (surnameA > surnameB)
+  //             return -1;
+  //           return 0;
+  //         });
+  //         break
+  //     case 'fechaDsc':
+  //       this.notasFiltradas.sort(function(a, b)  {
+  //         if (a.fecha < b.fecha)
+  //           return 1
+  //         if (a.fecha > b.fecha)
+  //           return -1;
+  //         return 0;
+  //       });
+  //       break    
+  //     case 'rtasCorrectasDsc':
+  //       this.notasFiltradas.sort((a, b) => b.rtasCorrectas! - a.rtasCorrectas!);
+  //       break
+  //     case 'cantidadPreguntasDsc':
+  //       this.notasFiltradas.sort((a, b) => b.cantidadPreguntas! - a.cantidadPreguntas!);
+  //       break
+  //     case 'calificacionDsc':
+  //       this.notasFiltradas.sort((a, b) => b.calificacion! - a.calificacion!);
         
-        break
-      //Ascendentes
-      case 'LUAsc':
-        this.notasFiltradas.sort((a, b) => a.LU! - b.LU!);
-        break
-      case 'nameAsc':
-        this.notasFiltradas.sort((a, b) => {
-          var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
-          if (nameA < nameB)
-            return -1;
-          if (nameA > nameB)
-            return 1;
-          return 0;
-        });
-        break
-      case 'surnameAsc':
-        this.notasFiltradas.sort((a, b) => {
-          var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
-          if (surnameA < surnameB)
-            return -1;
-          if (surnameA > surnameB)
-            return 1;
-          return 0;
-        });
-        break
-      case 'fechaAsc':
-        console.log("A  ");
-        this.notasFiltradas.sort((a, b) =>{
-          if (a.fecha < b.fecha){
-            return -1
-          }
-          if (a.fecha > b.fecha)
-            return 1;
-          return 0;
-        });
-        break
-      case 'rtasCorrectasAsc':
-        this.notasFiltradas.sort((a, b) => a.rtasCorrectas! - b.rtasCorrectas!);
-        break
-      case 'cantidadPreguntasAsc':
-        this.notasFiltradas.sort((a, b) => a.cantidadPreguntas! - b.cantidadPreguntas!);
-        break
-      case 'calificacionAsc':
-        this.notasFiltradas.sort((a, b) => a.calificacion! - b.calificacion!);
-        break
+  //       break
+  //     //Ascendentes
+  //     case 'LUAsc':
+  //       this.notasFiltradas.sort((a, b) => a.LU! - b.LU!);
+  //       break
+  //     case 'nameAsc':
+  //       this.notasFiltradas.sort((a, b) => {
+  //         var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
+  //         if (nameA < nameB)
+  //           return -1;
+  //         if (nameA > nameB)
+  //           return 1;
+  //         return 0;
+  //       });
+  //       break
+  //     case 'surnameAsc':
+  //       this.notasFiltradas.sort((a, b) => {
+  //         var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
+  //         if (surnameA < surnameB)
+  //           return -1;
+  //         if (surnameA > surnameB)
+  //           return 1;
+  //         return 0;
+  //       });
+  //       break
+  //     case 'fechaAsc':
+  //       console.log("A  ");
+  //       this.notasFiltradas.sort((a, b) =>{
+  //         if (a.fecha < b.fecha){
+  //           return -1
+  //         }
+  //         if (a.fecha > b.fecha)
+  //           return 1;
+  //         return 0;
+  //       });
+  //       break
+  //     case 'rtasCorrectasAsc':
+  //       this.notasFiltradas.sort((a, b) => a.rtasCorrectas! - b.rtasCorrectas!);
+  //       break
+  //     case 'cantidadPreguntasAsc':
+  //       this.notasFiltradas.sort((a, b) => a.cantidadPreguntas! - b.cantidadPreguntas!);
+  //       break
+  //     case 'calificacionAsc':
+  //       this.notasFiltradas.sort((a, b) => a.calificacion! - b.calificacion!);
+  //       break
         
-    }
+  //   }
 
-  }
+  // }
 
   buscaPorAnio() {
     const input = <HTMLInputElement>document.getElementById("myInput");

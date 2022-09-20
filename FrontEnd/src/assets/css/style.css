@@ -818,6 +818,10 @@ h6 {
   border-radius: 5px;
   max-width: 60px;
 }
+th{
+  text-align: center;
+}
+
 
 /*--------------------------------------------------------------
 # Icons list page
@@ -1110,3 +1114,5 @@ table {
 th.mat-sort-header-sorted {
   color: rgb(255, 255, 255);
 }
+
+
