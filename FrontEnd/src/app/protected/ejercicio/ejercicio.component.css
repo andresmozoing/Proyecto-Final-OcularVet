@@ -1,5 +1,4 @@
 .grid {
-  
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-auto-flow: row dense;
@@ -7,57 +6,49 @@
     gap: 20px;
     justify-items: center;
     /* align-items: center; */
-  }
+}
+
 @media (max-width: 750px) {
     .grid {
-  
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-auto-flow: row dense;
-    grid-auto-rows: minmax(170px, auto);
-    gap: var(--gap);
-  }
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-auto-flow: row dense;
+        grid-auto-rows: minmax(170px, auto);
+        gap: var(--gap);
+    }
 }
 
 
-#contenedorBotonesOjos{
+#contenedorBotonesOjos {
     display: flex;
-    
     margin-bottom: 10px;
 }
 
 figure {
     position: relative;
-    /* display: inline-block; */
-    border: 1px solid red;
 }
-#contenedorPrincipal .grid .columna{
+
+#contenedorPrincipal .grid .columna {
     padding-left: 30px;
 }
 
-#perro{
+#perro {
     position: relative;
     width: 100%;
     height: 60%;
-    
-}
-#perro:hover{
-     
-    /* filter: hue-rotate(80deg) */
-
 }
 
 #pupilaDerecha {
     position: absolute;
-    left:calc(36.8%);
-    top:calc(30%);
+    left: calc(36.8%);
+    top: calc(30%);
     width: 3.5%;
 }
 
 #pupilaIzquierda {
     position: absolute;
-    left:calc(64%);
-    top:calc(31%);
+    left: calc(64%);
+    top: calc(31%);
     width: 3.5%;
 }
 
@@ -66,22 +57,22 @@ figure {
 }
 
 #linternaOjoIzquierdo {
-    position:absolute;
+    position: absolute;
     width: 25%;
     height: 25%;
-    top:calc(37%);
-    left:calc(66%);
+    top: calc(37%);
+    left: calc(66%);
     transform: rotate(45deg);
     display: none;
     z-index: 1;
 }
 
 #linternaOjoDerecho {
-    position:absolute;
+    position: absolute;
     width: 25%;
     height: 25%;
-    top:calc(37%);
-    left:calc(13%);
+    top: calc(37%);
+    left: calc(13%);
     transform: rotate(135deg);
     display: none;
     z-index: 1;

@@ -23,6 +23,8 @@ export class RegisterComponent {
     validators: [ this.authservice.camposIguales('password','rePassword') ]
   })
 
+  mostrarOcultarPassword: boolean = false;
+
 
 
   constructor(private fb: UntypedFormBuilder,
@@ -52,6 +54,11 @@ export class RegisterComponent {
   campoNoValido( campo: string ) {
     return this.miFormularioRegistro.get(campo)?.invalid
             && this.miFormularioRegistro.get(campo)?.touched;
+  }
+
+  mostrarOcultarPasswordFunction(){
+    console.log("holsss");
+    this.mostrarOcultarPassword = !this.mostrarOcultarPassword;
   }
 
 } //Fin de la class

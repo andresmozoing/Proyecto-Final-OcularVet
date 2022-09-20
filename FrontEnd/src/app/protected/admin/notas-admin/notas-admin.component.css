@@ -1,0 +1,14 @@
+#contenedorDatos {
+    box-sizing: border-box;
+}
+
+#divChartPie {
+    width: 40%;
+    float: left;
+}
+
+#divChartBar {
+    width: 40%;
+    float: left;
+}
+

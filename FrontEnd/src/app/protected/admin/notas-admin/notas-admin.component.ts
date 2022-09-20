@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NotaService } from '../../services/nota.service';
 import { Nota } from '../../interfaces/Nota';
-import {ChartOptions} from 'chart.js';
+import { ChartOptions } from 'chart.js';
 import { Chart, registerables } from 'chart.js';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -12,9 +12,11 @@ import { $localize } from '@angular/localize/init';
 
 @Component({
   selector: 'app-notas-admin',
-  templateUrl: './notas-admin.component.html'
+  templateUrl: './notas-admin.component.html',
+  styleUrls: ['./notas-admin.component.css']
 })
 export class NotasAdminComponent implements MatPaginatorIntl {
+>>>>>>> 41426a1ab5ca6ff1cb1dd5789f68e0144e9b9fc9
 
   notas!: Nota[];
   notasFiltradas: Nota[]=[];
@@ -39,46 +41,71 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     this.dataSource.sort = this.sort;
   }
 
-  setearGraficos(){
-    let cantidad_0_40 = 0
-    let cantidad_40_70 = 0
-    let cantidad_70_100 = 0
-    let arregloCantidadNotas : number [] = []
+  setearGraficos() {
+    let cantidad_0_30 = 0
+    let cantidad_30_60 = 0
+    let cantidad_60_80 = 0
+    let cantidad_80_100 = 0
+    let arregloCantidadNotas: number[] = []
     this.notas.forEach(nota => {
-      if (nota.calificacion < 40){ cantidad_0_40 = cantidad_0_40 + 1;}
-      else{
-        if (nota.calificacion < 70){ cantidad_40_70 = cantidad_40_70 + 1}
-        else{cantidad_70_100 = cantidad_70_100 + 1}
+      if (nota.calificacion < 30) { cantidad_0_30 = cantidad_0_30 + 1; }
+      else {
+        if (nota.calificacion < 60) { cantidad_30_60 = cantidad_30_60 + 1 }
+        else { 
+          if(nota.calificacion < 80) {cantidad_60_80 = cantidad_60_80 + 1 }
+          else { cantidad_80_100 = cantidad_80_100 + 1 }
+        }
       }
     });
 
-    arregloCantidadNotas.push(cantidad_0_40,cantidad_40_70,cantidad_70_100)
+    arregloCantidadNotas.push(cantidad_0_30, cantidad_30_60, cantidad_60_80,cantidad_80_100)
+
+    let labelsCharts = ['0-30', '30-60', '60-80','80-100']
+    let dataSetsCharts = [
+      {
+        data: arregloCantidadNotas,
+        borderWidth: 1,
+        label: 'Notas',
+        backgroundColor: [
+          'rgb(140, 137,136 )',
+          'rgb(1, 41, 112)',
+          'rgb(178,53,153)',
+          'rgb(123, 31, 162)'
+        ],
+        borderColor: [
+          'rgb(0, 0,0 )',
+          'rgb(0, 0,0 )',
+          'rgb(0, 0,0 )',
+          'rgb(0, 0,0 )',
+        ],
+        hoverBackgroundColor: [
+          'rgb(205, 200 ,198 )',
+          'rgb(28, 105, 242)',
+          'rgb(239,79,206)',
+          'rgb(173, 68, 218)'
+        ],
+        hoverBorderColor: [
+          'rgb(140, 137,136 )',
+          'rgb(1, 41, 112)',
+          'rgb(178,53,153)',
+          'rgb(123, 31, 162)'
+        ]
+      }
+    ]
 
     this.chartPie = new Chart('canvasChartPie', {
-        type: 'pie',
-        data: {
-          labels: [ [ '0-40' ], [ '40-70' ], '70-100' ],
-          datasets: [
-            {
-              data: arregloCantidadNotas,
-              label: 'Notas',
-              borderWidth: 3,
-            },
-          ],
-        },
-      });
+      type: 'pie',
+      data: {
+        labels: labelsCharts,
+        datasets: dataSetsCharts,
+      },
+    });
 
     this.chartBar = new Chart('canvasChartBar', {
       type: 'bar',
       data: {
-        labels: [ [ '0-40' ], [ '40-70' ], '70-100' ],
-        datasets: [
-          {
-            data: arregloCantidadNotas,
-            label: 'Notas',
-            borderWidth: 3,
-          },
-        ],
+        labels: labelsCharts,
+        datasets: dataSetsCharts,
       },
       options: {
         scales: {
@@ -86,9 +113,9 @@ export class NotasAdminComponent implements MatPaginatorIntl {
             beginAtZero: true
           }
         }
-      }
+     }
     });
-    
+
 
   }
 
@@ -107,7 +134,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     this.dataSource.sort = this.sort
   }
 
-  async eliminarNota(_id : String){
+  async eliminarNota(_id: String) {
     await this.notaService.eliminarNota(_id).subscribe(
       (resp)=>{
           this.notasAlumno();

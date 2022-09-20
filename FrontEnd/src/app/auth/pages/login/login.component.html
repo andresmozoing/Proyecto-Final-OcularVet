@@ -15,7 +15,9 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <!-- <link href="../../../../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,7 +32,7 @@
   <!-- <link href="../../../../assets/css/style.css" rel="stylesheet"> -->
 </head>
 
-<body >
+<body>
 
   <main class="animate__animated animate__backInDown">
     <div class="container">
@@ -42,59 +44,61 @@
 
               <div class="card mb-3">
                 <div class="card-header">
-                   <div class="d-flex justify-content-center" >
+                  <div class="d-flex justify-content-center">
                     <div href="index.html" class="logo d-flex align-items-center w-auto">
-                      <img src="../../../../assets/vet_unicen.png" alt="" width="150" >
-                      <span >OcularVet</span>
+                      <!-- <img src="../../../../assets/images/vet_unicen.png" alt="" width="150"> -->
+                      <img src="../../../../assets/images/logo.png" alt="" width="150">
                     </div>
+                    
                   </div><!-- End Logo -->
+                  <div class="d-flex justify-content-center">OcularVet</div>
                 </div>
                 <div class="card-body">
-                  
+
                   <div class="pt-2 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Login</h5>
                     <p class="text-center small">Ingresá tu usuario y contraseña para ingresar</p>
                   </div>
 
-                  <form class="row g-3 needs-validation"  
-                        autocomplete="off"
-                        [formGroup]="miFormulario"
-                        (submit)="login()">
+                  <form class="row g-3 needs-validation" autocomplete="off" [formGroup]="miFormulario"
+                    (submit)="login()">
 
                     <div class="col-12">
                       <label for="yourUsername" class="form-label">Email</label>
-                      <div class="input-group has-validation">
-                        <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
-                        <input type="email" 
-                                formControlName="email" 
-                                placeholder="Ingrese su email" 
-                                class="form-control" 
-                                id="yourUsername" required>
-                        <div class="invalid-feedback">Por favor ingresá tu nombre de usuario</div>
-                      </div>
+
+                      <input type="email" formControlName="email" placeholder="Ingrese su email" class="form-control"
+                        id="yourUsername" required>
+                      <span class="form-text text-danger" *ngIf="campoNoValido('email')">
+                        Ingrese por favor un email válido.
+                      </span>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-12" style="position:relative">
                       <label for="yourPassword" class="form-label">Contraseña</label>
-                      <input type="password"
-                              formControlName="password"
-                              placeholder="Ingrese su contraseña" 
-                              class="form-control" 
-                              id="yourPassword" required>
-                      <div class="invalid-feedback">Por favor ingresá tu contraseña</div>
+                      <input  [type]="mostrarOcultarPassword ? 'text' : 'password'"
+                        formControlName="password" placeholder="Ingrese su contraseña"
+                        class="form-control" id="yourPassword" required
+                      >
+                      
+                      <div class="small mb-0" (click)="mostrarOcultarPasswordFunction()" style="cursor: pointer;"> 
+                        <i class="bi bi-eye-fill small mb-0 text-center"> Mostrar/ocultar contraseña </i> 
+                      </div>
+                        
+                      <span class="form-text text-danger" *ngIf="campoNoValido('password')">
+                        La contraseña debe tener una longitud minima de 6 caracteres.
+                      </span>
                     </div>
 
+                   
+
                     <div class="col-12">
-                      <button mat-raised-button color="primary"
-                      class="btn btn-primary w-100" 
-                              [disabled]="miFormulario.invalid" 
-                              type="submit">
-                              Login
+                      <button class="btn btn-primary w-100" [disabled]="miFormulario.invalid" type="submit">
+                        Login
                       </button>
                     </div>
                     <div class="col-12 text-center small">
                       <p class="small mb-0 text-center">No tenes usuario?</p>
-                      <p> <a class= "small" routerLink="/auth/registro"> Crea una cuenta nueva</a> </p>
+                      <p> <a class="small" routerLink="/auth/registro"> Crea una cuenta nueva</a> </p>
                     </div>
                   </form>
 
@@ -110,7 +114,8 @@
     </div>
   </main><!-- End #main -->
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
   <script src="../../../../assets/vendor/apexcharts/apexcharts.min.js"></script>
@@ -121,7 +126,7 @@
   <script src="../../../../assets/vendor/simple-datatables/simple-datatables.js"></script>
   <script src="../../../../assets/vendor/tinymce/tinymce.min.js"></script>
   <script src="../../../../assets/vendor/php-email-form/validate.js"></script>
-  
+
 
   <!-- Template Main JS File -->
   <!-- <script src="assets/js/main.js"></script> -->
