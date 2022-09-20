@@ -5,6 +5,8 @@ import { HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule ,  ReactiveFormsModule} from '@angular/forms';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
 
 //Modulos de 3ros:
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -26,7 +28,9 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     SweetAlert2Module.forRoot(),
     NoopAnimationsModule,
-    NgChartsModule
+    NgChartsModule,
+    MatTableModule,
+    MatSortModule
   ],
   providers: [],
   bootstrap: [AppComponent]

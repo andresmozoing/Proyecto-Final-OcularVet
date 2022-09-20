@@ -1,26 +1,42 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NotaService } from '../../services/nota.service';
 import { Nota } from '../../interfaces/Nota';
 import {ChartOptions} from 'chart.js';
 import { Chart, registerables } from 'chart.js';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
+import {LiveAnnouncer} from '@angular/cdk/a11y';
+import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
+import { Subject } from 'rxjs';
+import { $localize } from '@angular/localize/init';
 
 @Component({
   selector: 'app-notas-admin',
   templateUrl: './notas-admin.component.html'
 })
-export class NotasAdminComponent{
+export class NotasAdminComponent implements MatPaginatorIntl {
 
   notas!: Nota[];
+  notasFiltradas: Nota[]=[];
   ordenActual: string = "LUAsc";
   chartPie: any = [];
   chartBar: any = [];
 
+  dataSource!: MatTableDataSource<Nota> 
+  notasData: Nota[]=[]
+  columns: string[]=['LU','name','surname','fecha','rtasCorrectas','cantidadPreguntas','calificacion']
+
+  @ViewChild(MatSort, {static: true}) sort!: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
 
   constructor(
-    private notaService: NotaService) { }
+    private notaService: NotaService,
+    private _liveAnnouncer: LiveAnnouncer) { }
 
   ngAfterViewInit() {
+     
     this.notasAlumno();
+    this.dataSource.sort = this.sort;
   }
 
   setearGraficos(){
@@ -76,12 +92,19 @@ export class NotasAdminComponent{
 
   }
 
-  notasAlumno() {
-    return this.notaService.obtenerNotas().subscribe((resp) => {
+  async notasAlumno() {
+    await this.notaService.obtenerNotas().subscribe(async (resp) => {
       // obtengo las notas y actualizo el contenido de mi tabla
       this.notas = resp.notas;
+      this.notasFiltradas = this.notas;
+      this.sortTabla(this.ordenActual)
       this.setearGraficos()
+      this.notasData = resp.notas;
+      this.dataSource = new MatTableDataSource(this.notasData);
+      this.dataSource.sort = this.sort
+      this.dataSource.paginator = this.paginator
     });
+    this.dataSource.sort = this.sort
   }
 
   async eliminarNota(_id : String){
@@ -109,10 +132,10 @@ export class NotasAdminComponent{
     switch (ordenNuevo) { 
       //Descendentes
       case 'LUDsc':
-        this.notas.sort((a, b) => b.LU! - a.LU!);
+        this.notasFiltradas.sort((a, b) => b.LU! - a.LU!);
         break
       case 'nameDsc':
-        this.notas.sort((a, b) => {
+        this.notasFiltradas.sort((a, b) => {
           var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
           if (nameA < nameB)
             return 1;
@@ -122,7 +145,7 @@ export class NotasAdminComponent{
         });
         break
       case 'surnameDsc':
-          this.notas.sort((a, b) => {
+          this.notasFiltradas.sort((a, b) => {
             var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
             if (surnameA < surnameB)
               return 1;
@@ -132,7 +155,7 @@ export class NotasAdminComponent{
           });
           break
       case 'fechaDsc':
-        this.notas.sort(function(a, b)  {
+        this.notasFiltradas.sort(function(a, b)  {
           if (a.fecha < b.fecha)
             return 1
           if (a.fecha > b.fecha)
@@ -141,21 +164,21 @@ export class NotasAdminComponent{
         });
         break    
       case 'rtasCorrectasDsc':
-        this.notas.sort((a, b) => b.rtasCorrectas! - a.rtasCorrectas!);
+        this.notasFiltradas.sort((a, b) => b.rtasCorrectas! - a.rtasCorrectas!);
         break
       case 'cantidadPreguntasDsc':
-        this.notas.sort((a, b) => b.cantidadPreguntas! - a.cantidadPreguntas!);
+        this.notasFiltradas.sort((a, b) => b.cantidadPreguntas! - a.cantidadPreguntas!);
         break
       case 'calificacionDsc':
-        this.notas.sort((a, b) => b.calificacion! - a.calificacion!);
+        this.notasFiltradas.sort((a, b) => b.calificacion! - a.calificacion!);
         
         break
       //Ascendentes
       case 'LUAsc':
-        this.notas.sort((a, b) => a.LU! - b.LU!);
+        this.notasFiltradas.sort((a, b) => a.LU! - b.LU!);
         break
       case 'nameAsc':
-        this.notas.sort((a, b) => {
+        this.notasFiltradas.sort((a, b) => {
           var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
           if (nameA < nameB)
             return -1;
@@ -165,7 +188,7 @@ export class NotasAdminComponent{
         });
         break
       case 'surnameAsc':
-        this.notas.sort((a, b) => {
+        this.notasFiltradas.sort((a, b) => {
           var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
           if (surnameA < surnameB)
             return -1;
@@ -176,7 +199,7 @@ export class NotasAdminComponent{
         break
       case 'fechaAsc':
         console.log("A  ");
-        this.notas.sort((a, b) =>{
+        this.notasFiltradas.sort((a, b) =>{
           if (a.fecha < b.fecha){
             return -1
           }
@@ -186,17 +209,75 @@ export class NotasAdminComponent{
         });
         break
       case 'rtasCorrectasAsc':
-        this.notas.sort((a, b) => a.rtasCorrectas! - b.rtasCorrectas!);
+        this.notasFiltradas.sort((a, b) => a.rtasCorrectas! - b.rtasCorrectas!);
         break
       case 'cantidadPreguntasAsc':
-        this.notas.sort((a, b) => a.cantidadPreguntas! - b.cantidadPreguntas!);
+        this.notasFiltradas.sort((a, b) => a.cantidadPreguntas! - b.cantidadPreguntas!);
         break
       case 'calificacionAsc':
-        this.notas.sort((a, b) => a.calificacion! - b.calificacion!);
+        this.notasFiltradas.sort((a, b) => a.calificacion! - b.calificacion!);
         break
         
     }
 
   }
+
+  buscaPorAnio() {
+    const input = <HTMLInputElement>document.getElementById("myInput");
+    if (input.value !== ""){
+
+      this.notasFiltradas = this.notas.filter(function(nota:Nota){
+        const fechaUser = new Date(nota.fecha)
+        if (fechaUser > new Date(input.valueAsNumber,0,0) && 
+         (fechaUser < new Date(input.valueAsNumber,11,30))){
+          return true
+        }
+        return false;
+      })
+    } else{
+      this.notasFiltradas = this.notas
+    }
+    this.dataSource = new MatTableDataSource(this.notasFiltradas);
+    this.dataSource.sort = this.sort
+    this.dataSource.paginator = this.paginator
+    console.log("USuarios filtred", this.notasFiltradas);
+    
+  }
+
+  
+  announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
+  }
+
+  changes = new Subject<void>();
+
+  // For internationalization, the `$localize` function from
+  // the `@angular/localize` package can be used.
+  firstPageLabel = $localize`First page`;
+  itemsPerPageLabel = $localize`Items per page:`;
+  lastPageLabel = $localize`Last page`;
+
+  // You can set labels to an arbitrary string too, or dynamically compute
+  // it through other third-party internationalization libraries.
+  nextPageLabel = 'Next page';
+  previousPageLabel = 'Previous page';
+
+  getRangeLabel(page: number, pageSize: number, length: number): string {
+    if (length === 0) {
+      return $localize`Page 1 of 1`;
+    }
+    const amountPages = Math.ceil(length / pageSize);
+    return $localize`Page ${page + 1} of ${amountPages}`;
+  }
+
+
 }
 

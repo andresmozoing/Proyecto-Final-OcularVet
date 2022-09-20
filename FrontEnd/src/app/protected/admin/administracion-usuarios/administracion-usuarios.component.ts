@@ -97,15 +97,16 @@ export class AdministracionUsuariosComponent {
       if(this.ordenActual.includes("Asc")){
         ordenNuevo = ordenNuevo.replace("Asc","Dsc") 
       }
-    }  
+    } 
+    
     this.ordenActual = ordenNuevo //Actualizamos el ordenActual
     switch (ordenNuevo) { 
       //Descendentes
       case 'LUDsc':
-        this.usuarios.sort((a, b) => b.LU! - a.LU!);
+        this.usuariosFiltrados.sort((a, b) => b.LU! - a.LU!);
         break
       case 'nameDsc':
-        this.usuarios.sort((a, b) => {
+        this.usuariosFiltrados.sort((a, b) => {
           var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
           if (nameA < nameB)
             return 1;
@@ -115,8 +116,17 @@ export class AdministracionUsuariosComponent {
         });
         break
       case 'surnameDsc':
+        this.usuariosFiltrados.sort((a, b) => {
+          var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
+          if (surnameA < surnameB)
+            return 1;
+          if (surnameA > surnameB)
+            return -1;
+          return 0;
+        });
+        break
       case 'emailDsc':
-        this.usuarios.sort((a, b) => {
+        this.usuariosFiltrados.sort((a, b) => {
           var emailA = a.email!.toLowerCase(), emailB = b.email!.toLowerCase();
           if (emailA < emailB)
             return 1;
@@ -127,10 +137,10 @@ export class AdministracionUsuariosComponent {
         break
       //Ascendentes
       case 'LUAsc':
-        this.usuarios.sort((a, b) => a.LU! - b.LU!);
+        this.usuariosFiltrados.sort((a, b) => a.LU! - b.LU!);
         break
       case 'nameAsc':
-        this.usuarios.sort((a, b) => {
+        this.usuariosFiltrados.sort((a, b) => {
           var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
           if (nameA < nameB)
             return -1;
@@ -140,7 +150,7 @@ export class AdministracionUsuariosComponent {
         });
         break
       case 'surnameAsc':
-        this.usuarios.sort((a, b) => {
+        this.usuariosFiltrados.sort((a, b) => {
           var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
           if (surnameA < surnameB)
             return -1;
@@ -150,7 +160,7 @@ export class AdministracionUsuariosComponent {
         });
         break
       case 'emailAsc':
-        this.usuarios.sort((a, b) => {
+        this.usuariosFiltrados.sort((a, b) => {
           var emailA = a.email!.toLowerCase(), emailB = b.email!.toLowerCase();
           if (emailA < emailB)
             return -1;
@@ -162,17 +172,21 @@ export class AdministracionUsuariosComponent {
           
     }
 
-    this.buscarApellido();
   }
   
   buscarApellido() {
     const input = <HTMLInputElement>document.getElementById("myInput");
-    this.usuariosFiltrados = this.usuarios.filter(function(user:User){
-      if (user.surname?.toUpperCase().indexOf(input.value.toUpperCase())! > -1){
-        return true
-      }
-      return false;
-    })
+    if (input.value !== ""){
+      console.log("input",input.value);
+      console.log("inputddas",new Date());
+      
+      this.usuariosFiltrados = this.usuarios.filter(function(user:User){
+        if (user.surname?.toUpperCase().indexOf(input.value.toUpperCase())! > -1){
+          return true
+        }
+        return false;
+      })
+    }
     console.log("USuarios filtred", this.usuariosFiltrados);
     
   }

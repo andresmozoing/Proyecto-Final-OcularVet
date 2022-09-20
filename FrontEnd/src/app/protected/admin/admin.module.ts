@@ -17,6 +17,10 @@ import { NotasAdminComponent } from './notas-admin/notas-admin.component';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ConfigAdminComponent } from './config-admin/config-admin.component';
 import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MyCustomPaginatorIntl } from './customPaginator';
 
 
 
@@ -33,7 +37,11 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
-    NgChartsModule
-  ]
+    NgChartsModule,
+    MatSortModule,
+    MatTableModule,
+    MatPaginatorModule
+  ],
+  providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
 })
 export class AdminModule { }
