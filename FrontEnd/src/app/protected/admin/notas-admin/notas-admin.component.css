@@ -1,14 +1,23 @@
 #contenedorDatos {
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
 }
 
 #divChartPie {
-    width: 40%;
-    float: left;
+    width: 30%;
+    margin: auto;
 }
 
 #divChartBar {
     width: 40%;
-    float: left;
+    margin: auto;
 }
 
+/* Large rounded green border */
+hr {
+    /* border: 10px solid #7b1fa2; */
+    height: 20px ;
+    background-color: #7b1fa2;
+    border-radius: 5px;
+  }
