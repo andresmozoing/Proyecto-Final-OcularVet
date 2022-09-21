@@ -13,44 +13,12 @@
     <div class="col">
       <div class="card recent-sales overflow-auto">
         <div class="card-body">
-          <input type="number" id="myInput" oninput="buscaPorAnio()" placeholder="Buscar por Año.." title="Type in a name" >
-          <button type="button" name="searchButton" class="btn btn-primary" (click)="buscaPorAnio()">
+          <input type="number" id="anioInput" oninput="filtrar()" placeholder="Buscar por Año.." title="Type in a name" >
+          <input type="text" id="apellidoInput" oninput="filtrar()" placeholder="Buscar por apellido.." title="apellido" class="m-1">
+          <button type="button" name="searchButton" class="btn btn-primary" (click)="filtrar()">
               <i class="bi-search "></i>  
           </button>
-          <!-- <table id="myTable2" style="display: none;">
-            <thead align="center">
-              <th role="button" scope="col" (click)='sortTabla("LUAsc")'> LU </th>
-              <th role="button" scope="col" (click)="sortTabla('nameAsc')"> Nombre </th>
-              <th role="button" scope="col" (click)="sortTabla('surnameAsc')"> Apellido </th>
-              <th role="button" scope="col" (click)='sortTabla("fechaAsc")'> Fecha </th>
-              <th role="button" scope="col" (click)="sortTabla('rtasCorrectasAsc')"> Respuestas <br> Correctas </th>
-              <th role="button" scope="col" (click)="sortTabla('cantidadPreguntasAsc')"> Cantidad <br> Preguntas </th>
-              <th role="button" scope="col" (click)="sortTabla('calificacionAsc')"> Nota </th>
-            </thead>
-            <tbody align="center">
-              <tr *ngFor="let nota of notasFiltradas">
-                <th scope="row"> {{nota.LU}} </th>
-                <td>{{ nota.name }}</td>
-                <td>{{ nota.surname }}</td>
-                <td>{{ nota.fecha | date:"dd-MM-YYYY" }}</td>
-                <td>{{ nota.rtasCorrectas }}</td>
-                <td>{{ nota.cantidadPreguntas }}</td>
-                <td>{{ nota.calificacion }}</td>
-
-                <td>
-                  <button type="button" name="button" class="btn btn-danger" [swal]="deleteSwal">
-                    <i class="bi-trash-fill"></i>
-
-                    <swal #deleteSwal title="Eliminar nota de {{ nota.name}} {{ nota.surname }}?"
-                      text="Esta acción no se puede deshacer." icon="warning"
-                      [swalOptions]="{ confirmButtonText: 'Confirmar' , cancelButtonText:'Cancelar' }" [showCancelButton]="true" [focusCancel]="true"
-                      (confirm)="eliminarNota(nota._id!)">
-                    </swal>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table> -->
+          
           <div>
             <table style="width: 100%;" mat-table [dataSource]="dataSource" 
             matSort (matSortChange)="announceSortChange($event)"  class="mat-elevation-z8">
@@ -108,14 +76,6 @@
             </mat-paginator>  
         </div>  
 
-          <!-- <canvas baseChart
-            [type]="'pie'"
-            [datasets]="pieChartDatasets"
-            [labels]="pieChartLabels"
-            [options]="pieChartOptions"
-            
-            [legend]=true>
-          </canvas> -->
 
           <div id="contenedorDatos">
             <div id="divChartPie">

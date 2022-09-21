@@ -5,8 +5,8 @@ import { ChartOptions } from 'chart.js';
 import { Chart, registerables } from 'chart.js';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
-import {LiveAnnouncer} from '@angular/cdk/a11y';
-import {MatPaginator, MatPaginatorIntl, MatPaginatorModule} from '@angular/material/paginator';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { Subject } from 'rxjs';
 import { $localize } from '@angular/localize/init';
 
@@ -16,28 +16,32 @@ import { $localize } from '@angular/localize/init';
   styleUrls: ['./notas-admin.component.css']
 })
 export class NotasAdminComponent implements MatPaginatorIntl {
->>>>>>> 41426a1ab5ca6ff1cb1dd5789f68e0144e9b9fc9
+  //-----------------------------------------------------
+  //                  VARIABLES
+  //-----------------------------------------------------
 
-  notas!: Nota[];
-  notasFiltradas: Nota[]=[];
-  ordenActual: string = "LUAsc";
+  //Vars de graficos
   chartPie: any = [];
   chartBar: any = [];
+  //Vars de notas y tablas
+  notas!: Nota[];
+  notasFiltradas: Nota[] = [];
+  dataSource!: MatTableDataSource<Nota>
+  columns: string[] = ['LU', 'name', 'surname', 'fecha', 'rtasCorrectas', 'cantidadPreguntas', 'calificacion', 'borrar']
 
-  dataSource!: MatTableDataSource<Nota> 
-  notasData: Nota[]=[]
-  columns: string[]=['LU','name','surname','fecha','rtasCorrectas','cantidadPreguntas','calificacion','borrar']
-
-  @ViewChild(MatSort, {static: true}) sort!: MatSort;
-  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
 
   constructor(
     private notaService: NotaService,
     private _liveAnnouncer: LiveAnnouncer) { }
 
+  //-----------------------------------------------------
+  //                      METODOS
+  //-----------------------------------------------------
+
   ngAfterViewInit() {
-     
-    this.notasAlumno();
+    this.getNotasAlumno();
     this.dataSource.sort = this.sort;
   }
 
@@ -47,20 +51,20 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     let cantidad_60_80 = 0
     let cantidad_80_100 = 0
     let arregloCantidadNotas: number[] = []
-    this.notas.forEach(nota => {
+    this.notasFiltradas.forEach(nota => {
       if (nota.calificacion < 30) { cantidad_0_30 = cantidad_0_30 + 1; }
       else {
         if (nota.calificacion < 60) { cantidad_30_60 = cantidad_30_60 + 1 }
-        else { 
-          if(nota.calificacion < 80) {cantidad_60_80 = cantidad_60_80 + 1 }
+        else {
+          if (nota.calificacion < 80) { cantidad_60_80 = cantidad_60_80 + 1 }
           else { cantidad_80_100 = cantidad_80_100 + 1 }
         }
       }
     });
 
-    arregloCantidadNotas.push(cantidad_0_30, cantidad_30_60, cantidad_60_80,cantidad_80_100)
+    arregloCantidadNotas.push(cantidad_0_30, cantidad_30_60, cantidad_60_80, cantidad_80_100)
 
-    let labelsCharts = ['0-30', '30-60', '60-80','80-100']
+    let labelsCharts = ['0-30', '30-60', '60-80', '80-100']
     let dataSetsCharts = [
       {
         data: arregloCantidadNotas,
@@ -113,168 +117,92 @@ export class NotasAdminComponent implements MatPaginatorIntl {
             beginAtZero: true
           }
         }
-     }
+      }
     });
 
 
   }
 
-  async notasAlumno() {
+  async getNotasAlumno() {
     await this.notaService.obtenerNotas().subscribe(async (resp) => {
       // obtengo las notas y actualizo el contenido de mi tabla
       this.notas = resp.notas;
       this.notasFiltradas = this.notas;
       // this.sortTabla(this.ordenActual)
       this.setearGraficos()
-      this.notasData = resp.notas;
-      this.dataSource = new MatTableDataSource(this.notasData);
+      this.dataSource = new MatTableDataSource(this.notas);
       this.dataSource.sort = this.sort
       this.dataSource.paginator = this.paginator
     });
     this.dataSource.sort = this.sort
   }
 
+
   async eliminarNota(_id: String) {
     await this.notaService.eliminarNota(_id).subscribe(
-      (resp)=>{
-          this.notasAlumno();
-        }
-      ) 
-    this.notas = this.notas.filter(function(nota:Nota) {
+      (resp) => {
+
+      }
+    )
+    this.notas = this.notas.filter(function (nota: Nota) {
       return (nota._id !== _id)
     })
-    this.buscaPorAnio(); 
+    this.filtrar();
   }
 
-  // sortTabla(ordenNuevo: string, recarga : boolean = false) {
-  //   if (recarga){ 
-  //     //Cuando eliminamos una nota queremos que mantenga el orden
-  //     this.ordenActual="";
-  //   }
-  //   if (ordenNuevo === this.ordenActual) {  //Significa que selecciono dos veces el mismo, cambiamos de Dsc a Asc
-  //     if(this.ordenActual.includes("Asc")){
-  //       ordenNuevo = ordenNuevo.replace("Asc","Dsc") 
-  //     }
-  //   }  
-  //   console.log("orden nuevo:",ordenNuevo," y el actual:",this.ordenActual);
-    
-  //   this.ordenActual = ordenNuevo //Actualizamos el ordenActual
-  //   switch (ordenNuevo) { 
-  //     //Descendentes
-  //     case 'LUDsc':
-  //       this.notasFiltradas.sort((a, b) => b.LU! - a.LU!);
-  //       break
-  //     case 'nameDsc':
-  //       this.notasFiltradas.sort((a, b) => {
-  //         var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
-  //         if (nameA < nameB)
-  //           return 1;
-  //         if (nameA > nameB)
-  //           return -1;
-  //         return 0;
-  //       });
-  //       break
-  //     case 'surnameDsc':
-  //         this.notasFiltradas.sort((a, b) => {
-  //           var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
-  //           if (surnameA < surnameB)
-  //             return 1;
-  //           if (surnameA > surnameB)
-  //             return -1;
-  //           return 0;
-  //         });
-  //         break
-  //     case 'fechaDsc':
-  //       this.notasFiltradas.sort(function(a, b)  {
-  //         if (a.fecha < b.fecha)
-  //           return 1
-  //         if (a.fecha > b.fecha)
-  //           return -1;
-  //         return 0;
-  //       });
-  //       break    
-  //     case 'rtasCorrectasDsc':
-  //       this.notasFiltradas.sort((a, b) => b.rtasCorrectas! - a.rtasCorrectas!);
-  //       break
-  //     case 'cantidadPreguntasDsc':
-  //       this.notasFiltradas.sort((a, b) => b.cantidadPreguntas! - a.cantidadPreguntas!);
-  //       break
-  //     case 'calificacionDsc':
-  //       this.notasFiltradas.sort((a, b) => b.calificacion! - a.calificacion!);
-        
-  //       break
-  //     //Ascendentes
-  //     case 'LUAsc':
-  //       this.notasFiltradas.sort((a, b) => a.LU! - b.LU!);
-  //       break
-  //     case 'nameAsc':
-  //       this.notasFiltradas.sort((a, b) => {
-  //         var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
-  //         if (nameA < nameB)
-  //           return -1;
-  //         if (nameA > nameB)
-  //           return 1;
-  //         return 0;
-  //       });
-  //       break
-  //     case 'surnameAsc':
-  //       this.notasFiltradas.sort((a, b) => {
-  //         var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
-  //         if (surnameA < surnameB)
-  //           return -1;
-  //         if (surnameA > surnameB)
-  //           return 1;
-  //         return 0;
-  //       });
-  //       break
-  //     case 'fechaAsc':
-  //       console.log("A  ");
-  //       this.notasFiltradas.sort((a, b) =>{
-  //         if (a.fecha < b.fecha){
-  //           return -1
-  //         }
-  //         if (a.fecha > b.fecha)
-  //           return 1;
-  //         return 0;
-  //       });
-  //       break
-  //     case 'rtasCorrectasAsc':
-  //       this.notasFiltradas.sort((a, b) => a.rtasCorrectas! - b.rtasCorrectas!);
-  //       break
-  //     case 'cantidadPreguntasAsc':
-  //       this.notasFiltradas.sort((a, b) => a.cantidadPreguntas! - b.cantidadPreguntas!);
-  //       break
-  //     case 'calificacionAsc':
-  //       this.notasFiltradas.sort((a, b) => a.calificacion! - b.calificacion!);
-  //       break
-        
-  //   }
 
-  // }
-
-  buscaPorAnio() {
-    const input = <HTMLInputElement>document.getElementById("myInput");
-    if (input.value !== ""){
-
-      this.notasFiltradas = this.notas.filter(function(nota:Nota){
-        const fechaUser = new Date(nota.fecha)
-        if (fechaUser > new Date(input.valueAsNumber,0,0) && 
-         (fechaUser < new Date(input.valueAsNumber,11,30))){
-          return true
-        }
-        return false;
-      })
-    } else{
-      this.notasFiltradas = this.notas
+  filtrar() {
+    const anioInput = <HTMLInputElement>document.getElementById("anioInput");
+    const apellidoInput = <HTMLInputElement>document.getElementById("apellidoInput");
+    if (anioInput.value !== "") {
+      if (apellidoInput.value !== "") {
+        //Caso en que filtra por año y apellido
+        this.notasFiltradas = this.notas.filter(function (nota: Nota) {
+          const fechaUser = new Date(nota.fecha)
+          if ((fechaUser > new Date(anioInput.valueAsNumber, 0, 0)) &&
+            (fechaUser < new Date(anioInput.valueAsNumber, 11, 30)) &&
+            (nota.surname!.toUpperCase().includes(apellidoInput.value.toUpperCase()))) {
+            return true
+          }
+          return false;
+        })
+      }
+      else {
+        //Caso en que filtra solo por año
+        this.notasFiltradas = this.notas.filter(function (nota: Nota) {
+          const fechaUser = new Date(nota.fecha)
+          if ((fechaUser > new Date(anioInput.valueAsNumber, 0, 0)) &&
+            (fechaUser < new Date(anioInput.valueAsNumber, 11, 30))) {
+            return true
+          }
+          return false;
+        })
+      }
+    }
+    else {
+      if (apellidoInput.value !== "") {
+        //Caso en que filtra solo por apellido
+        this.notasFiltradas = this.notas.filter(function (nota: Nota) {
+          const fechaUser = new Date(nota.fecha)
+          if (nota.surname!.toUpperCase().includes(apellidoInput.value.toUpperCase())) {
+            return true
+          }
+          return false;
+        })
+      }
+      else {
+        //Caso en que no filtra
+        this.notasFiltradas = this.notas
+      }
     }
     this.dataSource = new MatTableDataSource(this.notasFiltradas);
-    this.dataSource.sort = this.sort
-    this.dataSource.paginator = this.paginator
-    console.log("USuarios filtred", this.notasFiltradas);
-    
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+    this.setearGraficos();
+
   }
 
-  
+
   announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports
     // multiple language, you would internationalize these strings.
@@ -288,9 +216,8 @@ export class NotasAdminComponent implements MatPaginatorIntl {
   }
 
   changes = new Subject<void>();
-
-  // For internationalization, the `$localize` function from
-  // the `@angular/localize` package can be used.
+  // Para internationalization de paginator, se usa `$localize` function from
+  // the `@angular/localize`.
   firstPageLabel = $localize`First page`;
   itemsPerPageLabel = $localize`Items per page:`;
   lastPageLabel = $localize`Last page`;
