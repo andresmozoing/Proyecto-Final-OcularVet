@@ -16,7 +16,6 @@ import { $localize } from '@angular/localize/init';
   styleUrls: ['./notas-admin.component.css']
 })
 export class NotasAdminComponent implements MatPaginatorIntl {
->>>>>>> 41426a1ab5ca6ff1cb1dd5789f68e0144e9b9fc9
 
   notas!: Nota[];
   notasFiltradas: Nota[]=[];
