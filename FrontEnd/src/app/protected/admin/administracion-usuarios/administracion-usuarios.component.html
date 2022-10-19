@@ -76,11 +76,13 @@
                         </tbody>
                     </table> -->
                     <div class="card-body">
-                        <input type="text" id="apellidoInput" oninput="filtrar()" placeholder="Buscar por apellido.."
-                            title="apellido" class="m-1">
-                        <button type="button" name="searchButton" class="btn btn-primary" (click)="filtrar()">
-                            <i class="bi-search "></i>
-                        </button>
+                        <form (ngSubmit)="filtrar()">
+                            <input type="text" id="apellidoInput" oninput="filtrar()" placeholder="Buscar por apellido.."
+                                title="apellido" class="m-1">
+                            <button type="submit" name="searchButton" class="btn btn-primary" (click)="filtrar()">
+                                <i class="bi-search "></i>
+                            </button>
+                        </form>
 
                         <div>
                             <table style="width: 100%;" mat-table [dataSource]="dataSource" matSort

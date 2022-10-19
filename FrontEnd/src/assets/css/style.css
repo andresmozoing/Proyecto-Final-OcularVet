@@ -12,13 +12,17 @@
   scroll-behavior: smooth;
 }
 
-body {
+body  {
   font-family: "Open Sans", sans-serif;
   background-image: url('../images/eXpresso.jpg');
   background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  background-color: #7b1fa2c7;
   background-repeat: no-repeat;
   color: #444444;
 }
+
 
 a {
   color: #4154f1;
@@ -43,16 +47,19 @@ h6 {
 # Main
 --------------------------------------------------------------*/
 #main {
-  margin-top: 5em;
-  padding: 1%;
+  /* margin-top: 6%; */
+  padding-top: 11vh;
+  padding-left: 1vw ;
+  padding-right: 1vw;
+  padding-bottom: 1vh;
   transition: all 0.3s;
 }
 
-@media (max-width: 1199px) {
+/* @media (max-width: 1199px) {
   #main {
     padding: 20px;
   }
-}
+} */
 .btn-primary{
   color: white;
   background: #7b1fa2;
@@ -431,11 +438,12 @@ h6 {
 .header {
   transition: all 0.5s;
   z-index: 997;
-  height: 60px;
+  height: 8.5vh;
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
   background-color: #fff;
-  width: 98%;
-  margin: 1%; 
+  width: 100vw;
+  margin-top: 1vh;
+  margin-bottom: 1vh; 
   /* Toggle Sidebar Button */
   /* Search Bar */
 }
