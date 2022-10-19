@@ -8,6 +8,7 @@ import { UsuarioService } from '../../services/usuario.service';
 import { User } from '../../interfaces/Usuario';
 import { Usuario } from '../../../auth/interfaces/interfaces';
 import { NotaService } from '../../services/nota.service';
+import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
@@ -20,27 +21,35 @@ export class AdministracionUsuariosComponent {
   usuarios: User[] =[] ;
   usuariosFiltrados: User[] =[] ;
   ordenTabla :string= "";
+  dataSource!: MatTableDataSource<User>
   ordenActual="LUAsc"
+  columns: string[] = ['LU', 'name', 'surname', 'email', 'isAdmin', 'resetPassword', 'borrarUser']
 
   constructor( private authservice: AuthService,
     private usuarioService : UsuarioService,
-    private notaService : NotaService
+    private notaService : NotaService,
+    private _liveAnnouncer: LiveAnnouncer
     ) {}
     
-    @ViewChild(MatSort) sort!: MatSort;
-    
+    @ViewChild(MatSort, { static: true }) sort!: MatSort;
+    @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+
     ngAfterViewInit() {
-      this.obtenerUsuarios();    
+      this.obtenerUsuarios();
+      this.dataSource.sort = this.sort;    
+          
     }
-  obtenerUsuarios(){
-    return this.usuarioService.obtenerUsuarios().subscribe( (resp)=>{
+  async obtenerUsuarios(){
+    await this.usuarioService.obtenerUsuarios().subscribe( (resp)=>{
       console.log("RESPUESTA de usuarios :", resp);
       
       this.usuarios = resp.users;
       this.usuariosFiltrados = this.usuarios
-      this.sortTabla(this.ordenActual)
-      this.ordenTabla="LUAsc";
+      this.dataSource = new MatTableDataSource(resp.users);
+      this.dataSource.sort = this.sort
+      this.dataSource.paginator = this.paginator
     });
+    this.dataSource.sort = this.sort;
   }
 
   async eliminarUsuario(_id: string){
@@ -64,12 +73,14 @@ export class AdministracionUsuariosComponent {
             }
           )
         }
-        console.log();
+        this.usuarios = this.usuarios.filter(function (user: User) {
+          return (user._id !== _id)
+        })
+        this.filtrar();
         
-        this.obtenerUsuarios();
       }
     );
-    this.sortTabla(this.ordenTabla)
+    // this.sortTabla(this.ordenTabla)
   }
   reiniciarPassword(_id: string){
     console.log("entro a reiniciar Password, id:",_id);
@@ -88,107 +99,121 @@ export class AdministracionUsuariosComponent {
     );
   }
   
-  sortTabla( ordenNuevo:string, recarga : boolean = false) {
-    if (recarga){ 
-      //Cuando eliminamos una nota queremos que mantenga el orden
-      this.ordenActual="";
-    }
-    if (ordenNuevo === this.ordenActual) {  //Significa que selecciono dos veces el mismo, cambiamos de Dsc a Asc
-      if(this.ordenActual.includes("Asc")){
-        ordenNuevo = ordenNuevo.replace("Asc","Dsc") 
-      }
-    } 
+  // sortTabla( ordenNuevo:string, recarga : boolean = false) {
+  //   if (recarga){ 
+  //     //Cuando eliminamos una nota queremos que mantenga el orden
+  //     this.ordenActual="";
+  //   }
+  //   if (ordenNuevo === this.ordenActual) {  //Significa que selecciono dos veces el mismo, cambiamos de Dsc a Asc
+  //     if(this.ordenActual.includes("Asc")){
+  //       ordenNuevo = ordenNuevo.replace("Asc","Dsc") 
+  //     }
+  //   } 
     
-    this.ordenActual = ordenNuevo //Actualizamos el ordenActual
-    switch (ordenNuevo) { 
-      //Descendentes
-      case 'LUDsc':
-        this.usuariosFiltrados.sort((a, b) => b.LU! - a.LU!);
-        break
-      case 'nameDsc':
-        this.usuariosFiltrados.sort((a, b) => {
-          var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
-          if (nameA < nameB)
-            return 1;
-          if (nameA > nameB)
-            return -1;
-          return 0;
-        });
-        break
-      case 'surnameDsc':
-        this.usuariosFiltrados.sort((a, b) => {
-          var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
-          if (surnameA < surnameB)
-            return 1;
-          if (surnameA > surnameB)
-            return -1;
-          return 0;
-        });
-        break
-      case 'emailDsc':
-        this.usuariosFiltrados.sort((a, b) => {
-          var emailA = a.email!.toLowerCase(), emailB = b.email!.toLowerCase();
-          if (emailA < emailB)
-            return 1;
-          if (emailA > emailB)
-            return -1;
-          return 0;
-        });
-        break
-      //Ascendentes
-      case 'LUAsc':
-        this.usuariosFiltrados.sort((a, b) => a.LU! - b.LU!);
-        break
-      case 'nameAsc':
-        this.usuariosFiltrados.sort((a, b) => {
-          var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
-          if (nameA < nameB)
-            return -1;
-          if (nameA > nameB)
-            return 1;
-          return 0;
-        });
-        break
-      case 'surnameAsc':
-        this.usuariosFiltrados.sort((a, b) => {
-          var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
-          if (surnameA < surnameB)
-            return -1;
-          if (surnameA > surnameB)
-            return 1;
-          return 0;
-        });
-        break
-      case 'emailAsc':
-        this.usuariosFiltrados.sort((a, b) => {
-          var emailA = a.email!.toLowerCase(), emailB = b.email!.toLowerCase();
-          if (emailA < emailB)
-            return -1;
-          if (emailA > emailB)
-            return 1;
-          return 0;
-        });
-        break
+  //   this.ordenActual = ordenNuevo //Actualizamos el ordenActual
+  //   switch (ordenNuevo) { 
+  //     //Descendentes
+  //     case 'LUDsc':
+  //       this.usuariosFiltrados.sort((a, b) => b.LU! - a.LU!);
+  //       break
+  //     case 'nameDsc':
+  //       this.usuariosFiltrados.sort((a, b) => {
+  //         var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
+  //         if (nameA < nameB)
+  //           return 1;
+  //         if (nameA > nameB)
+  //           return -1;
+  //         return 0;
+  //       });
+  //       break
+  //     case 'surnameDsc':
+  //       this.usuariosFiltrados.sort((a, b) => {
+  //         var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
+  //         if (surnameA < surnameB)
+  //           return 1;
+  //         if (surnameA > surnameB)
+  //           return -1;
+  //         return 0;
+  //       });
+  //       break
+  //     case 'emailDsc':
+  //       this.usuariosFiltrados.sort((a, b) => {
+  //         var emailA = a.email!.toLowerCase(), emailB = b.email!.toLowerCase();
+  //         if (emailA < emailB)
+  //           return 1;
+  //         if (emailA > emailB)
+  //           return -1;
+  //         return 0;
+  //       });
+  //       break
+  //     //Ascendentes
+  //     case 'LUAsc':
+  //       this.usuariosFiltrados.sort((a, b) => a.LU! - b.LU!);
+  //       break
+  //     case 'nameAsc':
+  //       this.usuariosFiltrados.sort((a, b) => {
+  //         var nameA = a.name!.toLowerCase(), nameB = b.name!.toLowerCase();
+  //         if (nameA < nameB)
+  //           return -1;
+  //         if (nameA > nameB)
+  //           return 1;
+  //         return 0;
+  //       });
+  //       break
+  //     case 'surnameAsc':
+  //       this.usuariosFiltrados.sort((a, b) => {
+  //         var surnameA = a.surname!.toLowerCase(), surnameB = b.surname!.toLowerCase();
+  //         if (surnameA < surnameB)
+  //           return -1;
+  //         if (surnameA > surnameB)
+  //           return 1;
+  //         return 0;
+  //       });
+  //       break
+  //     case 'emailAsc':
+  //       this.usuariosFiltrados.sort((a, b) => {
+  //         var emailA = a.email!.toLowerCase(), emailB = b.email!.toLowerCase();
+  //         if (emailA < emailB)
+  //           return -1;
+  //         if (emailA > emailB)
+  //           return 1;
+  //         return 0;
+  //       });
+  //       break
           
-    }
+  //   }
 
-  }
+  // }
   
-  buscarApellido() {
-    const input = <HTMLInputElement>document.getElementById("myInput");
+  filtrar() {
+    const input = <HTMLInputElement>document.getElementById("apellidoInput");
     if (input.value !== ""){
-      console.log("input",input.value);
-      console.log("inputddas",new Date());
-      
       this.usuariosFiltrados = this.usuarios.filter(function(user:User){
-        if (user.surname?.toUpperCase().indexOf(input.value.toUpperCase())! > -1){
+        if (user.surname!.toUpperCase().startsWith(input.value.toUpperCase(),0) ){
           return true
         }
         return false;
       })
+    }else{
+      this.usuariosFiltrados = this.usuarios;
     }
+    this.dataSource = new MatTableDataSource(this.usuariosFiltrados);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
     console.log("USuarios filtred", this.usuariosFiltrados);
     
+  }
+
+  announceSortChange(sortState: Sort) {
+    // This example uses English messages. If your application supports
+    // multiple language, you would internationalize these strings.
+    // Furthermore, you can customize the message to add additional
+    // details about the values being sorted.
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 }
 

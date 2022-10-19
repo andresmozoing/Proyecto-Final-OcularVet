@@ -161,7 +161,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
           const fechaUser = new Date(nota.fecha)
           if ((fechaUser > new Date(anioInput.valueAsNumber, 0, 0)) &&
             (fechaUser < new Date(anioInput.valueAsNumber, 11, 30)) &&
-            (nota.surname!.toUpperCase().includes(apellidoInput.value.toUpperCase()))) {
+            (nota.surname!.toUpperCase().startsWith(apellidoInput.value.toUpperCase(),0))) {
             return true
           }
           return false;
@@ -184,7 +184,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
         //Caso en que filtra solo por apellido
         this.notasFiltradas = this.notas.filter(function (nota: Nota) {
           const fechaUser = new Date(nota.fecha)
-          if (nota.surname!.toUpperCase().includes(apellidoInput.value.toUpperCase())) {
+          if (nota.surname!.toUpperCase().startsWith(apellidoInput.value.toUpperCase(),0)) {
             return true
           }
           return false;
