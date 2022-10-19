@@ -70,6 +70,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
         data: arregloCantidadNotas,
         borderWidth: 1,
         label: 'Notas',
+        
         backgroundColor: [
           'rgb(140, 137,136 )',
           'rgb(1, 41, 112)',
@@ -114,7 +115,14 @@ export class NotasAdminComponent implements MatPaginatorIntl {
       options: {
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            title:{ display: true, text:'Cantidad de alumnos'},
+            ticks: {                                    
+              stepSize: 1  
+            }
+          },
+          x: {
+            title:{ display: true, text:'Calificación obtenida'},
           }
         }
       }
