@@ -9,7 +9,7 @@ export interface Nota {
     rtasCorrectas: number,
     cantidadPreguntas: number,
     calificacion: number,
-    LU: number,
+    DNI: number,
     fecha: Date,
     __v?: Number
 }

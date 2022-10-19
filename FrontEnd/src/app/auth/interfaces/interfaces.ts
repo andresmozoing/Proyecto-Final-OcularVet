@@ -3,7 +3,7 @@ export interface AuthResponse{
     uid?: string;
     name?: string;
     surname?: string;
-    LU?: number;
+    DNI?: number;
     email?:string;
     isAdmin?: boolean;
     token?: string;
@@ -14,7 +14,7 @@ export interface Usuario{
     uid: string;
     name: string;
     surname: string;
-    LU: number;
+    DNI: number;
     email: string;
     isAdmin:boolean;
 }

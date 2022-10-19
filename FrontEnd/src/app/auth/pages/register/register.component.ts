@@ -14,7 +14,7 @@ export class RegisterComponent {
   miFormularioRegistro: UntypedFormGroup = this.fb.group({
     name: ['test 1', [Validators.required]],
     surname: ['apellidoTest 1', [Validators.required]],
-    LU: ['4231', [Validators.required, Validators.min(999)]],
+    DNI: ['4231', [Validators.required, Validators.min(999)]],
     email: ['test1@test.com', [Validators.required, Validators.email]],
     password: ['123456', [Validators.required, Validators.minLength(6)]],
     rePassword: ['123456', [Validators.required]],
@@ -32,10 +32,10 @@ export class RegisterComponent {
     private authservice: AuthService) { }
 
   registrar() {
-    const { name, surname, LU, email, password, rePassword, codigoRegistro } = this.miFormularioRegistro.value
+    const { name, surname, DNI, email, password, rePassword, codigoRegistro } = this.miFormularioRegistro.value
 
     if (password === rePassword) {
-      this.authservice.registro(name, surname, LU, email, password, codigoRegistro)
+      this.authservice.registro(name, surname, DNI, email, password, codigoRegistro)
         .subscribe(ok => {
           if (ok === true) {
             this.router.navigateByUrl('/ocularVet');

@@ -22,8 +22,8 @@ export class AdministracionUsuariosComponent {
   usuariosFiltrados: User[] =[] ;
   ordenTabla :string= "";
   dataSource!: MatTableDataSource<User>
-  ordenActual="LUAsc"
-  columns: string[] = ['LU', 'name', 'surname', 'email', 'isAdmin', 'resetPassword', 'borrarUser']
+  ordenActual="DNIAsc"
+  columns: string[] = ['DNI', 'name', 'surname', 'email', 'isAdmin', 'resetPassword', 'borrarUser']
 
   constructor( private authservice: AuthService,
     private usuarioService : UsuarioService,
@@ -63,7 +63,7 @@ export class AdministracionUsuariosComponent {
           console.log(2232);
           
           this.notaService.eliminarNotasUsuario
-            (resp.user.LU).subscribe(
+            (resp.user.DNI).subscribe(
             resp=>{
               if(resp.ok){
                 console.log("Se eliminaron las notas del usuario eliminado correctamente");
@@ -113,8 +113,8 @@ export class AdministracionUsuariosComponent {
   //   this.ordenActual = ordenNuevo //Actualizamos el ordenActual
   //   switch (ordenNuevo) { 
   //     //Descendentes
-  //     case 'LUDsc':
-  //       this.usuariosFiltrados.sort((a, b) => b.LU! - a.LU!);
+  //     case 'DNIDsc':
+  //       this.usuariosFiltrados.sort((a, b) => b.DNI! - a.DNI!);
   //       break
   //     case 'nameDsc':
   //       this.usuariosFiltrados.sort((a, b) => {
@@ -147,8 +147,8 @@ export class AdministracionUsuariosComponent {
   //       });
   //       break
   //     //Ascendentes
-  //     case 'LUAsc':
-  //       this.usuariosFiltrados.sort((a, b) => a.LU! - b.LU!);
+  //     case 'DNIAsc':
+  //       this.usuariosFiltrados.sort((a, b) => a.DNI! - b.DNI!);
   //       break
   //     case 'nameAsc':
   //       this.usuariosFiltrados.sort((a, b) => {

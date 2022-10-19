@@ -9,9 +9,9 @@ const ConfiguracionAdmin = require('../models/ConfiguracionAdmin');
 const crearUsuario = async(req,res = response)=>{
 
     //Para desestructurar el body: (asi puedo manejarlos por separado)
-    const { name, surname, LU, email, password, codigoRegistro}= req.body;
+    const { name, surname, DNI, email, password, codigoRegistro}= req.body;
     try {
-        console.log("Llego al controller de crearUsuario");
+
         //Verificar que no exista el email
         const usuarioEmail = await Usuario.findOne({email: email});
         if (usuarioEmail){
@@ -21,19 +21,15 @@ const crearUsuario = async(req,res = response)=>{
             });
         }
 
-        console.log("Pasó la verif del email");
-
-        //Verificar que no exista el LU
-        const usuarioLU = await Usuario.findOne({LU: LU});
-        console.log(usuarioLU);
-        if (usuarioLU){
+        //Verificar que no exista el DNI
+        const usuarioDNI = await Usuario.findOne({DNI: DNI});
+        console.log(usuarioDNI);
+        if (usuarioDNI){
             return res.status(400).json({
                 ok:false,
-                msg: ' Ya existe un usuario con el LU ingresado'
+                msg: ' Ya existe un usuario con el DNI ingresado'
             });
         }
-
-        console.log("Pasó la verif del LU");
 
         const configAdmin = await ConfiguracionAdmin.findOne({codigoRegistro:codigoRegistro});
 
@@ -44,35 +40,34 @@ const crearUsuario = async(req,res = response)=>{
             });
         }
 
-        console.log("Pasó la verif del codigoRegistro");
-
-        console.log(req.body);
         //Crear usuario con el modelo
         const dbUser = new Usuario(req.body);
+
         //hashear la contraseña
         const salt = bcrypt.genSaltSync(10);
         dbUser.password = bcrypt.hashSync(password, salt);
         
         //Generar el JWT 
         const token = await generarJWT(dbUser.id, name);
-        
+
         // Crear en BD
         await dbUser.save();
-        //Generar rta exitosa
 
+        //Generar rta exitosa
+        console.log("hizo el save");
         return res.status(201).json({
             ok: true,
             uid: dbUser.id,
             name,
             surname,
-            LU,
+            DNI,
             email,
             token
         })
     } catch (error) {
         return res.status(500).json({
             ok:false,
-            msg: 'Por favor hable con su administrador. Error en el controlador de crearUsuario'
+            msg: 'Por favor hable con su administrador. Error al crear el usuario'
         })
     }
 
@@ -122,13 +117,15 @@ const loginUsuario = async (req,res = response)=>{
 const revalidarToken = async(req,res = response)=>{
     const {uid,name} = req;
     const dbUser = await Usuario.findById({_id:uid}); //Para traer el email
+    console.log(dbUser );
+    console.log(uid);
     const token = await generarJWT(uid, dbUser.name);
     return res.json({
          ok: true,
         uid,
         name:dbUser.name,
         surname:dbUser.surname,
-        LU: dbUser.LU,
+        DNI: dbUser.DNI,
         token,
         email : dbUser.email,
         isAdmin: dbUser.isAdmin

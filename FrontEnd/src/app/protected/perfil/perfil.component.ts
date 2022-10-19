@@ -32,7 +32,7 @@ export class PerfilComponent {
   perfilForm = new UntypedFormGroup({
     name: new UntypedFormControl(this.authservice.usuario.name, Validators.required),
     surname: new UntypedFormControl(this.authservice.usuario.surname, Validators.required),
-    LU: new UntypedFormControl(this.authservice.usuario.LU),
+    DNI: new UntypedFormControl(this.authservice.usuario.DNI),
     email: new UntypedFormControl(this.authservice.usuario.email, [Validators.required, Validators.email]),
   })
 
@@ -56,7 +56,7 @@ export class PerfilComponent {
         //Modificamos el nombre y apellido en las notas del usuario
         if (this.authservice.usuario.name !== this.perfilForm.value.name 
             || this.authservice.usuario.surname !== this.perfilForm.value.surname){
-              this.notaService.modificarNombre_y_apellido(this.authservice.usuario.LU,this.perfilForm.value.name,this.perfilForm.value.surname)
+              this.notaService.modificarNombre_y_apellido(this.authservice.usuario.DNI,this.perfilForm.value.name,this.perfilForm.value.surname)
                 .subscribe(()=>{
                   console.log("TERMINO DE MODIFICAR ");
                 })

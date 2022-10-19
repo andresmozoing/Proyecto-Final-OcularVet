@@ -174,7 +174,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   }
 
   crearNota() {
-    const {LU,name, surname} = this.authService.usuario
+    const {DNI,name, surname} = this.authService.usuario
     const cantidadPreguntas = this.cantPacientesADiagnosticar
     const rtasCorrectas = this.cantRespuestasCorrectas
     let calificacion = 0
@@ -185,7 +185,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
       calificacion = (Math.round(aux) / 100 * Math.sign(calificacion)) * 100;
     }
 
-    this.notaService.crearNota(rtasCorrectas, cantidadPreguntas, LU, calificacion, name, surname)
+    this.notaService.crearNota(rtasCorrectas, cantidadPreguntas, DNI, calificacion, name, surname)
       .subscribe((resp) => {
         //En resp viene un arreglo de notas, con una sola nota
         Swal.fire("Nota guardada!", "Tu calificacion fue de " + resp.notas[0].calificacion, "success")

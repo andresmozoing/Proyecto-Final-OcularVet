@@ -4,7 +4,7 @@ const Nota = require('../models/Nota');
 const Usuario = require('../models/Usuario');
 
 const obtenerNotas = async(req,res = response)=>{
-    const LU = req.header('LU');
+    const DNI = req.header('DNI');
     const anio = req.header('anio');
     try {
         console.log("Llego al controller de obtenerNotas");
@@ -15,20 +15,20 @@ const obtenerNotas = async(req,res = response)=>{
         if (anio){
             console.log("entro al if de anio");
 
-            if (LU){
-                console.log("entro al if de anio y LU");
+            if (DNI){
+                console.log("entro al if de anio y DNI");
                 notas = await Nota.find({
                     $and: [
                         {
                             $gte: new Date(anio.concat('-01-01')),
                             $lt: new Date(anio.concat('-12-31'))
                         },
-                        { LU : LU }
+                        { DNI : DNI }
                     ]
                 });
             }
             else{
-                console.log("entro al if de anio y NO LU");
+                console.log("entro al if de anio y NO DNI");
                 notas = await Nota.find({
                     fecha: {
                         $gte: new Date(anio.concat('-01-01')),
@@ -38,12 +38,12 @@ const obtenerNotas = async(req,res = response)=>{
             }
         }
         else{
-            if(LU){
-                console.log("entro al if de NO anio y SI lu");
-                notas = await Nota.find({ LU : LU });
+            if(DNI){
+                console.log("entro al if de NO anio y SI DNI");
+                notas = await Nota.find({ DNI : DNI });
             }
-            else{ //Caso sin LU ni anio
-                console.log("entro al if de NO anio y NO lu");
+            else{ //Caso sin DNI ni anio
+                console.log("entro al if de NO anio y NO DNI");
                 notas = await Nota.find({});
             }
         }
@@ -70,12 +70,12 @@ const crearNota = async(req,res = response)=>{
         console.log("Llego al controller de crearNota");
         console.log("El body es " , req.body )
         
-        //Verificar que exista el LU
-        const usuarioLU = await Usuario.findOne({LU: req.body.LU});
-        if (!usuarioLU){
+        //Verificar que exista el DNI
+        const usuarioDNI = await Usuario.findOne({DNI: req.body.DNI});
+        if (!usuarioDNI){
             return res.status(400).json({
                 ok: false,
-                msg: ' No existe un usuario con el LU ingresado'
+                msg: ' No existe un usuario con el DNI ingresado'
             });
         }
 
@@ -105,7 +105,7 @@ const modificarNombre_y_apellido = async (req,res = response) => {
         console.log("Llego al modificarNombre_y_apellido, el body es ", req.body);
 
         const nota = await Nota.updateMany(
-                                {LU : req.body.LU},
+                                {DNI : req.body.DNI},
                                 {name : req.body.name,
                                  surname: req.body.surname
                                 })
@@ -147,10 +147,10 @@ const eliminarNota = async(req,res = response)=>{
 const eliminarNotasUsuario = async(req,res = response)=>{
     try {
         console.log("Llego al controller de eliminarNotasUsuario");
-        console.log("El LU es " , req.header('LU') )
+        console.log("El DNI es " , req.header('DNI') )
 
-        const LU = req.header('LU')
-        notas = await Nota.find({ LU : LU });
+        const DNI = req.header('DNI')
+        notas = await Nota.find({ DNI : DNI });
 
         console.log("NOTAS TIENE:",notas);
         notas.forEach(async e => { 

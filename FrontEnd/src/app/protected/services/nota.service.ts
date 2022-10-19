@@ -32,11 +32,11 @@ export class NotaService {
       );
   }
 
-  obtenerNotasUsuario(_id:string, LU:Number):Observable<NotaResponse>{
+  obtenerNotasUsuario(_id:string, DNI:Number):Observable<NotaResponse>{
     const url = `${this.baseUrl}/nota/obtenerNotas`
-    const body= { LU};
+    const body= { DNI};
     const headers = new HttpHeaders()
-      .set('LU' , LU.toString())
+      .set('DNI' , DNI.toString())
      
     
     return this.http.get<NotaResponse>(url,{headers})
@@ -52,9 +52,9 @@ export class NotaService {
       );
   }
 
-  crearNota ( rtasCorrectas: number, cantidadPreguntas:number, LU: number, calificacion:number, name:String, surname: String){
+  crearNota ( rtasCorrectas: number, cantidadPreguntas:number, DNI: number, calificacion:number, name:String, surname: String){
     const url = `${this.baseUrl}/nota/crearNota`
-    const body = {LU,cantidadPreguntas,rtasCorrectas,name, surname,calificacion}
+    const body = {DNI,cantidadPreguntas,rtasCorrectas,name, surname,calificacion}
 
     return this.http.post<NotaResponse>(url, body)
       .pipe(
@@ -68,9 +68,9 @@ export class NotaService {
       
   }
 
-  modificarNombre_y_apellido(LU: number , name: string , surname : string){
+  modificarNombre_y_apellido(DNI: number , name: string , surname : string){
     const url = `${this.baseUrl}/nota/modificarNombre_y_apellido`
-    const body = {LU,name, surname}
+    const body = {DNI,name, surname}
 
     return this.http.put<NotaResponse>(url, body)
       .pipe(
@@ -99,10 +99,10 @@ export class NotaService {
         )
   }
 
-  eliminarNotasUsuario(LU : Number){
+  eliminarNotasUsuario(DNI : Number){
     const url = `${this.baseUrl}/nota/eliminarNotasUsuario`
     const headers = new HttpHeaders()
-    .set('LU' , LU.toString())
+    .set('DNI' , DNI.toString())
    
 
   return this.http.delete(url, {headers})

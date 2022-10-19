@@ -25,7 +25,7 @@
                     </button>
                     <table id="myTable2">
                         <thead align="center">
-                            <th role="button" scope="col" (click)='sortTabla("LUAsc")'> LU </th>
+                            <th role="button" scope="col" (click)='sortTabla("DNIAsc")'> DNI </th>
                             <th role="button" scope="col" (click)="sortTabla('nameAsc')"> Nombre </th>
                             <th role="button" scope="col" (click)="sortTabla('surnameAsc')"> Apellido </th>
                             <th role="button" scope="col" (click)="sortTabla('emailAsc')"> Email </th>
@@ -35,7 +35,7 @@
                         </thead>
                         <tbody id="tbody" align="center">
                             <tr *ngFor="let usuario of usuariosFiltrados">
-                                <th scope="row"> {{usuario.LU}} </th>
+                                <th scope="row"> {{usuario.DNI}} </th>
                                 <td>{{ usuario.name }}</td>
                                 <td>{{ usuario.surname }}</td>
                                 <td>{{ usuario.email }}</td>
@@ -86,12 +86,12 @@
                             <table style="width: 100%;" mat-table [dataSource]="dataSource" matSort
                                 (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
 
-                                <ng-container matColumnDef="LU">
+                                <ng-container matColumnDef="DNI">
                                     <th mat-header-cell *matHeaderCellDef mat-sort-header
-                                        sortActionDescription="Sort by LU">
-                                        LU
+                                        sortActionDescription="Sort by DNI">
+                                        DNI
                                     </th>
-                                    <td mat-cell *matCellDef="let element"> {{element.LU}} </td>
+                                    <td mat-cell *matCellDef="let element"> {{element.DNI}} </td>
                                 </ng-container>
 
                                 <ng-container matColumnDef="name">

@@ -22,9 +22,9 @@
           <div>
             <table style="width: 100%;" mat-table [dataSource]="dataSource" matSort
               (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
-              <ng-container matColumnDef="LU">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">LU</th>
-                <td mat-cell *matCellDef="let row">{{ row.LU }}</td>
+              <ng-container matColumnDef="DNI">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by number">DNI</th>
+                <td mat-cell *matCellDef="let row">{{ row.DNI }}</td>
               </ng-container>
               <ng-container matColumnDef="name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">Nombre</th>

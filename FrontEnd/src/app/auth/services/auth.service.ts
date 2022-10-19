@@ -22,9 +22,9 @@ export class AuthService {
   constructor(private http: HttpClient,
               private usuarioService:UsuarioService) { }
 
-  registro ( name:string,surname:string,LU:number, email: string, password: string, codigoRegistro:number){
+  registro ( name:string,surname:string,DNI:number, email: string, password: string, codigoRegistro:number){
     const url = `${this.baseUrl}/auth/new`
-    const body= { name,surname,LU,email,password,codigoRegistro, isAdmin:false}
+    const body= { name,surname,DNI,email,password,codigoRegistro, isAdmin:false}
 
     return this.http.post<AuthResponse>(url, body)
       .pipe(
@@ -71,7 +71,7 @@ export class AuthService {
               uid: resp.uid!,
               name: resp.name!,
               surname: resp.surname!,
-              LU: resp.LU!,
+              DNI: resp.DNI!,
               email: resp.email!,
               isAdmin: resp.isAdmin!
             }

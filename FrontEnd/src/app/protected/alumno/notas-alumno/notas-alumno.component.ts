@@ -11,7 +11,7 @@ import { Nota } from '../../interfaces/Nota';
 })
 export class NotasAlumnoComponent implements AfterViewInit {
   notas!: Nota[];
-  ordenActual: string = "LUAsc";
+  ordenActual: string = "DNIAsc";
   
 
   constructor( private authservice: AuthService,
@@ -24,7 +24,7 @@ export class NotasAlumnoComponent implements AfterViewInit {
   notasAlumno(){
     return this.notaService.obtenerNotasUsuario(
                   this.authservice.usuario.uid,
-                  this.authservice.usuario.LU
+                  this.authservice.usuario.DNI
     ).subscribe( (resp)=>{
       this.notas = resp.notas;
       
@@ -45,8 +45,8 @@ export class NotasAlumnoComponent implements AfterViewInit {
     this.ordenActual = ordenNuevo //Actualizamos el ordenActual
     switch (ordenNuevo) { 
       //Descendentes
-      case 'LUDsc':
-        this.notas.sort((a, b) => b.LU! - a.LU!);
+      case 'DNIDsc':
+        this.notas.sort((a, b) => b.DNI! - a.DNI!);
         break
       case 'nameDsc':
         this.notas.sort((a, b) => {
@@ -88,8 +88,8 @@ export class NotasAlumnoComponent implements AfterViewInit {
         
         break
       //Ascendentes
-      case 'LUAsc':
-        this.notas.sort((a, b) => a.LU! - b.LU!);
+      case 'DNIAsc':
+        this.notas.sort((a, b) => a.DNI! - b.DNI!);
         break
       case 'nameAsc':
         this.notas.sort((a, b) => {

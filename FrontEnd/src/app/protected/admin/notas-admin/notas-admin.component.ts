@@ -27,7 +27,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
   notas!: Nota[];
   notasFiltradas: Nota[] = [];
   dataSource!: MatTableDataSource<Nota>
-  columns: string[] = ['LU', 'name', 'surname', 'fecha', 'rtasCorrectas', 'cantidadPreguntas', 'calificacion', 'borrar']
+  columns: string[] = ['DNI', 'name', 'surname', 'fecha', 'rtasCorrectas', 'cantidadPreguntas', 'calificacion', 'borrar']
 
   @ViewChild(MatSort, { static: true }) sort!: MatSort;
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;

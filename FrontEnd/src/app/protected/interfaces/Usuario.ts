@@ -8,7 +8,7 @@ export interface User {
     _id?:string;
     name?: string;
     surname ?: string;
-    LU ?: number;
+    DNI ?: number;
     email ?: string;
     msg?: string;
     isAdmin:boolean;

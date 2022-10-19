@@ -9,7 +9,7 @@ const UsuarioSchema = Schema({
         type: Number,
         required: true
     },
-    LU:{
+    DNI:{
         type: Number,
         required: true
     },

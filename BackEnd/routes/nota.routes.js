@@ -11,7 +11,7 @@ router.post('/crearNota'
     // , [
     // check('rtasCorrectas','rtasCorrectas debe ser un numero válido').isNumeric,
     // check('cantidadPreguntas','cantidadPreguntas debe ser un numero válido').isNumeric,
-    // check('LU','LU debe ser un numero válido').isNumeric,
+    // check('DNI','DNI debe ser un numero válido').isNumeric,
     // check('fecha','fecha debe ser un fecha válida').isDate,
     // validarCampos
     // ]
