@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule ,  ReactiveFormsModule} from '@angular/forms';
 
-import { MatButtonModule } from '@angular/material/button';
-
 //Modulos de 3ros:
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
@@ -30,7 +28,7 @@ import { PerfilComponent } from './perfil/perfil.component';
     FormsModule,
     ReactiveFormsModule,
     SweetAlert2Module,
-    MatButtonModule
+    //MatButtonModule
   ]
 })
 export class ProtectedModule { }
