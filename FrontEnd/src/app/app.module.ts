@@ -10,7 +10,7 @@ import { MatSortModule } from '@angular/material/sort';
 
 //Modulos de 3ros:
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import { NgChartsModule } from 'ng2-charts';
+
 
 //Componentes propios:
 import { AppComponent } from './app.component';
@@ -28,7 +28,6 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     SweetAlert2Module.forRoot(),
     NoopAnimationsModule,
-    NgChartsModule,
     MatTableModule,
     MatSortModule
   ],
