@@ -42,10 +42,20 @@
         <div>
             <div class="card">
                 <div class="card-body">
-                    <div>
-                        <button *ngIf=" diagnosticosPosibles.length < 1" (click)="comenzarEjercicio()" class="btn btn-primary">
-                            Comenzar ejercicio
-                        </button>
+                    <div class="gridConsigna"  *ngIf=" diagnosticosPosibles.length < 1">
+                        <div class="contenedorConsigna">
+                            <p class="parrafo">
+                                El reflejo fotopupilar se produce cuando la pupila reacciona y se contrae o se dilata como respuesta a un estímulo lumínico. Este arco reflejo gestionado por el sistema nervioso autónomo permite controlar la cantidad de luz a la que se exponen los ojos de modo que se evite una sobreexposición o un deslumbramiento. Su mayor utilidad es en la semiología del sistema nervioso y en particular en Oftalmología su evaluación permite localizar el asiento de las lesiones de las vías nerviosas del globo ocular.<br><br>
+                                A continuación, se presentan diferentes “pacientes virtuales” en los cuales Usted deberá evaluar los reflejos fotopupilares directo e indirecto, para posteriormente indicar si los mismos son normales, o en caso que se encuentren alterados, en qué estructura sospecha que asienta la lesión.<br><br>
+                                Tenga en cuenta que tendrá un tiempo limitado para resolver cada caso, y que sólo una opción es correcta.
+                            </p>
+                            <button (click)="comenzarEjercicio()" class="btn btn-primary" id="BtnComenzarEjercicio">
+                                Comenzar ejercicio
+                            </button>
+                        </div>
+                        <figure>
+                            <img src="../../../assets/images/consigna.png" id="perroConsigna">
+                        </figure>
                     </div>
 
 
