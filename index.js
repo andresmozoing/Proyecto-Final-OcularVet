@@ -26,9 +26,9 @@ app.use('/api/usuario', require('./routes/usuario.routes'));
 app.use('/api/diagnostico', require('./routes/diagnostico.routes'));
 
 //Manejar demas rutas (para el deploy)
-app.get('*' , (req,res) =>{
-    res.sendFile( path.resolve(__dirname , 'public/index.html'))
-})
+// app.get('*' , (req,res) =>{
+//     res.sendFile( path.resolve(__dirname , 'public/index.html'))
+// })
 
 //para levantar la app:
 app.listen(process.env.PORT,()=>{
