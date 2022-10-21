@@ -1,6 +1,5 @@
 //Importo esto para que en el tipado me aparezcan las funciones del res
 const { response } =  require('express');
-const { validationResult } =  require('express-validator');
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcryptjs');
 const { generarJWT } = require('../helpers/jwt');
