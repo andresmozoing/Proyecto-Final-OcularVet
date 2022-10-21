@@ -23,7 +23,6 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -31,7 +30,6 @@
               "src/assets/css/style.css",
               "src/assets/vendor/bootstrap/css/bootstrap.min.css",
               "src/assets/vendor/bootstrap-icons/bootstrap-icons.css",
-              "src/assets/vendor/boxicons/css/boxicons.min.css",
               "./node_modules/animate.css/animate.min.css"
             ],
             "scripts": [
