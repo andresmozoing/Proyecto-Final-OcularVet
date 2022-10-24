@@ -34,12 +34,24 @@
         grid-auto-rows: minmax(170px, auto);
         gap: var(--gap);
     }
+    hr {
+        display: block;
+        height: 8px ;
+        background-color: #7b1fa2;
+        border-radius: 2px;
+        
+      }
     
     #perroConsigna {
         position: relative;
         min-height: 200px;
         max-height: 450px;
         margin-top: 15px;
+    }
+}
+@media(min-width: 1100px) {
+    hr {
+        display: none;    
     }
 }
 
@@ -62,6 +74,7 @@
 
 figure {
     position: relative;
+    
 }
 
 #contenedorPrincipal .grid .columna {

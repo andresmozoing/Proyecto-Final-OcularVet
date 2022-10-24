@@ -56,7 +56,7 @@
 
                     <div class="col-12">
                       <label for="name" class="form-label">Nombre:</label>
-                      <input type="text" formControlName="name" class="form-control" id="name" >
+                      <input type="text" formControlName="name" class="form-control" id="name" placeholder="Ingrese su nombre" required>
                       <span class="form-text text-danger" *ngIf="campoNoValido('name')">
                         El nombre es un campo requerido.
                       </span>
@@ -64,7 +64,7 @@
 
                     <div class="col-12">
                       <label for="surname" class="form-label">Apellido:</label>
-                      <input type="text" formControlName="surname" class="form-control" id="surname" required>
+                      <input type="text" formControlName="surname" class="form-control" id="surname" placeholder="Ingrese su apellido" required>
                       <span class="form-text text-danger" *ngIf="campoNoValido('surname')">
                         El apellido es un campo requerido.
                       </span>
@@ -72,7 +72,7 @@
 
                     <div class="col-12">
                       <label for="DNI" class="form-label">DNI:</label>
-                      <input type="number" formControlName="DNI" class="form-control" id="DNI" >
+                      <input type="number" formControlName="DNI" class="form-control" id="DNI" placeholder="Ingrese su DNI" required>
                       <span class="form-text text-danger" *ngIf="campoNoValido('DNI')">
                         Por favor ingrese un N° DNI valido.
                       </span>
@@ -80,7 +80,7 @@
 
                     <div class="col-12">
                       <label for="email" class="form-label">Email:</label>
-                      <input type="email" formControlName="email" class="form-control" id="email" >
+                      <input type="email" formControlName="email" class="form-control" id="email" placeholder="Ingrese su email">
                       <span class="form-text text-danger" *ngIf="campoNoValido('email')">
                         Por favor, ingrese un email válido
                       </span>
@@ -89,7 +89,9 @@
 
                     <div class="col-12">
                       <label for="password" class="form-label">Contraseña:</label>
-                      <input [type]="mostrarOcultarPassword ? 'text' : 'password'" formControlName="password" class="form-control" id="password" required>
+                      <input  [type]="mostrarOcultarPassword ? 'text' : 'password'" 
+                              formControlName="password"  placeholder="Ingrese una contraseña"
+                              class="form-control" id="password" required>
                       <span class="small mb-0" (click)="mostrarOcultarPasswordFunction()" style="cursor: pointer;"> 
                         <i class="bi bi-eye-fill small mb-0 text-center"> Mostrar/ocultar contraseñas </i> 
                       </span>
@@ -100,7 +102,9 @@
 
                     <div class="col-12">
                       <label for="rePassword" class="form-label">Repetir contraseña:</label>
-                      <input [type]="mostrarOcultarPassword ? 'text' : 'password'" formControlName="rePassword" class="form-control" id="rePassword" required>
+                      <input  [type]="mostrarOcultarPassword ? 'text' : 'password'" 
+                              formControlName="rePassword" placeholder="Ingrese su contraseña nuevamente"
+                              class="form-control" id="rePassword" required>
                       <span class="small mb-0" (click)="mostrarOcultarPasswordFunction()" style="cursor: pointer;"> 
                         <i class="bi bi-eye-fill small mb-0 text-center"> Mostrar/ocultar contraseñas </i> 
                       </span>
@@ -111,7 +115,8 @@
 
                     <div class="col-12">
                       <label for="codigoRegistro" class="form-label">Código de registro: </label>
-                      <input type="number" formControlName="codigoRegistro" class="form-control" id="codigoRegistro" required>
+                      <input type="number" formControlName="codigoRegistro" 
+                      placeholder="Ingrese el código de registro" class="form-control" id="codigoRegistro" required>
                       <span class="form-text text-danger" *ngIf="campoNoValido('codigoRegistro')">
                         Este campo es requerido.
                       </span>

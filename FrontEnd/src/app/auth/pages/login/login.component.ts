@@ -14,8 +14,8 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent {
 
   miFormulario: UntypedFormGroup = this.fb.group({
-    email: ['test1@test.com', [ Validators.required , Validators.email]],
-    password: ['123456', [Validators.required , Validators.minLength(6)]]
+    email: ['', [ Validators.required , Validators.email]],
+    password: ['', [Validators.required , Validators.minLength(6)]]
   });
 
   mostrarOcultarPassword: boolean = false;
@@ -41,7 +41,7 @@ export class LoginComponent {
           }
         }
         else{
-          console.log('resp es ', resp);
+          // console.log('resp es ', resp);
           
           Swal.fire('Error' , resp, 'error')
           //mostrar error
@@ -56,7 +56,6 @@ export class LoginComponent {
   }
 
   mostrarOcultarPasswordFunction(){
-    console.log("holsss");
     this.mostrarOcultarPassword = !this.mostrarOcultarPassword;
   }
 }

@@ -27,27 +27,11 @@ export class EjercicioComponent implements OnInit, OnDestroy {
     private usuarioService: UsuarioService,
     private notaService: NotaService,
     private router: Router) {
-
   }
-  
 
   ngOnInit(): void {
-    console.log("entro al ng on init");
-    // this.usuarioService.obtenerConfigAdmin()
-    //   .subscribe((resp) => {
-    //     console.log("resp dentro del subscribe de obtenerConfigAdmin es ", resp);
-    //     this.cantPacientesADiagnosticar = resp.cantidadPacientesADiagnosticar
-    //     this.tiempoRespuesta = resp.tiempoRespuesta
-    //   })
-    console.log("cant " , this.cantPacientesADiagnosticar);
-    console.log("tiempo " , this.tiempoRespuesta);
-    
     this.cantPacientesADiagnosticar = this.usuarioService.configuracionAdmin.cantidadPacientesADiagnosticar as number
     this.tiempoRespuesta = this.usuarioService.configuracionAdmin.tiempoRespuesta as number
-
-    console.log("cant " , this.cantPacientesADiagnosticar);
-    console.log("tiempo " , this.tiempoRespuesta);
-    
   }
 
   formularioPaciente = new UntypedFormGroup({ respuestaElegida: new UntypedFormControl(), });
@@ -138,35 +122,33 @@ export class EjercicioComponent implements OnInit, OnDestroy {
     }
   }
 
-
   siguientePaciente() {
     if (this.cantPacientesADiagnosticar !== this.cantPacientesRespondidos) { //Si no terminó
       this.diagnosticoActual = this.obtenerProximoDiagnostico()
-      //this.formularioPaciente.controls['respuestaElegida'].reset()
-      const aleatorio:number = Math.floor(Math.random() * 5);
-      switch(aleatorio){
+      this.formularioPaciente.controls['respuestaElegida'].reset()
+      const aleatorio: number = Math.floor(Math.random() * 5);
+      switch (aleatorio) {
         case 1:
-          console.log("100 gray");
-          this.cambiarColorPerro(100,0,0,100)
+          // 100 gris
+          this.cambiarColorPerro(100, 0, 0, 100)
           break
         case 2:
-          console.log("160 saturate");
-          this.cambiarColorPerro(0,160,0,90)
+          // 160 saturate;
+          this.cambiarColorPerro(0, 160, 0, 90)
           break
         case 3:
-          console.log("60 SEPIA");
-          this.cambiarColorPerro(0,0,60,100)
+          // 60 SEPIA
+          this.cambiarColorPerro(0, 0, 60, 100)
           break
         case 4:
-          console.log("SEPIA");          
-          this.cambiarColorPerro(0,0,60,100)
+          // SEPIA       
+          this.cambiarColorPerro(0, 0, 60, 100)
           break
         default:
-          this.cambiarColorPerro(0,100,0,100)
+          this.cambiarColorPerro(0, 100, 0, 100)
           break
       }
       this.iniciarTemporizador()
-
     }
     else { //Si ya terminó
       this.autoevalucionFinalizadaSwal.fire()
@@ -174,7 +156,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   }
 
   crearNota() {
-    const {DNI,name, surname} = this.authService.usuario
+    const { DNI, name, surname } = this.authService.usuario
     const cantidadPreguntas = this.cantPacientesADiagnosticar
     const rtasCorrectas = this.cantRespuestasCorrectas
     let calificacion = 0
@@ -329,7 +311,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
       }, 4000)
   }
 
-  cambiarColorPerro(grayscale: number, saturate: number, sepia: number, contrast: number){
+  cambiarColorPerro(grayscale: number, saturate: number, sepia: number, contrast: number) {
     const perro = document.getElementById('perro')!;
     perro.style.filter = `grayscale(${grayscale}%) 
                           saturate(${saturate}%)

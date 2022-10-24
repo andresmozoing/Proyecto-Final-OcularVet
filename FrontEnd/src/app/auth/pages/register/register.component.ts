@@ -12,13 +12,13 @@ export class RegisterComponent {
 
 
   miFormularioRegistro: UntypedFormGroup = this.fb.group({
-    name: ['test 1', [Validators.required]],
-    surname: ['apellidoTest 1', [Validators.required]],
-    DNI: ['4231', [Validators.required, Validators.min(999)]],
-    email: ['test1@test.com', [Validators.required, Validators.email]],
-    password: ['123456', [Validators.required, Validators.minLength(6)]],
-    rePassword: ['123456', [Validators.required]],
-    codigoRegistro: ['2022', [Validators.required]]
+    name: ['', [Validators.required]],
+    surname: ['', [Validators.required]],
+    DNI: ['', [Validators.required, Validators.min(999)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    rePassword: ['', [Validators.required]],
+    codigoRegistro: ['', [Validators.required]]
   }, { //En este segundo parametro, tenemos un arreglo de validators, que son funciones que evaluan TODO el formulario
     validators: [ this.authservice.camposIguales('password','rePassword') ]
   })
