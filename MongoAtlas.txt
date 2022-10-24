@@ -1,4 +1,0 @@
-user closter Mongo Atlas:
-admin
-contraseña:
-Facu1234
