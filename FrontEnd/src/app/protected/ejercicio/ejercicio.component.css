@@ -34,12 +34,24 @@
         grid-auto-rows: minmax(170px, auto);
         gap: var(--gap);
     }
+    hr {
+        display: block;
+        height: 8px ;
+        background-color: #7b1fa2;
+        border-radius: 2px;
+        
+      }
     
     #perroConsigna {
         position: relative;
         min-height: 200px;
         max-height: 450px;
         margin-top: 15px;
+    }
+}
+@media(min-width: 1100px) {
+    hr {
+        display: none;    
     }
 }
 
@@ -62,6 +74,7 @@
 
 figure {
     position: relative;
+    
 }
 
 #contenedorPrincipal .grid .columna {
@@ -82,28 +95,32 @@ figure {
 
 #pupilaDerecha {
     position: absolute;
-    left: calc(36.8%);
-    top: calc(30%);
-    width: 3.5%;
+    left: calc(35%);
+    top: calc(27.5%);
+    width: 6%;
 }
 
 #pupilaIzquierda {
     position: absolute;
-    left: calc(64%);
-    top: calc(31%);
-    width: 3.5%;
+    left: calc(62.8%);
+    top: calc(28.8%);
+    width: 6%;
 }
-
+.btn-info:disabled{
+    color: white;
+    background: #d5000065;
+    cursor: not-allowed;
+  }
 #contenedorImagenPerro {
     display: inline-block;
 }
 
 #linternaOjoIzquierdo {
     position: absolute;
-    width: 25%;
-    height: 25%;
+    width: 40%;
+    height: 40%;
     top: calc(37%);
-    left: calc(66%);
+    left: calc(60%);
     transform: rotate(45deg);
     display: none;
     z-index: 1;
@@ -111,10 +128,10 @@ figure {
 
 #linternaOjoDerecho {
     position: absolute;
-    width: 25%;
-    height: 25%;
+    width: 40%;
+    height: 40%;
     top: calc(37%);
-    left: calc(13%);
+    left: calc(8%);
     transform: rotate(135deg);
     display: none;
     z-index: 1;

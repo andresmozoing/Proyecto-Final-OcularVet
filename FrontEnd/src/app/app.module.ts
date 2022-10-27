@@ -14,6 +14,7 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 //Componentes propios:
 import { AppComponent } from './app.component';
+// import { ChartsModule  } from 'ng2-charts';
 
 @NgModule({
   declarations: [

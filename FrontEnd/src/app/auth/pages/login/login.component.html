@@ -41,13 +41,13 @@
                     </div>
                     
                   </div><!-- End Logo -->
-                  <div class="d-flex justify-content-center">OcularVet</div>
+                  <h1 class="d-flex card-title justify-content-center" style="font-weight: bold;  ;">OcularVet</h1>
                 </div>
                 <div class="card-body">
 
                   <div class="pt-2 pb-2">
                     <h5 class="card-title text-center pb-0 fs-4">Login</h5>
-                    <p class="text-center small">Ingresá tu usuario y contraseña para ingresar</p>
+                    <p class="text-center small">Ingrese su usuario y contraseña para ingresar</p>
                   </div>
 
                   <form class="row g-3 needs-validation" autocomplete="off" [formGroup]="miFormulario"
@@ -79,7 +79,15 @@
                       </span>
                     </div>
 
-                   
+                   <style>
+                      .btn-primary{
+                  color: white;
+                  background: #7b1fa2;
+                  border-color: #7b1fa2;
+                  
+}
+
+                   </style>
 
                     <div class="col-12">
                       <button class="btn btn-primary w-100" [disabled]="miFormulario.invalid" type="submit">
