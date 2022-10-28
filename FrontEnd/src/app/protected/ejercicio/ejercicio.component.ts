@@ -11,9 +11,7 @@ import { DiagnosticoService } from '../services/diagnostico.service';
 import { UsuarioService } from '../services/usuario.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { NotaService } from '../services/nota.service';
-import { provideProtractorTestingSupport } from '@angular/platform-browser';
 
-// import { CdTimerComponent } from 'angular-cd-timer';
 
 @Component({
   selector: 'app-ejercicio',
@@ -27,6 +25,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
     private usuarioService: UsuarioService,
     private notaService: NotaService,
     private router: Router) {
+      this.inicializarDiagnosticoActual();
   }
 
   ngOnInit(): void {
@@ -49,6 +48,8 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   tiempoRespuesta: number = 0;
 
   temporizador: number = 0;
+
+  nroPaciente: number = 1;
 
   intervalo: any;
 
@@ -77,7 +78,15 @@ export class EjercicioComponent implements OnInit, OnDestroy {
       Swal.fire("error", "el temporiuzador no tiene tiempo", "error")
     }
   }
-
+  inicializarDiagnosticoActual(){
+    this.diagnosticoActual = {id:'',
+      descripcion: '',
+      derIluminado_AchicaDer : true,
+      derIluminado_AchicaIzq : true,
+      izqIluminado_AchicaDer : true,
+      izqIluminado_AchicaIzq : true
+        }
+  }
   reiniciarTemporizador() {
     this.temporizador = this.tiempoRespuesta
   }
@@ -110,6 +119,12 @@ export class EjercicioComponent implements OnInit, OnDestroy {
           if (this.diagnosticosPosibles.length > 0) {
             this.diagnosticoActual = this.obtenerProximoDiagnostico();
             this.iniciarTemporizador()
+            //Movemos la ventana hacia arriba            
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: 'smooth'
+            });
           }
           else {
             Swal.fire("Error", "No existen diagnosticos posibles en la base de datos", "error")
@@ -125,6 +140,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   siguientePaciente() {
     if (this.cantPacientesADiagnosticar !== this.cantPacientesRespondidos) { //Si no terminó
       this.diagnosticoActual = this.obtenerProximoDiagnostico()
+      this.nroPaciente= this.nroPaciente + 1;
       this.formularioPaciente.controls['respuestaElegida'].reset()
       const aleatorio: number = Math.floor(Math.random() * 5);
       switch (aleatorio) {

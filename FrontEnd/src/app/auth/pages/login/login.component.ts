@@ -31,7 +31,8 @@ export class LoginComponent {
     this.authService.login(email,password)
       .subscribe((resp) => {
         if (resp.ok === true){ //Si no le pones el ===true, evalua q exista el objeto, y siempre existe.
-          console.log("El usuariuo es ", resp.isAdmin);
+          console.log("El usuariuo es admin", resp.isAdmin);
+          console.log("RESP ES " ,resp);
           
           if(resp.isAdmin){
             this.router.navigateByUrl('/ocularVet/admin/configAdmin')

@@ -109,6 +109,7 @@ figure {
 .btn-info:disabled{
     color: white;
     background: #d5000065;
+    border: #d5000065;
     cursor: not-allowed;
   }
 #contenedorImagenPerro {
