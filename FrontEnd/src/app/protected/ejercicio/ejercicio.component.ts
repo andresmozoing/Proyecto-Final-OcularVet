@@ -53,6 +53,8 @@ export class EjercicioComponent implements OnInit, OnDestroy {
 
   intervalo: any;
 
+  idColorPerro: number = 0
+
   get respuestaElegida(): any { //No se si funciona asi
     return this.formularioPaciente.get('respuestaElegida');
   }
@@ -142,26 +144,36 @@ export class EjercicioComponent implements OnInit, OnDestroy {
       this.diagnosticoActual = this.obtenerProximoDiagnostico()
       this.nroPaciente= this.nroPaciente + 1;
       this.formularioPaciente.controls['respuestaElegida'].reset()
-      const aleatorio: number = Math.floor(Math.random() * 5);
+      
+      let aleatorio: number = Math.floor(Math.random() * 4);
+      let limite = 0;
+      while (aleatorio == this.idColorPerro && limite < 10000){
+          aleatorio = Math.floor(Math.random() * 4);
+          limite++;
+      }
+      console.log("aleatorio es ", aleatorio);
+      console.log("limite es", limite);
+      
+      
       switch (aleatorio) {
         case 1:
           // 100 gris
           this.cambiarColorPerro(100, 0, 0, 100)
+          this.idColorPerro = 1;
           break
         case 2:
           // 160 saturate;
-          this.cambiarColorPerro(0, 160, 0, 90)
+          this.cambiarColorPerro(0, 270, 0, 90)
+          this.idColorPerro = 2;
           break
         case 3:
           // 60 SEPIA
           this.cambiarColorPerro(0, 0, 60, 100)
-          break
-        case 4:
-          // SEPIA       
-          this.cambiarColorPerro(0, 0, 60, 100)
+          this.idColorPerro = 3;
           break
         default:
           this.cambiarColorPerro(0, 100, 0, 100)
+          this.idColorPerro = 0;
           break
       }
       this.iniciarTemporizador()
