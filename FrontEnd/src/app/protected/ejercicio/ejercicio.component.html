@@ -57,9 +57,7 @@
 
                     <div class="grid" id="contenedorPrincipal" *ngIf=" diagnosticosPosibles.length > 0">
                         <div class="columna">
-                            <div style="display: flex;">
-                                <h2 style="margin: auto;"> Paciente <strong>N° {{nroPaciente}}</strong></h2>
-                            </div>
+                            
                             <div id="contenedorBotonesOjos" >
                                 <button (click)="iluminarOjoDerecho()" id="botonIluminarOjoDerecho"
                                     class="btn btn-info"
@@ -87,6 +85,9 @@
                             </div>
                         </div> <!--  fin columna de foto y botones -->
                         <div class="columna">
+                            <div style="display: flex;">
+                                <h2 style="text-align: left;"> Paciente <strong>N° {{nroPaciente}}</strong></h2>
+                            </div>
                             <h3>Tiempo restante: {{temporizador}}</h3>
 
                            

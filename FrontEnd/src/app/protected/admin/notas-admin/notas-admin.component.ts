@@ -42,7 +42,6 @@ export class NotasAdminComponent implements MatPaginatorIntl {
 
   ngAfterViewInit() {
     this.getNotasAlumno();
-    this.dataSource.sort = this.sort;
   }
 
   setearGraficos() {
@@ -135,14 +134,16 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     await this.notaService.obtenerNotas().subscribe(async (resp) => {
       // obtengo las notas y actualizo el contenido de mi tabla
       this.notas = resp.notas;
-      this.notasFiltradas = this.notas;
+      this.notasFiltradas = resp.notas;
       // this.sortTabla(this.ordenActual)
+      this.filtrar();
       this.setearGraficos()
       this.dataSource = new MatTableDataSource(this.notas);
       this.dataSource.sort = this.sort
       this.dataSource.paginator = this.paginator
+
+
     });
-    this.dataSource.sort = this.sort
   }
 
 
