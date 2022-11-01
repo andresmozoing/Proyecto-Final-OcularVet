@@ -106,6 +106,7 @@ figure {
     top: calc(28.8%);
     width: 6%;
 }
+
 .btn-info:disabled{
     color: white;
     background: #d5000065;

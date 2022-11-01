@@ -328,7 +328,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
     }
 
     //Achicamos la pupila 
-    pupila.style.transform = 'scale(0.7,0.7)';
+    pupila.style.transform = 'scale(0.6,0.6)';
     pupila.style.transition = '0.5s'
 
     //Volvemos la pupila al tamaño original, esperando 4 segundos
