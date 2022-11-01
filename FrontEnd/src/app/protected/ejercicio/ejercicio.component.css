@@ -107,11 +107,11 @@ figure {
     width: 6%;
 }
 
-.btn-info:disabled{
+/* .btn-info:disabled{
     color: white;
     background: #d5000065;
     border-color: #d5000065;
-} 
+}  */
 
 #contenedorImagenPerro {
     display: inline-block;
