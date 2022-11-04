@@ -73,7 +73,7 @@
                                         <swal #resetPassword
                                             title="Reiniciar contraseña de {{ row.name}} {{ row.surname }}?"
                                             text="Esta acción no se puede deshacer. La contraseña será 123456 si confirma."
-                                            icon="warning" [swalOptions]="{ confirmButtonText: 'Confrimar' }"
+                                            icon="warning" [swalOptions]="{ confirmButtonText: 'Confirmar' }"
                                             [showCancelButton]="true" [focusCancel]="true"
                                             (confirm)="reiniciarPassword(row._id!)">
                                         </swal>
