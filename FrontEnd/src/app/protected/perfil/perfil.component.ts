@@ -63,8 +63,9 @@ export class PerfilComponent {
             }
         //Modificamos el _usuario del authService
         this.authservice.editUsuario(this.perfilForm.value.name, this.perfilForm.value.surname, this.perfilForm.value.email);
-        
+       
         Swal.fire('Usuario modificado', '', 'success');
+
       }
       else {
         console.log('Error al editar usuario', resp, 'error');
