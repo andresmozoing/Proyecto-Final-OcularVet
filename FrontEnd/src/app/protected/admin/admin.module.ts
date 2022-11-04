@@ -10,7 +10,7 @@ import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginato
 import { MyCustomPaginatorIntl } from './customPaginator';
 
 //Modulos de 3ros
-//import { NgChartsModule } from 'ng2-charts';
+import { NgChartsModule } from 'ng2-charts';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 //Modulos propios:
@@ -35,7 +35,7 @@ import { ConfigAdminComponent } from './config-admin/config-admin.component';
     FormsModule,
     ReactiveFormsModule,
    // MatButtonModule,
-   // NgChartsModule,
+    NgChartsModule,
     MatSortModule,
     MatTableModule,
     MatPaginatorModule
