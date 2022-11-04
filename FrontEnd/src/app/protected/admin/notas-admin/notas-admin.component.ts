@@ -40,11 +40,11 @@ export class NotasAdminComponent implements MatPaginatorIntl {
   //                      METODOS
   //-----------------------------------------------------
 
-  ngAfterViewInit() {
+  ngOnInit() {
     this.getNotasAlumno();
   }
 
-  setearGraficos() {
+  calcularCantidadNotas() : number[]{
     let cantidad_0_30 = 0
     let cantidad_30_60 = 0
     let cantidad_60_80 = 0
@@ -62,11 +62,15 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     });
 
     arregloCantidadNotas.push(cantidad_0_30, cantidad_30_60, cantidad_60_80, cantidad_80_100)
+    return arregloCantidadNotas;
+  }
 
+  iniciarGraficos() {
+    let arrCantNotas = this.calcularCantidadNotas()
     let labelsCharts = ['0-30', '30-60', '60-80', '80-100']
     let dataSetsCharts = [
       {
-        data: arregloCantidadNotas,
+        data: arrCantNotas,
         borderWidth: 1,
         label: 'Notas',
         
@@ -115,7 +119,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
         scales: {
           y: {
             beginAtZero: true,
-            title:{ display: true, text:'Cantidad de alumnos'},
+            title:{ display: true, text:'Cantidad de notas'},
             ticks: {                                    
               stepSize: 1  
             }
@@ -135,14 +139,11 @@ export class NotasAdminComponent implements MatPaginatorIntl {
       // obtengo las notas y actualizo el contenido de mi tabla
       this.notas = resp.notas;
       this.notasFiltradas = resp.notas;
-      // this.sortTabla(this.ordenActual)
-      this.filtrar();
-      this.setearGraficos()
+
+      this.iniciarGraficos()
       this.dataSource = new MatTableDataSource(this.notas);
       this.dataSource.sort = this.sort
       this.dataSource.paginator = this.paginator
-
-
     });
   }
 
@@ -207,8 +208,14 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     this.dataSource = new MatTableDataSource(this.notasFiltradas);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.setearGraficos();
+    this.modificarCharts();
+  }
 
+  modificarCharts(){
+    this.chartBar.data.datasets[0].data = this.calcularCantidadNotas()
+    this.chartPie.data.datasets[0].data = this.calcularCantidadNotas()
+    this.chartBar.update()
+    this.chartPie.update()
   }
 
 
