@@ -8,6 +8,8 @@ import { User } from '../../interfaces/Usuario';
 import { Usuario } from '../../../auth/interfaces/interfaces';
 import { NotaService } from '../../services/nota.service';
 import { MatPaginator } from '@angular/material/paginator';
+import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/auth/services/auth.service';
 
 
 @Component({
@@ -21,11 +23,12 @@ export class AdministracionUsuariosComponent {
   ordenTabla: string = "";
   dataSource!: MatTableDataSource<User>
   ordenActual = "DNIAsc"
-  columns: string[] = ['DNI', 'name', 'surname', 'email', 'isAdmin', 'resetPassword', 'borrarUser']
+  columns: string[] = ['DNI', 'name', 'surname', 'email', 'isAdmin', 'hacerAdmin' , 'resetPassword', 'borrarUser']
 
   constructor(
     private usuarioService: UsuarioService,
     private notaService: NotaService,
+    private authService: AuthService,
     private _liveAnnouncer: LiveAnnouncer
   ) { }
 
@@ -38,8 +41,8 @@ export class AdministracionUsuariosComponent {
   }
 
   async obtenerUsuarios() {
-    await this.usuarioService.obtenerUsuarios().subscribe((resp) => {
-      console.log("RESPUESTA de usuarios :", resp);
+    
+    await this.usuarioService.obtenerUsuarios(this.authService.usuario.uid).subscribe((resp) => {
 
       this.usuarios = resp.users;
       this.usuariosFiltrados = this.usuarios
@@ -53,7 +56,6 @@ export class AdministracionUsuariosComponent {
   async eliminarUsuario(_id: string) {
     await this.usuarioService.eliminarUsuario(_id).subscribe(
       (resp) => {
-        console.log("Retorno, resp:", resp);
         if (resp.ok) {
           console.log(2232);
 
@@ -90,6 +92,52 @@ export class AdministracionUsuariosComponent {
     );
   }
 
+
+
+  async verificarPasswordHacerAdmin (_id : string , isAdmin : boolean){
+    const { value: password } = await Swal.fire({
+      title: 'Contraseña de usuario requerida',
+      text: 'Para poder agregar o quitar permisos de administrador, debe ingresar nuevamente su contraseña',
+      input: 'password',
+      inputPlaceholder: 'Ingrese su contraseña',
+      inputAttributes: {
+        autocapitalize: 'off',
+        autocorrect: 'off'
+      }
+    })
+    
+    if (password) {
+      //Verifico la contraseña del usuario
+      const email = this.authService.usuario.email
+      this.authService.login(email,password)
+      .subscribe((resp) => {
+        if (resp.ok === true){ 
+ 
+          this.usuarioService.hacerAdmin(_id,isAdmin).subscribe(
+            (resp) => {
+              if (resp.ok){
+                Swal.fire('Permisos de usuario modificados!' , '', 'success')
+                
+                //Cambio el valor que se muestra en la tabla
+                this.usuarios.map((elem) => { if (elem._id == _id) elem.isAdmin = !isAdmin})
+                this.usuariosFiltrados.map((elem) => { if (elem._id == _id) elem.isAdmin = !isAdmin})
+              }
+              else
+                console.log("ERROR al intentar hacer 'hacerAdmin'", resp.console.error());
+            }
+          );
+          
+        }
+        else{
+          Swal.fire('Error' , resp, 'error')
+        }
+      })
+    }
+  }
+
+  borrarUsuariosFiltrados(){
+    
+  }
 
   filtrar() {
     const input = <HTMLInputElement>document.getElementById("apellidoInput");

@@ -25,6 +25,10 @@ router.put('/reiniciarPassword',
             [check('passwordNueva','La contraseña es obligatoria y debe poseer 6 caracteres').isLength({min:6})],
             controllerUsuario.reiniciarPassword)
 
+router.put('/hacerAdmin',
+            [],
+            controllerUsuario.hacerAdmin)
+
 router.delete('/eliminarUsuario',
                [],
                controllerUsuario.eliminarUsuario)

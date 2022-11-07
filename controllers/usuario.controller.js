@@ -2,8 +2,6 @@ const ConfiguracionAdmin = require('../models/ConfiguracionAdmin');
 const { response } =  require('express');
 const Usuario = require('../models/Usuario');
 const bcrypt = require('bcryptjs');
-const controllerNota = require('../controllers/nota.controller');
-const Nota = require('../models/Nota');
 
 
 const obtenerUsuario = async (req,res = response) => {
@@ -29,9 +27,11 @@ const obtenerUsuario = async (req,res = response) => {
 const obtenerTodosLosUsuarios = async (req,res = response) => {
     try {
         console.log("Llego al obtenerTodosLosUsuarios");
+        const uid = req.header('uid');
 
-        const users = await Usuario.find({ isAdmin: false})
-
+       const users = await Usuario.find({_id: {$ne: uid}}) 
+       
+        console.log('users es ', users);
         return res.json({
             ok: true,
             users
@@ -171,7 +171,35 @@ const reiniciarPassword = async (req,res = response) => {
             msg: 'Error en el controlador de reiniciarPassword ' + error
         })
     }
-} //Fin modificarPassword()
+} //Fin reiniciarPassword()
+
+const hacerAdmin = async (req,res = response) => {
+    try {
+        const dbUser = await Usuario.findById(req.body._id)
+        if (!dbUser){
+            return res.status(400).json({
+                ok: false,
+                msg: 'El usuario no existe'
+            });
+        }
+        let permisoModificado = !dbUser.isAdmin
+
+        const userModificado = await Usuario.updateOne(
+                                {_id : req.body._id},
+                                {isAdmin : permisoModificado})
+        
+        return res.json({
+            ok: true,
+            userModificado
+       })
+    }
+    catch (error) {
+        return res.status(500).json({
+            ok:false,
+            msg: 'Error en el controlador de hacerAdmin ' + error
+        })
+    }
+} //Fin hacerAdmin()
 
 
 const eliminarUsuario = async (req,res = response) => {
@@ -224,6 +252,7 @@ module.exports = {
     reiniciarPassword,
     eliminarUsuario,
     obtenerConfigAdmin,
-    modificarConfiguracionAdmin
+    modificarConfiguracionAdmin,
+    hacerAdmin
 
 }

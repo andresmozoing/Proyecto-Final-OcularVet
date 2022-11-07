@@ -79,10 +79,21 @@ export class UsuarioService {
       );
   }
 
-  obtenerUsuarios() {
-    const url = `${this.baseUrl}/usuario/obtenerTodosLosUsuarios`
+  hacerAdmin(_id: string, isAdmin: boolean) {
+    const url = `${this.baseUrl}/usuario/hacerAdmin`
+    const body = { _id, isAdmin};
 
-    return this.http.get<UsersResponse>(url)
+    return this.http.put(url, body)
+      .pipe(
+        catchError(err => of(err.error.msg)) //si el resp tiene un status q no es el 200, captura el error. Sino, lo deja pasar y no hace nada este operador 
+      );
+  }
+
+  obtenerUsuarios(uid : string) {
+    const url = `${this.baseUrl}/usuario/obtenerTodosLosUsuarios`    
+    const headers = new HttpHeaders().set('uid' , uid)
+
+    return this.http.get<UsersResponse>(url,{headers})
       .pipe(
         tap(resp => {
           console.log("Usuarios obtenidos: ", resp);

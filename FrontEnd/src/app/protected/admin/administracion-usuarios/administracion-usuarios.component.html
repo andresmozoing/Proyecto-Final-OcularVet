@@ -6,20 +6,22 @@
     <div class="card">
         <div class="card-header">
             <h1>Usuarios: </h1>
-
-
         </div>
 
         <div class="col">
             <div class="card overflow-auto">
                 <div class="card-body">
-                    <form (ngSubmit)="filtrar()">
-                        <input type="text" id="apellidoInput" oninput="filtrar()" placeholder="Buscar por apellido.."
-                            title="apellido" class="m-1">
-                        <button type="submit" name="searchButton" class="btn btn-primary" (click)="filtrar()">
-                            <i class="bi-search "></i>
-                        </button>
-                    </form>
+                    <div >
+                        <form (ngSubmit)="filtrar()">
+                            <input type="text" id="apellidoInput" oninput="filtrar()" placeholder="Buscar por apellido.."
+                                title="apellido" class="m-1">
+                            <button type="submit" name="searchButton" class="btn btn-primary" (click)="filtrar()">
+                                <i class="bi-search "></i>
+                            </button>
+                        </form>
+    
+                        <button class="btn btn-danger" (click)="borrarUsuariosFiltrados()"> Borrar todos los usuarios filtrados</button>
+                    </div>
 
                     <div>
                         <table style="width: 100%;" mat-table [dataSource]="dataSource" matSort
@@ -59,9 +61,27 @@
                             <ng-container matColumnDef="isAdmin">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header
                                     sortActionDescription="Sort by isAdmin">
-                                    isAdmin
+                                    Tipo de usuario
                                 </th>
-                                <td mat-cell *matCellDef="let element"> {{element.isAdmin}} </td>
+                                <td mat-cell *matCellDef="let element"> {{element.isAdmin ? 'Administrador' : 'Alumno'}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="hacerAdmin">
+                                <th mat-header-cell *matHeaderCellDef>Agregar/quitar <br> permisos admin</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <button type="button" class="btn btn-primary " [swal]="hacerAdmin">
+                                        <i class="bi bi-person-check-fill"></i>
+
+                                        <swal #hacerAdmin
+                                            title="Modificar permisos de administrador a {{ row.name}} {{ row.surname }} ?"
+                                            text="Se le darán/quitarán permisos de administrador al usuario {{ row.name}} {{ row.surname }}"
+                                            icon="warning" [swalOptions]="{ confirmButtonText: 'Confirmar' , cancelButtonText: 'Cancelar'}"
+                                            [showCancelButton]="true" [focusCancel]="true"
+                                            (confirm)="verificarPasswordHacerAdmin(row._id!, row.isAdmin)">
+                                        </swal>
+
+                                    </button>
+                                </td>
                             </ng-container>
 
                             <ng-container matColumnDef="resetPassword">

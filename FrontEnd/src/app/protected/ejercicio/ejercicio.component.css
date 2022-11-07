@@ -8,7 +8,7 @@
     /* align-items: center; */
 }
 
-.gridConsigna{
+.gridConsigna {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-auto-flow: row dense;
@@ -26,6 +26,7 @@
         gap: var(--gap);
     }
 }
+
 @media (max-width: 1100px) {
     .gridConsigna {
         display: grid;
@@ -34,14 +35,15 @@
         grid-auto-rows: minmax(170px, auto);
         gap: var(--gap);
     }
+
     hr {
         display: block;
-        height: 8px ;
+        height: 8px;
         background-color: #7b1fa2;
         border-radius: 2px;
-        
-      }
-    
+
+    }
+
     #perroConsigna {
         position: relative;
         min-height: 200px;
@@ -49,20 +51,23 @@
         margin-top: 15px;
     }
 }
+
 @media(min-width: 1100px) {
     hr {
-        display: none;    
+        display: none;
     }
 }
 
-.parrafo{
+.parrafo {
     text-align: justify;
 }
-.contenedorConsigna{
+
+.contenedorConsigna {
     align-items: center;
-    justify-content:  start;
+    justify-content: start;
 }
-#BtnComenzarEjercicio{
+
+#BtnComenzarEjercicio {
     margin-left: 50%;
     transform: translateX(-50%);
 }
@@ -74,7 +79,7 @@
 
 figure {
     position: relative;
-    
+
 }
 
 #contenedorPrincipal .grid .columna {
@@ -107,11 +112,12 @@ figure {
     width: 6%;
 }
 
-.btn-info:disabled{
+.btn-info:disabled {
     color: white;
     background: #d5000065;
     border-color: #d5000065;
-  }
+}
+
 #contenedorImagenPerro {
     display: inline-block;
 }
