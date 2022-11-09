@@ -224,6 +224,18 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     this.chartPie.update()
   }
 
+  borrarNotasFiltradas(){
+    //console.log(this.usuariosFiltrados);
+    for (let index = 0; index < this.notasFiltradas.length; index++) {
+      let nota = this.notasFiltradas[index];
+      console.log(index , ": " , nota.fecha , " - " , nota._id);
+      if (nota._id !== undefined){
+        this.eliminarNota(nota._id!)
+      }
+    }
+    Swal.fire("Notas eliminadas correctamente" , " " , "success")
+  }
+
 
   announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports

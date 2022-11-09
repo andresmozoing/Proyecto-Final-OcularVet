@@ -5,7 +5,7 @@
 <main id="main" class="main">
   <div class="card">
     <div class="card-header">
-      <h1>Notas alumnos: </h1>
+      <h1>Notas </h1>
 
 
     </div>
@@ -14,11 +14,21 @@
       <div class="card  overflow-auto">
         <div class="card-body">
           <form (ngSubmit)="filtrar()">
-            <input type="number" id="anioInput" placeholder="Buscar por Año.." title="Type in a name" >
-            <input type="text" id="apellidoInput" placeholder="Buscar por apellido.." title="apellido" class="m-1">
+            <input type="number" id="anioInput" placeholder="Buscar por año..." title="Type in a name" >
+            <input type="text" id="apellidoInput" placeholder="Buscar por apellido..." title="apellido" class="m-1">
             <button type="submit" name="searchButton" class="btn btn-primary" (click)="filtrar()">
                 <i class="bi-search "></i>  
             </button>
+            <button class="btn btn-danger" [swal]="deleteFilteredNotas"> Borrar todas las notas filtradas
+
+              <i class="bi-trash-fill"></i>
+              <swal #deleteFilteredNotas title="Esta seguro que desea eliminar todos las notas filtradas?"
+                  text="Esta acción no se puede deshacer." icon="warning"
+                  [swalOptions]="{ confirmButtonText: 'Confirmar' }" [showCancelButton]="true"
+                  [focusCancel]="true" (confirm)="borrarNotasFiltradas()">
+              </swal>
+          </button>
+
           </form>
           <div>
             <table style="width: 100%;" mat-table [dataSource]="dataSource" matSort
@@ -82,7 +92,7 @@
           
 
 
-          <div id="contenedorDatos">
+          <div id="contenedorDatos" >
             <div id="divChartPie">
               <canvas id="canvasChartPie">{{chartPie}}</canvas>
             </div>

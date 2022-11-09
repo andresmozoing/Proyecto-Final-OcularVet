@@ -5,17 +5,18 @@
 <main id="main" class="main">
     <div class="card">
         <div class="card-header">
-            <h1>Usuarios: </h1>
+            <h1>Usuarios</h1>
         </div>
 
         <div class="col">
             <div class="card overflow-auto">
                 <div class="card-body">
                     <div >
-                        <form (ngSubmit)="filtrar()">
-                            <input type="text" id="apellidoInput" oninput="filtrar()" placeholder="Buscar por apellido.."
+                        <form (ngSubmit)="filtrarUsuarios()">
+                            <input type="number" id="anioInput" placeholder="Buscar por año..." title="Type in a name" >
+                            <input type="text" id="apellidoInput" oninput="filtrarUsuarios()" placeholder="Buscar por apellido..."
                                 title="apellido" class="m-1">
-                            <button type="submit" name="searchButton" class="btn btn-primary" (click)="filtrar()">
+                            <button type="submit" name="searchButton" class="btn btn-primary" (click)="filtrarUsuarios()">
                                 <i class="bi-search "></i>
                             </button>
                         </form>

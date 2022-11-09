@@ -72,7 +72,7 @@ export class AdministracionUsuariosComponent {
         this.usuarios = this.usuarios.filter(function (user: User) {
           return (user._id !== _id)
         })
-        this.filtrar();
+        this.filtrarUsuarios();
 
       }
     );
@@ -147,24 +147,63 @@ export class AdministracionUsuariosComponent {
     Swal.fire("Usuarios eliminados correctamente" , " " , "success")
   }
 
-  filtrar() {
-    const input = <HTMLInputElement>document.getElementById("apellidoInput");
-    if (input.value !== "") {
-      this.usuariosFiltrados = this.usuarios.filter(function (user: User) {
-        if (user.surname!.toUpperCase().startsWith(input.value.toUpperCase(), 0)) {
-          return true
-        }
-        return false;
-      })
-    } else {
-      this.usuariosFiltrados = this.usuarios;
+
+
+  filtrarUsuarios() {
+    const anioInput = <HTMLInputElement>document.getElementById("anioInput");
+    const apellidoInput = <HTMLInputElement>document.getElementById("apellidoInput");
+    if (anioInput.value !== "") {
+      if (apellidoInput.value !== "") {
+        //Caso en que filtra por año y apellido
+        this.usuariosFiltrados = this.usuarios.filter(function (usuario: User) {
+          const fechaUser = new Date(usuario.fechaAlta)
+          if ((fechaUser > new Date(anioInput.valueAsNumber, 0, 0)) &&
+            (fechaUser < new Date(anioInput.valueAsNumber, 11, 30)) &&
+            (usuario.surname!.toUpperCase().startsWith(apellidoInput.value.toUpperCase(),0))) {
+            return true
+          }
+          return false;
+        })
+      }
+      else {
+        //Caso en que filtra solo por año
+        this.usuariosFiltrados = this.usuarios.filter(function (Usuario: User) {
+          const fechaUser = new Date(Usuario.fechaAlta)
+          if ((fechaUser > new Date(anioInput.valueAsNumber, 0, 0)) &&
+            (fechaUser < new Date(anioInput.valueAsNumber, 11, 30))) {
+            return true
+          }
+          return false;
+        })
+      }
+    }
+    else {
+      if (apellidoInput.value !== "") {
+        //Caso en que filtra solo por apellido
+        this.usuariosFiltrados = this.usuarios.filter(function (usuario: User) {
+          const fechaUser = new Date(usuario.fechaAlta)
+          if (usuario.surname!.toUpperCase().startsWith(apellidoInput.value.toUpperCase(),0)) {
+            return true
+          }
+          return false;
+        })
+      }
+      else {
+        //Caso en que no filtra
+        this.usuariosFiltrados = this.usuarios
+      }
     }
     this.dataSource = new MatTableDataSource(this.usuariosFiltrados);
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    console.log("USuarios filtred", this.usuariosFiltrados);
-
   }
+
+
+
+
+
+
+
 
   announceSortChange(sortState: Sort) {
     // This example uses English messages. If your application supports
