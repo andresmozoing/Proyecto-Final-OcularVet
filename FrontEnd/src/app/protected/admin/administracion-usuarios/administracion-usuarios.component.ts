@@ -37,7 +37,7 @@ export class AdministracionUsuariosComponent {
 
   ngAfterViewInit() {
     this.obtenerUsuarios();
-    this.dataSource.sort = this.sort;
+    //this.dataSource.sort = this.sort;
   }
 
   async obtenerUsuarios() {
@@ -50,7 +50,7 @@ export class AdministracionUsuariosComponent {
       this.dataSource.sort = this.sort
       this.dataSource.paginator = this.paginator
     });
-    this.dataSource.sort = this.sort;
+    //this.dataSource.sort = this.sort;
   }
 
   async eliminarUsuario(_id: string) {

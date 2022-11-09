@@ -126,7 +126,7 @@
                     </swal>
 
                     <swal #respuestaIncorrectaSwal title="Respuesta incorrecta" [allowOutsideClick]="false"
-                        text="La respuesta correcta era: {{ diagnosticoActual.descripcion ?? ''}}" icon="error"
+                        text="La respuesta correcta era: {{ diagnosticoActual.descripcion}}" icon="error"
                         (confirm)="siguientePaciente()">
                     </swal>
 
