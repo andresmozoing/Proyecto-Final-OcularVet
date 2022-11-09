@@ -9,6 +9,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { Subject } from 'rxjs';
 import { $localize } from '@angular/localize/init';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-notas-admin',
@@ -150,14 +151,19 @@ export class NotasAdminComponent implements MatPaginatorIntl {
 
   async eliminarNota(_id: String) {
     await this.notaService.eliminarNota(_id).subscribe(
-      (resp) => {
-
+      (resp) => {        
+        if (resp.ok === true){
+          Swal.fire("Nota borrada exitosamente", "", "success")
+        }
       }
     )
     this.notas = this.notas.filter(function (nota: Nota) {
       return (nota._id !== _id)
     })
-    this.filtrar();
+    this.notasFiltradas = this.notas.filter(function (nota: Nota) {
+      return (nota._id !== _id)
+    })
+    this.filtrar()
   }
 
 

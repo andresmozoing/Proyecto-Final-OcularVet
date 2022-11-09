@@ -20,7 +20,15 @@
                             </button>
                         </form>
     
-                        <button class="btn btn-danger" (click)="borrarUsuariosFiltrados()"> Borrar todos los usuarios filtrados</button>
+                        <button class="btn btn-danger" [swal]="deleteFilteredUsers"> Borrar todos los usuarios filtrados
+
+                            <i class="bi-trash-fill"></i>
+                            <swal #deleteFilteredUsers title="Esta seguro que desea eliminar todos los usuarios filtrados?"
+                                text="Esta acción no se puede deshacer." icon="warning"
+                                [swalOptions]="{ confirmButtonText: 'Confirmar' }" [showCancelButton]="true"
+                                [focusCancel]="true" (confirm)="borrarUsuariosFiltrados()">
+                            </swal>
+                        </button>
                     </div>
 
                     <div>
@@ -107,7 +115,7 @@
                                         <i class="bi-trash-fill"></i>
                                         <swal #deleteUser title="Eliminar {{ row.name}} {{ row.surname }}?"
                                             text="Esta acción no se puede deshacer." icon="warning"
-                                            [swalOptions]="{ confirmButtonText: 'Confrimar' }" [showCancelButton]="true"
+                                            [swalOptions]="{ confirmButtonText: 'Confirmar' }" [showCancelButton]="true"
                                             [focusCancel]="true" (confirm)="eliminarUsuario(row._id!)">
                                         </swal>
 

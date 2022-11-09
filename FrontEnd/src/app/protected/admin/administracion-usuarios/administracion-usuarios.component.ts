@@ -57,7 +57,6 @@ export class AdministracionUsuariosComponent {
     await this.usuarioService.eliminarUsuario(_id).subscribe(
       (resp) => {
         if (resp.ok) {
-          console.log(2232);
 
           this.notaService.eliminarNotasUsuario
             (resp.user.DNI).subscribe(
@@ -84,8 +83,9 @@ export class AdministracionUsuariosComponent {
 
     this.usuarioService.reiniciarPassword(_id, "123456").subscribe(
       (resp) => {
-        if (resp.ok)
-          console.log("Retorno de reiniciar Password, resp:", resp);
+        if (resp.ok === true){
+          Swal.fire("Contraseña reiniciada correctamente","","success")          
+        }
         else
           console.log("ERROR", resp.console.error());
       }
@@ -136,7 +136,15 @@ export class AdministracionUsuariosComponent {
   }
 
   borrarUsuariosFiltrados(){
-    
+    //console.log(this.usuariosFiltrados);
+    for (let index = 0; index < this.usuariosFiltrados.length; index++) {
+      const usuario = this.usuariosFiltrados[index];
+      console.log(index , ": " , usuario.name , " - " , usuario._id);
+      if (usuario._id !== undefined){
+        this.eliminarUsuario(usuario._id!)
+      }
+    }
+    Swal.fire("Usuarios eliminados correctamente" , " " , "success")
   }
 
   filtrar() {
