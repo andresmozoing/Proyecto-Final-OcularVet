@@ -143,3 +143,15 @@ figure {
     display: none;
     z-index: 1;
 }
+
+.btn-primary{
+    color: white;
+    background: #7b1fa2;
+    border-color: #7b1fa2;
+}
+
+.btn-primary:hover{
+color: white;
+background: #012970;
+border-color: #012970;
+}

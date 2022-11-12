@@ -2,82 +2,107 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>OcularVet - Diagnóstico</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+  <title>OcularVet - Diagnóstico</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
 
-    <!-- Favicons -->
-    <link href="../../../../assets/img/favicon.png" rel="icon">
-    <link href="../../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- Favicons -->
+  <link href="../../../../assets/img/favicon.png" rel="icon">
+  <link href="../../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-    <!-- Google Fonts -->
-    <link href="https://fonts.gstatic.com" rel="preconnect">
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
 
 
 </head>
 
 <main id="main" class="main">
-    <div class="card">
-        <div class="card-header">
-            <h1>Configuración Administrador</h1>
-        </div>
-
-        <div class="col">
-            <div class="card">
-                <div class="card-body">
-                  
-                  <div >
-                    <button class="btn btn-info" style="margin-right:8px" (click)="notas()"> Notas </button>
-                    <button class="btn btn-info" (click)="usuarios()"> Administración de usuarios </button>
-                  </div>
-
-                  <hr/>
-
-                  <form [formGroup]="configAdminForm" (ngSubmit)="onSubmitConfigAdmin()">
-                    
-                    <div class="row mb-3">
-                      <label for="name" class="col-md-4 col-lg-3 col-form-label">Cantidad de pacientes a diagnosticar</label>
-                      <div class="col-md-8 col-lg-4">
-                        <input name="cantidadPacientesADiagnosticar" type="number" formControlName="cantidadPacientesADiagnosticar" class="form-control" id="cantidadPacientesADiagnosticar" value="{{configuracionAdmin.cantidadPacientesADiagnosticar}}">
-                      </div>
-                    </div>
-                    <div class="row mb-3">
-                      <label for="surname" class="col-md-4 col-lg-3 col-form-label">Tiempo de respuesta para cada paciente: </label>
-                      <div class="col-md-8 col-lg-4">
-                        <input name="tiempoRespuesta" type="number" formControlName="tiempoRespuesta" class="form-control" id="tiempoRespuesta" value="{{configuracionAdmin.tiempoRespuesta}}">
-                      </div>
-                    </div>
-
-                    <div class="row mb-3">
-                      <label for="DNI" class="col-md-4 col-lg-3 col-form-label">Código para registro de usuarios:</label>
-                      <div class="col-md-8 col-lg-4">
-                        <input name="codigoRegistro" type="number" class="form-control" id="codigoRegistro" value="{{configuracionAdmin.codigoRegistro}}">
-                      </div>
-                    </div>
-
-                   
-                    <div class="text-center">
-                      <button class="btn btn-primary" type="submit"> Cambiar Datos </button>
-
-                    </div>
-                  </form><!-- End Profile Edit Form -->
-
-                  
-                </div>
-            </div>
-        </div>
+  <div class="card">
+    <div class="card-header">
+      <h1>Configuración Administrador</h1>
     </div>
+
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+
+          <div>
+            <button class="btn btn-info" style="margin-right:8px" (click)="notas()"> Notas </button>
+            <button class="btn btn-info" (click)="usuarios()"> Administración de usuarios </button>
+          </div>
+
+          <hr />
+
+          <form [formGroup]="configAdminForm" (ngSubmit)="onSubmitConfigAdmin()">
+
+            <div class="row mb-3">
+              <label for="name" class="col-md-4 col-lg-3 col-form-label">Cantidad de pacientes a diagnosticar</label>
+              <div class="col-md-8 col-lg-4">
+                <input name="cantidadPacientesADiagnosticar" type="number"
+                  formControlName="cantidadPacientesADiagnosticar" class="form-control"
+                  id="cantidadPacientesADiagnosticar" value="{{configuracionAdmin.cantidadPacientesADiagnosticar}}">
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label for="surname" class="col-md-4 col-lg-3 col-form-label">Tiempo de respuesta para cada paciente:
+              </label>
+              <div class="col-md-8 col-lg-4">
+                <input name="tiempoRespuesta" type="number" formControlName="tiempoRespuesta" class="form-control"
+                  id="tiempoRespuesta" value="{{configuracionAdmin.tiempoRespuesta}}">
+              </div>
+            </div>
+
+            <div class="row mb-3">
+              <label for="DNI" class="col-md-4 col-lg-3 col-form-label">Código para registro de usuarios:</label>
+              <div class="col-md-8 col-lg-4">
+                <input name="codigoRegistro" type="number" class="form-control" id="codigoRegistro"
+                  value="{{configuracionAdmin.codigoRegistro}}">
+              </div>
+            </div>
+
+
+            <div class="text-center">
+              <button class="btn btn-primary" type="submit"> Cambiar Datos </button>
+
+            </div>
+          </form><!-- End Profile Edit Form -->
+
+
+        </div>
+      </div>
+    </div>
+  </div>
 
 </main><!-- End #main -->
 
+<style>
+  .btn-info {
+    color: white;
+    background: #B951A4;
+    border-color: #B951A4;
+  }
+
+  .btn-primary {
+    color: white;
+    background: #7b1fa2;
+    border-color: #7b1fa2;
+  }
+
+  .btn-primary:hover {
+    color: white;
+    background: #012970;
+    border-color: #012970;
+  }
+</style>
+
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
+    class="bi bi-arrow-up-short"></i></a>
 
 </html>
