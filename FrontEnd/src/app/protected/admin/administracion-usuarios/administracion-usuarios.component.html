@@ -11,7 +11,7 @@
         <div class="col">
             <div class="card overflow-auto">
                 <div class="card-body">
-                    <div >
+                    <div style="display: flex; justify-content: space-between;flex-shrink: 0;">
                         <form (ngSubmit)="filtrarUsuarios()">
                             <input type="number" id="anioInput" placeholder="Buscar por año..." title="Type in a name" >
                             <input type="text" id="apellidoInput" oninput="filtrarUsuarios()" placeholder="Buscar por apellido..."
@@ -21,7 +21,7 @@
                             </button>
                         </form>
     
-                        <button class="btn btn-danger" [swal]="deleteFilteredUsers"> Borrar todos los usuarios filtrados
+                        <button class="btn btn-danger" [swal]="deleteFilteredUsers"> Eliminar usuarios filtrados
 
                             <i class="bi-trash-fill"></i>
                             <swal #deleteFilteredUsers title="Esta seguro que desea eliminar todos los usuarios filtrados?"
@@ -67,6 +67,13 @@
                                 </th>
                                 <td mat-cell *matCellDef="let element"> {{element.email }} </td>
                             </ng-container>
+                            <ng-container matColumnDef="fechaAlta">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header
+                                    sortActionDescription="Sort by fechaAlta">
+                                    Fecha de alta
+                                </th>
+                                <td mat-cell *matCellDef="let element"> {{element.fechaAlta |date:"dd-MM-YYYY"}} </td>
+                            </ng-container>
                             <ng-container matColumnDef="isAdmin">
                                 <th mat-header-cell *matHeaderCellDef mat-sort-header
                                     sortActionDescription="Sort by isAdmin">
@@ -110,7 +117,7 @@
                                 </td>
                             </ng-container>
                             <ng-container matColumnDef="borrarUser">
-                                <th mat-header-cell *matHeaderCellDef>Borrar</th>
+                                <th mat-header-cell *matHeaderCellDef>Eliminar</th>
                                 <td mat-cell *matCellDef="let row">
                                     <button class="btn btn-danger" [swal]="deleteUser">
                                         <i class="bi-trash-fill"></i>

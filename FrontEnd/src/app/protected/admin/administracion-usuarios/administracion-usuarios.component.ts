@@ -23,7 +23,7 @@ export class AdministracionUsuariosComponent {
   ordenTabla: string = "";
   dataSource!: MatTableDataSource<User>
   ordenActual = "DNIAsc"
-  columns: string[] = ['DNI', 'name', 'surname', 'email', 'isAdmin', 'hacerAdmin' , 'resetPassword', 'borrarUser']
+  columns: string[] = ['DNI', 'name', 'surname', 'email','fechaAlta', 'isAdmin', 'hacerAdmin' , 'resetPassword', 'borrarUser']
 
   constructor(
     private usuarioService: UsuarioService,
@@ -46,7 +46,7 @@ export class AdministracionUsuariosComponent {
 
       this.usuarios = resp.users;
       this.usuariosFiltrados = this.usuarios
-      this.dataSource = new MatTableDataSource(resp.users);
+      this.dataSource = new MatTableDataSource(this.usuarios);
       this.dataSource.sort = this.sort
       this.dataSource.paginator = this.paginator
     });
@@ -91,8 +91,6 @@ export class AdministracionUsuariosComponent {
       }
     );
   }
-
-
 
   async verificarPasswordHacerAdmin (_id : string , isAdmin : boolean){
     const { value: password } = await Swal.fire({
@@ -146,8 +144,6 @@ export class AdministracionUsuariosComponent {
     }
     Swal.fire("Usuarios eliminados correctamente" , " " , "success")
   }
-
-
 
   filtrarUsuarios() {
     const anioInput = <HTMLInputElement>document.getElementById("anioInput");
