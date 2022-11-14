@@ -15,19 +15,10 @@ export class ValidarAdminGuard implements CanActivate, CanLoad {
 
   canActivate(): Observable<boolean> | boolean{
     console.log('canActivate del validarAdmin')
-
-    // return this.authService.validarToken()
-    //         .pipe(
-    //           tap (valid => {
-    //             if (!valid){
-    //               this.router.navigateByUrl('/auth')
-    //             }
-    //           })
-    //         )
+    console.log("Usuario es ", this.authService.usuario);
+    
     const autorizado = this.authService.usuario.isAdmin
     if (!autorizado){
-        //this.router.navigateByUrl('/ocularVet')
-        console.log("va a iunterntar");
         
         this.router.navigateByUrl('/ocularVet/alumno/accesoAdminDenegado')
     }

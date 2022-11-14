@@ -27,11 +27,13 @@ export class LoginComponent {
 
   login(){
     const {email,password} = this.miFormulario.value
-
+    console.log("Entro al login() del component");
+    
     this.authService.login(email,password)
       .subscribe((resp) => {
         if (resp.ok === true){ //Si no le pones el ===true, evalua q exista el objeto, y siempre existe.
-          console.log("El usuariuo es admin", resp.isAdmin);
+          console.log("Entro al SUBSRIBE login() del component");
+          console.log("El usuariuo es admin ", resp.isAdmin);
           console.log("RESP ES " ,resp);
           
           if(resp.isAdmin){

@@ -41,14 +41,17 @@ export class AuthService {
   }
 
   login(email: string , password:string){
+    console.log("Entro al login() del service");
 
     const url = `${this.baseUrl}/auth`
     const body= { email,password}
 
     return this.http.post<AuthResponse>(url,body)
-      .pipe( //clase 391. Modificamos el resp para que le llegue bien a login
-        tap(resp => { //Los operadores del pipe se ejecutan en cadena. El map va a recibir lo q le deja el tap. Este tap lo unico q hace es dejarte hacer algo con el resp en caso de q quieras modificarlo para el prox operador
+      .pipe( 
+        tap(resp => { 
           if (resp.ok){
+            console.log("Volvio de hacer el post, resp es ", resp);
+            this._usuario.isAdmin = resp.isAdmin!
             localStorage.setItem('token', resp.token!)
           }
         }),
@@ -59,14 +62,17 @@ export class AuthService {
   }
 
   validarToken(): Observable<boolean>{
+    console.log("Entro al validarToken() del service");
+
     const url = `${this.baseUrl}/auth/renew`
     const headers = new HttpHeaders()
       .set('x-token' , localStorage.getItem('token') || '')
 
     return this.http.get<AuthResponse>(url,{headers})
-        .pipe( //Clase 394
+        .pipe( 
           map( resp => {
-            localStorage.setItem('token', resp.token!)            
+            localStorage.setItem('token', resp.token!)  
+
             this._usuario = {
               uid: resp.uid!,
               name: resp.name!,
@@ -75,6 +81,8 @@ export class AuthService {
               email: resp.email!,
               isAdmin: resp.isAdmin!
             }
+            console.log("Seteo al usuario, es ", this._usuario);
+
             //Obtenemos la configuracion del administrador
             this.usuarioService.obtenerConfigAdmin()
                 .subscribe((resp) => {
