@@ -47,6 +47,7 @@ export class AuthService {
   }
 
   login(email: string , password:string){
+    console.log("Entro al login() del service");
 
     const url = `${this.baseUrl}/auth`
     const body= { email,password}
@@ -55,6 +56,8 @@ export class AuthService {
       .pipe( // Modificamos el resp para que le llegue bien a login
         tap(resp => { 
           if (resp.ok){
+            console.log("Volvio de hacer el post, resp es ", resp);
+            this._usuario.isAdmin = resp.isAdmin!
             localStorage.setItem('token', resp.token!)
           }
         }),
@@ -64,6 +67,8 @@ export class AuthService {
   }
 
   validarToken(): Observable<boolean>{
+    console.log("Entro al validarToken() del service");
+
     const url = `${this.baseUrl}/auth/renew`
     const headers = new HttpHeaders()
       .set('x-token' , localStorage.getItem('token') || '')
@@ -71,7 +76,8 @@ export class AuthService {
     return this.http.get<AuthResponse>(url,{headers})
         .pipe( 
           map( resp => {
-            localStorage.setItem('token', resp.token!)            
+            localStorage.setItem('token', resp.token!)  
+
             this._usuario = {
               uid: resp.uid!,
               name: resp.name!,
@@ -80,6 +86,8 @@ export class AuthService {
               email: resp.email!,
               isAdmin: resp.isAdmin!
             }
+            console.log("Seteo al usuario, es ", this._usuario);
+
             //Obtenemos la configuracion del administrador
             this.usuarioService.obtenerConfigAdmin()
                 .subscribe((resp) => {
