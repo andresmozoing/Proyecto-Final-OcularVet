@@ -1,14 +1,19 @@
+//Imports de Angular
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NotaService } from '../../services/nota.service';
-import { Nota } from '../../interfaces/Nota';
-import { ChartOptions } from 'chart.js';
-import { Chart, registerables } from 'chart.js';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { MatPaginator, MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
-import { Subject } from 'rxjs';
 import { $localize } from '@angular/localize/init';
+
+//Imports Servicios/Componentes/Interfaces propios
+import { NotaService } from '../../services/nota.service';
+import { Nota } from '../../interfaces/Nota';
+
+//Imports de terceros
+import { ChartOptions } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
+import { Subject } from 'rxjs';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,10 +21,7 @@ import Swal from 'sweetalert2';
   templateUrl: './notas-admin.component.html',
   styleUrls: ['./notas-admin.component.css']
 })
-export class NotasAdminComponent implements MatPaginatorIntl {
-  //-----------------------------------------------------
-  //                  VARIABLES
-  //-----------------------------------------------------
+export class NotasAdminComponent {
 
   //Vars de graficos
   chartPie: any = [];
@@ -37,9 +39,6 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     private notaService: NotaService,
     private _liveAnnouncer: LiveAnnouncer) { }
 
-  //-----------------------------------------------------
-  //                      METODOS
-  //-----------------------------------------------------
 
   ngOnInit() {
     this.getNotasAlumno();
@@ -172,7 +171,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     const apellidoInput = <HTMLInputElement>document.getElementById("apellidoInput");
     if (anioInput.value !== "") {
       if (apellidoInput.value !== "") {
-        //Caso en que filtra por año y apellido
+        //Filtra por año y apellido
         this.notasFiltradas = this.notas.filter(function (nota: Nota) {
           const fechaUser = new Date(nota.fecha)
           if ((fechaUser > new Date(anioInput.valueAsNumber, 0, 0)) &&
@@ -184,7 +183,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
         })
       }
       else {
-        //Caso en que filtra solo por año
+        //Filtra solo por año
         this.notasFiltradas = this.notas.filter(function (nota: Nota) {
           const fechaUser = new Date(nota.fecha)
           if ((fechaUser > new Date(anioInput.valueAsNumber, 0, 0)) &&
@@ -197,7 +196,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     }
     else {
       if (apellidoInput.value !== "") {
-        //Caso en que filtra solo por apellido
+        //Filtra solo por apellido
         this.notasFiltradas = this.notas.filter(function (nota: Nota) {
           const fechaUser = new Date(nota.fecha)
           if (nota.surname!.toUpperCase().startsWith(apellidoInput.value.toUpperCase(),0)) {
@@ -207,7 +206,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
         })
       }
       else {
-        //Caso en que no filtra
+        //No filtra
         this.notasFiltradas = this.notas
       }
     }
@@ -225,7 +224,6 @@ export class NotasAdminComponent implements MatPaginatorIntl {
   }
 
   borrarNotasFiltradas(){
-    //console.log(this.usuariosFiltrados);
     for (let index = 0; index < this.notasFiltradas.length; index++) {
       let nota = this.notasFiltradas[index];
       console.log(index , ": " , nota.fecha , " - " , nota._id);
@@ -238,10 +236,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
 
 
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
+
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
@@ -249,25 +244,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     }
   }
 
-  changes = new Subject<void>();
-  // Para internationalization de paginator, se usa `$localize` function from
-  // the `@angular/localize`.
-  firstPageLabel = $localize`First page`;
-  itemsPerPageLabel = $localize`Items per page:`;
-  lastPageLabel = $localize`Last page`;
-
-  // You can set labels to an arbitrary string too, or dynamically compute
-  // it through other third-party internationalization libraries.
-  nextPageLabel = 'Next page';
-  previousPageLabel = 'Previous page';
-
-  getRangeLabel(page: number, pageSize: number, length: number): string {
-    if (length === 0) {
-      return $localize`Page 1 of 1`;
-    }
-    const amountPages = Math.ceil(length / pageSize);
-    return $localize`Page ${page + 1} of ${amountPages}`;
-  }
+ 
 
 
 }

@@ -14,8 +14,10 @@
 
 <body class="background">
     
+        <!--NavBar  -->
         <header id="header" class="header fixed-top d-flex align-items-center">
-
+          
+            <!--Logo -->
             <div class="d-flex align-items-center justify-content-between">
               <div routerLink="inicio" class="logo d-flex align-items-center">
                 <img src="../../../assets/images/logo.png" style="max-height: 8.5vh;" >
@@ -32,7 +34,7 @@
                    routerLink="ejercicio" >
                   <img src="../../../assets/images/favicon.png">
                   <span> Diagnosticar </span>
-                </a><!-- End Ejercicio Iamge Icon -->
+                </a>
                 <div *ngIf="usuario.isAdmin === true">
                   <a class="nav-link nav-options d-flex align-items-center" routerLink="admin/notasAdmin">
                     <i class="nav-icon bi-list-check"></i>
@@ -47,13 +49,13 @@
                   </a>
                 </div>
         
-        
+                <!-- Dropdown Configuracion -->
                 <li class="nav-item dropdown pe-3">
         
                   <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
                     <i class="nav-icon bi-gear-fill"></i>
                     <span class="d-none d-md-block dropdown-toggle ps-2">Configuración</span>
-                  </a><!-- End Profile Iamge Icon -->
+                  </a>
         
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header" style="margin: 0px;">
@@ -96,14 +98,14 @@
                       </a>
                     </li>
         
-                  </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
+                  </ul>
+                </li><!--End Dropdown Configuracion -->
         
               </ul>
-            </nav><!-- End Icons Navigation -->
+            </nav>
         
           </header>
-
+          <!--End NavBar -->
         <div>
             <router-outlet></router-outlet>
         </div>

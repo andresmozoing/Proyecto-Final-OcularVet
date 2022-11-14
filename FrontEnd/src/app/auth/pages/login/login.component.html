@@ -17,18 +17,18 @@
 <body>
 
   <main class="animate__animated animate__backInDown">
-    <div class="container">
+
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
+            <!--col-NN es para definir el tamaño de la card dependiendo del tamañod el viewport -->
+            <div class="col-xl-4 col-lg-5 col-md-7 col-10 d-flex flex-column align-items-center justify-content-center">
+              
               <div class="card mb-3">
                 <div class="card-header">
                   <div class="d-flex justify-content-center">
                     <div href="index.html" class="logo d-flex align-items-center w-auto">
-                      <!-- <img src="../../../../assets/images/vet_unicen.png" alt="" width="150"> -->
                       <img src="../../../../assets/images/logo.png" alt="" width="150">
                     </div>
                     
@@ -41,7 +41,7 @@
                     <h5 class="card-title text-center pb-0 fs-4">Login</h5>
                     <p class="text-center small">Ingrese su usuario y contraseña para ingresar</p>
                   </div>
-
+                  <!--Formulario de Inicio Sesion -->
                   <form class="row g-3 needs-validation" autocomplete="off" [formGroup]="miFormulario"
                     (submit)="login()">
 
@@ -93,7 +93,7 @@
                       <p class="small mb-0 text-center">No tenes usuario?</p>
                       <p> <a class="small" routerLink="/auth/registro"> Crea una cuenta nueva</a> </p>
                     </div>
-                  </form>
+                  </form><!--END Formulario de Inicio Sesion -->
 
                 </div>
               </div>
@@ -104,7 +104,7 @@
 
       </section>
 
-    </div>
+
   </main><!-- End #main -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i

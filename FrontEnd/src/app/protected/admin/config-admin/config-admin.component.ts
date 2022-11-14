@@ -1,8 +1,13 @@
+//Imports de Angular
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
+
+//Imports de Servicios propios
 import { UsuarioService } from '../../services/usuario.service';
+
+//Imports de teceross
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-config-admin',
@@ -16,12 +21,6 @@ export class ConfigAdminComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  // configAdminForm = new UntypedFormGroup({
-  //   cantidadPacientesADiagnosticar: new UntypedFormControl(this.configuracionAdmin.cantidadPacientesADiagnosticar),
-  //   tiempoRespuesta: new UntypedFormControl(this.configuracionAdmin.tiempoRespuesta),
-  //   codigoRegistro: new UntypedFormControl(this.configuracionAdmin.codigoRegistro)
-  // })
 
   configAdminForm = this.fb.group({
     cantidadPacientesADiagnosticar: [this.configuracionAdmin.cantidadPacientesADiagnosticar, [Validators.required]],
@@ -40,8 +39,6 @@ export class ConfigAdminComponent implements OnInit {
   usuarios() {
     this.router.navigateByUrl('ocularVet/admin/administracionUsuarios')
   }
-
-
 
   onSubmitConfigAdmin() {
 

@@ -102,7 +102,7 @@ export class PerfilComponent {
     else {
       Swal.fire('Error al editar contraseña', 'Las contraseñas nuevas no coinciden', 'error');
     }
-  } //Fin onSubmitPassword()
+  }
 
   campoNoValidoPerfilForm( campo: string ) {
     return this.perfilForm.get(campo)?.invalid

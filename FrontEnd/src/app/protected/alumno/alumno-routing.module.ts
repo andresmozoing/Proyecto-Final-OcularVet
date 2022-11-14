@@ -12,7 +12,7 @@ const routes: Routes = [
     path: 'accesoAdminDenegado',
     component:AccesoAdminDenegadoComponent
   },
-  { //Se agrega esta ruta para que funcione el routerLink de la barra de arriba
+  { //Se agrega esta ruta para que funcione el routerLink de la barra de encalce
     path: '',
     pathMatch: 'full',
     children: [],

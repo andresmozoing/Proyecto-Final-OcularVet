@@ -1,15 +1,21 @@
+//Imports de Angular
 import { Component, ViewChild } from '@angular/core';
-
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort, Sort } from '@angular/material/sort';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator } from '@angular/material/paginator';
+
+//Imports de Servicios Propios
 import { UsuarioService } from '../../services/usuario.service';
+import { NotaService } from '../../services/nota.service';
+import { AuthService } from 'src/app/auth/services/auth.service';
+
+//Imports de Interfaces Propias
 import { User } from '../../interfaces/Usuario';
 import { Usuario } from '../../../auth/interfaces/interfaces';
-import { NotaService } from '../../services/nota.service';
-import { MatPaginator } from '@angular/material/paginator';
+
+//Imports de terceros
 import Swal from 'sweetalert2';
-import { AuthService } from 'src/app/auth/services/auth.service';
 
 
 @Component({
@@ -38,7 +44,6 @@ export class AdministracionUsuariosComponent {
 
   ngAfterViewInit() {
     this.obtenerUsuarios();
-    //this.dataSource.sort = this.sort;
   }
 
   async obtenerUsuarios() {
@@ -51,7 +56,6 @@ export class AdministracionUsuariosComponent {
       this.dataSource.sort = this.sort
       this.dataSource.paginator = this.paginator
     });
-    //this.dataSource.sort = this.sort;
   }
 
   async eliminarUsuario(_id: string) {
@@ -195,18 +199,7 @@ export class AdministracionUsuariosComponent {
     this.dataSource.paginator = this.paginator;
   }
 
-
-
-
-
-
-
-
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {

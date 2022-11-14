@@ -1,8 +1,10 @@
+//Imports de Angular
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+//Imports de terceros
 import Swal from 'sweetalert2';
+//Imports de Servicios propios
 import { AuthService } from '../../services/auth.service';
 
 @Component({

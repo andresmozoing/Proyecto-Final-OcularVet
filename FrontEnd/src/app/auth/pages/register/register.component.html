@@ -11,7 +11,7 @@
 
 
 
-  
+
 </head>
 
 <body>
@@ -27,15 +27,13 @@
 
               <div class="card mb-3">
 
-                
+
 
                 <div class="card-header">
                   <div class="d-flex justify-content-center">
-                    <div href="index.html" class="logo d-flex align-items-center w-auto">
-                      <!-- <img src="../../../../assets/images/vet_unicen.png" alt="" width="150"> -->
+                    <div class="logo d-flex align-items-center w-auto">
                       <img src="../../../../assets/images/logo.png" alt="" width="150">
                     </div>
-                    
                   </div><!-- End Logo -->
                   <div class="d-flex justify-content-center">OcularVet</div>
                 </div>
@@ -45,15 +43,14 @@
                     <h5 class="card-title text-center pb-0 fs-4">Crea una cuenta</h5>
                     <p class="text-center small"> Ingresá por favor tu información personal</p>
                   </div>
-
-                  <form class="row g-3 needs-validation" novalidate
-                        autocomplete="off"
-                        [formGroup]="miFormularioRegistro"
-                        (ngSubmit)="registrar()">
+                  <!--Formulario de registro -->
+                  <form class="row g-3 needs-validation" novalidate autocomplete="off"
+                    [formGroup]="miFormularioRegistro" (ngSubmit)="registrar()">
 
                     <div class="col-12">
                       <label for="name" class="form-label">Nombre:</label>
-                      <input type="text" formControlName="name" class="form-control" id="name" placeholder="Ingrese su nombre" required>
+                      <input type="text" formControlName="name" class="form-control" id="name"
+                        placeholder="Ingrese su nombre" required>
                       <span class="form-text text-danger" *ngIf="campoNoValido('name')">
                         El nombre es un campo requerido.
                       </span>
@@ -61,7 +58,8 @@
 
                     <div class="col-12">
                       <label for="surname" class="form-label">Apellido:</label>
-                      <input type="text" formControlName="surname" class="form-control" id="surname" placeholder="Ingrese su apellido" required>
+                      <input type="text" formControlName="surname" class="form-control" id="surname"
+                        placeholder="Ingrese su apellido" required>
                       <span class="form-text text-danger" *ngIf="campoNoValido('surname')">
                         El apellido es un campo requerido.
                       </span>
@@ -69,7 +67,8 @@
 
                     <div class="col-12">
                       <label for="DNI" class="form-label">DNI:</label>
-                      <input type="number" formControlName="DNI" class="form-control" id="DNI" placeholder="Ingrese su DNI" required>
+                      <input type="number" formControlName="DNI" class="form-control" id="DNI"
+                        placeholder="Ingrese su DNI" required>
                       <span class="form-text text-danger" *ngIf="campoNoValido('DNI')">
                         Por favor ingrese un N° DNI valido.
                       </span>
@@ -77,7 +76,8 @@
 
                     <div class="col-12">
                       <label for="email" class="form-label">Email:</label>
-                      <input type="email" formControlName="email" class="form-control" id="email" placeholder="Ingrese su email">
+                      <input type="email" formControlName="email" class="form-control" id="email"
+                        placeholder="Ingrese su email">
                       <span class="form-text text-danger" *ngIf="campoNoValido('email')">
                         Por favor, ingrese un email válido
                       </span>
@@ -86,11 +86,10 @@
 
                     <div class="col-12">
                       <label for="password" class="form-label">Contraseña:</label>
-                      <input  [type]="mostrarOcultarPassword ? 'text' : 'password'" 
-                              formControlName="password"  placeholder="Ingrese una contraseña"
-                              class="form-control" id="password" required>
-                      <span class="small mb-0" (click)="mostrarOcultarPasswordFunction()" style="cursor: pointer;"> 
-                        <i class="bi bi-eye-fill small mb-0 text-center"> Mostrar/ocultar contraseñas </i> 
+                      <input [type]="mostrarOcultarPassword ? 'text' : 'password'" formControlName="password"
+                        placeholder="Ingrese una contraseña" class="form-control" id="password" required>
+                      <span class="small mb-0" (click)="mostrarOcultarPasswordFunction()" style="cursor: pointer;">
+                        <i class="bi bi-eye-fill small mb-0 text-center"> Mostrar/ocultar contraseñas </i>
                       </span>
                       <span class="form-text text-danger" *ngIf="campoNoValido('password')">
                         La contraseña debe tener una longitud minima de 6 caracteres.
@@ -99,11 +98,10 @@
 
                     <div class="col-12">
                       <label for="rePassword" class="form-label">Repetir contraseña:</label>
-                      <input  [type]="mostrarOcultarPassword ? 'text' : 'password'" 
-                              formControlName="rePassword" placeholder="Ingrese su contraseña nuevamente"
-                              class="form-control" id="rePassword" required>
-                      <span class="small mb-0" (click)="mostrarOcultarPasswordFunction()" style="cursor: pointer;"> 
-                        <i class="bi bi-eye-fill small mb-0 text-center"> Mostrar/ocultar contraseñas </i> 
+                      <input [type]="mostrarOcultarPassword ? 'text' : 'password'" formControlName="rePassword"
+                        placeholder="Ingrese su contraseña nuevamente" class="form-control" id="rePassword" required>
+                      <span class="small mb-0" (click)="mostrarOcultarPasswordFunction()" style="cursor: pointer;">
+                        <i class="bi bi-eye-fill small mb-0 text-center"> Mostrar/ocultar contraseñas </i>
                       </span>
                       <span class="form-text text-danger" *ngIf="campoNoValido('rePassword')">
                         Este campo es requerido, y las contraseñas deben coincidir.
@@ -112,43 +110,42 @@
 
                     <div class="col-12">
                       <label for="codigoRegistro" class="form-label">Código de registro: </label>
-                      <input type="number" formControlName="codigoRegistro" 
-                      placeholder="Ingrese el código de registro" class="form-control" id="codigoRegistro" required>
+                      <input type="number" formControlName="codigoRegistro" placeholder="Ingrese el código de registro"
+                        class="form-control" id="codigoRegistro" required>
                       <span class="form-text text-danger" *ngIf="campoNoValido('codigoRegistro')">
                         Este campo es requerido.
                       </span>
                     </div>
 
 
-                    
-                    
+
+
                     <div class="col-12">
-                      <button class="btn btn-primary w-100" 
-                              [disabled]="miFormularioRegistro.invalid"
-                              type="submit">
-                              Crea tu cuenta
+                      <button class="btn btn-primary w-100" [disabled]="miFormularioRegistro.invalid" type="submit">
+                        Crea tu cuenta
                       </button>
                       <style>
-                        .btn-primary{
-                        color: white;
-                        background: #7b1fa2;
-                        border-color: #7b1fa2;
+                        .btn-primary {
+                          color: white;
+                          background: #7b1fa2;
+                          border-color: #7b1fa2;
                         }
-                        .btn-primary:hover{
+
+                        .btn-primary:hover {
                           color: white;
                           background: #012970;
                           border-color: #012970;
                         }
-                     </style>
+                      </style>
                     </div>
-                    <div class="col-12" style="text-align: center;" >
+                    <div class="col-12" style="text-align: center;">
                       <p class="small mb-0">
-                        Ya tienes una cuenta? 
+                        Ya tienes una cuenta?
                         <a routerLink="/auth/login"> Ingresa aqui</a>
                       </p>
                     </div>
                   </form>
-
+                  <!--End Formulario de Registro -->
                 </div>
               </div>
 

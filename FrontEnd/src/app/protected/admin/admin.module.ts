@@ -34,7 +34,6 @@ import { ConfigAdminComponent } from './config-admin/config-admin.component';
     SweetAlert2Module,
     FormsModule,
     ReactiveFormsModule,
-   // MatButtonModule,
     NgChartsModule,
     MatSortModule,
     MatTableModule,

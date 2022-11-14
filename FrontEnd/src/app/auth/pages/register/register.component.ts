@@ -1,7 +1,12 @@
+//Imports de Angular
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+
+//Imports de Servicios propios
 import { AuthService } from '../../services/auth.service';
+
+//Imports de terceros
 import Swal from 'sweetalert2';
 
 @Component({
@@ -19,7 +24,7 @@ export class RegisterComponent {
     password: ['', [Validators.required, Validators.minLength(6)]],
     rePassword: ['', [Validators.required]],
     codigoRegistro: ['', [Validators.required]]
-  }, { //En este segundo parametro, tenemos un arreglo de validators, que son funciones que evaluan TODO el formulario
+  }, { //Este segundo parametro, tenemos un arreglo de validators, que son funciones que evaluan todo el formulario
     validators: [ this.authservice.camposIguales('password','rePassword') ]
   })
 
@@ -61,4 +66,4 @@ export class RegisterComponent {
     this.mostrarOcultarPassword = !this.mostrarOcultarPassword;
   }
 
-} //Fin de la class
+} 

@@ -55,10 +55,9 @@ export class EjercicioComponent implements OnInit, OnDestroy {
 
   idColorPerro: number = 0
 
-  get respuestaElegida(): any { //No se si funciona asi
+  get respuestaElegida(): any { //TODO: No se si funciona asi
     return this.formularioPaciente.get('respuestaElegida');
   }
-
   @ViewChild('tiempoTerminadoSwal')
   public readonly tiempoTerminadoSwal!: SwalComponent;
 
@@ -199,7 +198,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
       .subscribe((resp) => {
         //En resp viene un arreglo de notas, con una sola nota
         Swal.fire("Nota guardada!", "Tu calificacion fue de " + resp.notas[0].calificacion, "success")
-        //Redirigir a las notas del usuario?
+        //Redirigir a las notas del usuario
         if (this.authService.usuario.isAdmin) {
           this.router.navigateByUrl('ocularVet/admin/notasAdmin')
         }
@@ -232,9 +231,8 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   }
 
   diagnosticar(): void {
-    //clearInterval(this.intervalo)
+    
     this.temporizador = 0
-    //this.timer.stop()
     this.cantPacientesRespondidos++;
     if (this.formularioPaciente.value.respuestaElegida === this.diagnosticoActual.id) {
       this.cantRespuestasCorrectas++;
@@ -253,21 +251,18 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   //Animaciones:
 
   iluminarOjoDerecho() {
-    //Mostramos la linterna por 4 segundos
     const linternaOjoDerecho = document.getElementById('linternaOjoDerecho')!;
+    //Mostramos la linterna por 4 segundos
     linternaOjoDerecho.style.display = 'block';
-
-    // perro.style.filter = 'sepia(30%)';
-
+    //Dejamos de mostrar
     let timerLinternaDerecha = setTimeout(() => {
       linternaOjoDerecho.style.display = 'none';
-      // perro.style.filter = '';
       clearInterval(timerLinternaDerecha)
     }, 4000);
-
+    
     //Desactivamos los botones 
     this.desactivarBotones()
-
+    
     //Realizamos las animaciones
     if (this.diagnosticoActual.derIluminado_AchicaDer) {
       this.animacionPupila("derecha")
@@ -276,16 +271,17 @@ export class EjercicioComponent implements OnInit, OnDestroy {
       this.animacionPupila("izquierda")
     }
   }
-
+  
   iluminarOjoIzquierdo() {
-    //Mostramos la linterna por 4 segundos
     const linternaOjoIzquierdo = document.getElementById('linternaOjoIzquierdo')!;
+    //Mostramos la linterna por 4 segundos
     linternaOjoIzquierdo.style.display = 'block';
+    //Dejamos de mostrar
     let timerLinternaIzquierda = setTimeout(() => {
       linternaOjoIzquierdo.style.display = 'none';
       clearInterval(timerLinternaIzquierda)
     }, 4000);
-
+    
     //Desactivamos los botones 
     this.desactivarBotones()
 
@@ -299,7 +295,7 @@ export class EjercicioComponent implements OnInit, OnDestroy {
   }
 
   desactivarBotones() {
-    //Hacemos disable del boton de los ojos por 5 segundos
+    //Hacemos disable del boton de los ojos por 4 segundos
     const botonIluminarDerecho = document.getElementById('botonIluminarOjoDerecho')!;
     botonIluminarDerecho.setAttribute('disabled', 'true')
 

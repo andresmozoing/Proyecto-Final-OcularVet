@@ -13,6 +13,7 @@
     <div class="col">
       <div class="card  overflow-auto">
         <div class="card-body">
+          <!--Filtros y Botones -->
           <div id="contenedorBotones" style="margin-bottom: 10px;">
             <form (ngSubmit)="filtrar()">
               <input type="number" id="anioInput" placeholder="Buscar por año..." title="Type in a name" >
@@ -30,8 +31,8 @@
                   [focusCancel]="true" (confirm)="borrarNotasFiltradas()">
               </swal>
             </button>
-          </div>
-          <div>
+          </div> <!--END - Filtros y botones -->
+          <div> <!--TABLA DE NOTAS -->
             <table style="width: 100%;" mat-table [dataSource]="dataSource" matSort
               (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
               <ng-container matColumnDef="DNI">
@@ -88,11 +89,12 @@
               aria-label="Select page">
             </mat-paginator>
           </div>
+          <!--End TABLA NOTAS -->
 
           <hr>
           
 
-
+          <!--GRAFICOS -->
           <div id="contenedorDatos" >
             <div id="divChartPie">
               <canvas id="canvasChartPie">{{chartPie}}</canvas>
@@ -101,7 +103,7 @@
               <canvas class="item" id="canvasChartBar">{{chartBar}}</canvas>
             </div>
           </div>
-
+          <!--End GRAFICOS -->
 
 
         </div>

@@ -1,5 +1,7 @@
+//Imports de Angular
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, CanActivate, CanLoad } from '@angular/router';
+//Imports de Guards Propios
 import { ValidarTokenGuard } from './guards/validar-token.guard';
 
 const routes: Routes = [

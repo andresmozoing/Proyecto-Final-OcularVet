@@ -1,6 +1,9 @@
+//Imports de Angular
 import { Component, AfterViewInit } from '@angular/core';
+//Imports Servicios propios
 import { NotaService } from '../../services/nota.service';
 import { AuthService } from '../../../auth/services/auth.service';
+//Imports Interfaces propias
 import { Nota } from '../../interfaces/Nota';
 
 
@@ -37,7 +40,7 @@ export class NotasAlumnoComponent implements AfterViewInit {
       //Cuando eliminamos una nota queremos que mantenga el orden
       this.ordenActual="";
     }
-    if (ordenNuevo === this.ordenActual) {  //Significa que selecciono dos veces el mismo, cambiamos de Dsc a Asc
+    if (ordenNuevo === this.ordenActual) {  //Si selecciono dos veces el mismo, cambiamos de Dsc a Asc
       if(this.ordenActual.includes("Asc")){
         ordenNuevo = ordenNuevo.replace("Asc","Dsc") 
       }
@@ -131,7 +134,6 @@ export class NotasAlumnoComponent implements AfterViewInit {
       case 'calificacionAsc':
         this.notas.sort((a, b) => a.calificacion! - b.calificacion!);
         break
-        
     }
 
   }

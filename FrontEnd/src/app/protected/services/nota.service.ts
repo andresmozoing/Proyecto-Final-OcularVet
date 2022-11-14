@@ -42,10 +42,7 @@ export class NotaService {
     return this.http.get<NotaResponse>(url,{headers})
     .pipe(
       tap( resp => {
-        
-        //this.notas = resp.
-        //this.notas = resp.notas;
-        console.log("rcantidad de preguntas: ", resp);
+  
         return resp
       }),
       catchError(err => of(err.error.msg)) //si el resp tiene un status q no es el 200, captura el error. Sino, lo deja pasar y no hace nada este operador 

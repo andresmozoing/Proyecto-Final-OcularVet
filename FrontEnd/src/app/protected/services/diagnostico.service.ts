@@ -21,7 +21,7 @@ export class DiagnosticoService {
 
     return this.http.get<DiagnosticoResponse>(url, body)
       .pipe(
-        catchError(err => of(err.error.msg)) //si el resp tiene un status q no es el 200, captura el error. Sino, lo deja pasar y no hace nada este operador 
+        catchError(err => of(err.error.msg)) 
         )
   } 
 
