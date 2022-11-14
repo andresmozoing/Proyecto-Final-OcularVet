@@ -85,6 +85,9 @@ export class PerfilComponent {
         ).subscribe(resp => {
           if (resp.ok === true) {
             Swal.fire('Contraseña modificada exitosamente!', '', 'success');
+            this.passwordForm.controls['passwordActual'].reset()
+            this.passwordForm.controls['passwordNueva'].reset()
+            this.passwordForm.controls['repeticionPassword'].reset()
           }
           else {
             console.log('Error al editar usuario', resp, 'error');
