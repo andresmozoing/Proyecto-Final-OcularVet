@@ -143,7 +143,7 @@ export class AdministracionUsuariosComponent {
         this.eliminarUsuario(usuario._id!)
       }
     }
-    Swal.fire("Usuarios eliminados correctamente" , " " , "success")
+    Swal.fire("Usuario/s eliminado/s correctamente" , " " , "success")
   }
 
   filtrarUsuarios() {

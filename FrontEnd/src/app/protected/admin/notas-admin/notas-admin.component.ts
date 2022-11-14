@@ -153,7 +153,7 @@ export class NotasAdminComponent implements MatPaginatorIntl {
     await this.notaService.eliminarNota(_id).subscribe(
       (resp) => {        
         if (resp.ok === true){
-          Swal.fire("Nota borrada exitosamente", "", "success")
+          Swal.fire("Nota/s borrada/s exitosamente", "", "success")
         }
       }
     )
