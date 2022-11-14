@@ -7,16 +7,9 @@ const obtenerNotas = async(req,res = response)=>{
     const DNI = req.header('DNI');
     const anio = req.header('anio');
     try {
-        console.log("Llego al controller de obtenerNotas");
-        console.log("El Header es " , req.header )
-       
-
         let notas = {}
         if (anio){
-            console.log("entro al if de anio");
-
             if (DNI){
-                console.log("entro al if de anio y DNI");
                 notas = await Nota.find({
                     $and: [
                         {
@@ -28,7 +21,6 @@ const obtenerNotas = async(req,res = response)=>{
                 });
             }
             else{
-                console.log("entro al if de anio y NO DNI");
                 notas = await Nota.find({
                     fecha: {
                         $gte: new Date(anio.concat('-01-01')),
@@ -39,16 +31,12 @@ const obtenerNotas = async(req,res = response)=>{
         }
         else{
             if(DNI){
-                console.log("entro al if de NO anio y SI DNI");
                 notas = await Nota.find({ DNI : DNI });
             }
             else{ //Caso sin DNI ni anio
-                console.log("entro al if de NO anio y NO DNI");
                 notas = await Nota.find({});
             }
         }
-
-        
 
         return res.status(201).json({
             ok: true,
@@ -66,10 +54,7 @@ const obtenerNotas = async(req,res = response)=>{
 
 const crearNota = async(req,res = response)=>{
     
-    try {
-        console.log("Llego al controller de crearNota");
-        console.log("El body es " , req.body )
-        
+    try {       
         //Verificar que exista el DNI
         const usuarioDNI = await Usuario.findOne({DNI: req.body.DNI});
         if (!usuarioDNI){
@@ -81,11 +66,9 @@ const crearNota = async(req,res = response)=>{
 
         //Crear nota con el modelo
         const dbNota = new Nota(req.body);        
-        console.log('nota es ' , dbNota)
 
         // Guardar en BD
         await dbNota.save();
-        console.log('pudo guardar ' , dbNota)
 
         return res.status(201).json({
             ok: true,
@@ -102,7 +85,6 @@ const crearNota = async(req,res = response)=>{
 
 const modificarNombre_y_apellido = async (req,res = response) => {
     try {
-        console.log("Llego al modificarNombre_y_apellido, el body es ", req.body);
 
         const nota = await Nota.updateMany(
                                 {DNI : req.body.DNI},
@@ -126,8 +108,6 @@ const modificarNombre_y_apellido = async (req,res = response) => {
 
 const eliminarNota = async(req,res = response)=>{
     try {
-        console.log("Llego al controller de borrarNota");
-        console.log("El header es " , req.header('_id') )
 
         await Nota.findByIdAndDelete(req.header('_id'))
 
@@ -146,13 +126,9 @@ const eliminarNota = async(req,res = response)=>{
 
 const eliminarNotasUsuario = async(req,res = response)=>{
     try {
-        console.log("Llego al controller de eliminarNotasUsuario");
-        console.log("El DNI es " , req.header('DNI') )
-
         const DNI = req.header('DNI')
         notas = await Nota.find({ DNI : DNI });
 
-        console.log("NOTAS TIENE:",notas);
         notas.forEach(async e => { 
             await Nota.findByIdAndDelete(e._id)
         });

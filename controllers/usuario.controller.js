@@ -6,8 +6,6 @@ const bcrypt = require('bcryptjs');
 
 const obtenerUsuario = async (req,res = response) => {
     try {
-        console.log("Llego al obtenerUsuario, el body es ", req.body);
-
         const user = await Usuario.findById(req.body._id)
 
         return res.json({
@@ -26,7 +24,6 @@ const obtenerUsuario = async (req,res = response) => {
 
 const obtenerTodosLosUsuarios = async (req,res = response) => {
     try {
-        console.log("Llego al obtenerTodosLosUsuarios");
         const uid = req.header('uid');
 
        const users = await Usuario.find({_id: {$ne: uid}}) 
@@ -48,12 +45,8 @@ const obtenerTodosLosUsuarios = async (req,res = response) => {
 
 const obtenerConfigAdmin = async (req,res = response) => {
     try {
-        console.log("Llego al obtenerConfigAdmin");
-        
         const config = await ConfiguracionAdmin.find({ id: 1})
 
-        
-        console.log(config);
         return res.json({
             ok: true,
             cantidadPacientesADiagnosticar : config[0].cantidadPacientesADiagnosticar,
@@ -72,7 +65,6 @@ const obtenerConfigAdmin = async (req,res = response) => {
 
 const modificarUsuario = async (req,res = response) => {
     try {
-        console.log("Llego al modificarUsuario, el body es ", req.body);
 
         const user = await Usuario.updateOne(
                                 {_id : req.body._id},
@@ -96,7 +88,6 @@ const modificarUsuario = async (req,res = response) => {
 
 const modificarPassword = async (req,res = response) => {
     try {
-        console.log("Llego al modificarPassword, el body es ", req.body);
 
         const dbUser = await Usuario.findById(req.body._id)
         console.log("usuario es", dbUser);
@@ -120,7 +111,6 @@ const modificarPassword = async (req,res = response) => {
         const salt = bcrypt.genSaltSync(10);
         dbUser.password = bcrypt.hashSync(req.body.passwordNueva, salt);
         
-        console.log("va a modificar el pass");
         const userModificado = await Usuario.updateOne(
                                 {_id : req.body._id},
                                 {password : dbUser.password})
@@ -140,10 +130,7 @@ const modificarPassword = async (req,res = response) => {
 
 const reiniciarPassword = async (req,res = response) => {
     try {
-        console.log("Llego al reiniciarPassword, el body es ", req.body);
-
         const dbUser = await Usuario.findById(req.body._id)
-        console.log("usuario es", dbUser);
         if (!dbUser){
             return res.status(400).json({
                 ok: false,
@@ -226,7 +213,6 @@ const eliminarUsuario = async (req,res = response) => {
 
 const modificarConfiguracionAdmin = async (req,res = response) => {
     try {
-        console.log("Llego al modificarConfiguracionAdmin, el body es ", req.body);
         const update = await ConfiguracionAdmin.updateOne({id:1},req.body)
                 
         return res.json({

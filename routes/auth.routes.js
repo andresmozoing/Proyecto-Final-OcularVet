@@ -8,7 +8,6 @@ const { validarJWT } = require('../middlewares/validar-jwt');
 const router = Router();
 
 //REGISTER
-//router.post('/new', crearUsuario);
 router.post('/new',
     [
         check('name','El nombre es obligatorio y debe tener al menos 2 letras').not().isEmpty().isLength({min:2}),
@@ -21,8 +20,7 @@ router.post('/new',
     ] 
     ,crearUsuario);
 
-//LOGIN sin middleware, para verificaciones de parametros
-//router.post('/', loginUsurario);
+
 //LOGIN con middleware, para verificaciones de parametros
 router.post('/', 
     [

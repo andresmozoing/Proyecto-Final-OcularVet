@@ -7,10 +7,8 @@ const ConfiguracionAdmin = require('../models/ConfiguracionAdmin');
 
 const crearUsuario = async(req,res = response)=>{
 
-    //Para desestructurar el body: (asi puedo manejarlos por separado)
     const { name, surname, DNI, email, password, codigoRegistro}= req.body;
     try {
-
         //Verificar que no exista el email
         const usuarioEmail = await Usuario.findOne({email: email});
         if (usuarioEmail){
@@ -53,7 +51,6 @@ const crearUsuario = async(req,res = response)=>{
         await dbUser.save();
 
         //Generar rta exitosa
-        console.log("hizo el save");
         return res.status(201).json({
             ok: true,
             uid: dbUser.id,
@@ -114,7 +111,7 @@ const loginUsuario = async (req,res = response)=>{
 };
 
 const revalidarToken = async(req,res = response)=>{
-    const {uid,name} = req;
+    const {uid} = req;
     const dbUser = await Usuario.findById({_id:uid}); //Para traer el email
     console.log(dbUser );
     console.log(uid);

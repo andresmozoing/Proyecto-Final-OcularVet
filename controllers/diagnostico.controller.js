@@ -24,8 +24,6 @@ const crearDiagnostico = async(req,res = response)=>{
 
 const obtenerTodosLosDiagnosticos = async (req,res = response) => {
     try {
-        console.log("Llego al obtenerTodosLosDiagnosticos");
-
         const diagnosticos = await Diagnostico.find({ })
 
         return res.json({

@@ -38,7 +38,7 @@ router.put('/modificarConfigAdmin',
             controllerUsuario.modificarConfiguracionAdmin)
 
 router.get('/obtenerConfigAdmin', 
-[],
-controllerUsuario.obtenerConfigAdmin)
+            [],
+            controllerUsuario.obtenerConfigAdmin)
 
 module.exports = router;

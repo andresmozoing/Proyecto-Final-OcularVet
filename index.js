@@ -3,11 +3,10 @@ const cors = require('cors');
 const { dbConnection } = require('./db/config');
 require('dotenv').config();
 
- 
-//CREAR EL servidor/aplicacion de express
+//Crear el servidor/aplicacion de express
 const app = express();
 
-//Base de Datos
+//Conectamos la base de Datos
 dbConnection();
 
 //Directorio publico
@@ -30,7 +29,7 @@ app.use('/api/diagnostico', require('./routes/diagnostico.routes'));
 //     res.sendFile( path.resolve(__dirname , 'public/index.html'))
 // })
 
-//para levantar la app:
+//Levantamos la app:
 app.listen(process.env.PORT,()=>{
     console.log(`Servidor corriendo en puerto ${process.env.PORT}`)
 });
