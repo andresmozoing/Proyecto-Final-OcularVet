@@ -13,23 +13,24 @@
     <div class="col">
       <div class="card  overflow-auto">
         <div class="card-body">
-          <form (ngSubmit)="filtrar()">
-            <input type="number" id="anioInput" placeholder="Buscar por año..." title="Type in a name" >
-            <input type="text" id="apellidoInput" placeholder="Buscar por apellido..." title="apellido" class="m-1">
-            <button type="submit" name="searchButton" class="btn btn-primary" (click)="filtrar()">
-                <i class="bi-search "></i>  
-            </button>
-            <button class="btn btn-danger" [swal]="deleteFilteredNotas"> Borrar todas las notas filtradas
-
+          <div id="contenedorBotones" style="margin-bottom: 10px;">
+            <form (ngSubmit)="filtrar()">
+              <input type="number" id="anioInput" placeholder="Buscar por año..." title="Type in a name" >
+              <input type="text" id="apellidoInput" placeholder="Buscar por apellido..." title="apellido" class="m-1">
+              <button type="submit" name="searchButton" class="btn btn-primary" (click)="filtrar()">
+                  <i class="bi-search "></i>  
+              </button>
+              
+            </form>
+            <button class="btn btn-danger item" [swal]="deleteFilteredNotas"> Eliminar notas filtradas
               <i class="bi-trash-fill"></i>
               <swal #deleteFilteredNotas title="Esta seguro que desea eliminar todos las notas filtradas?"
                   text="Esta acción no se puede deshacer." icon="warning"
                   [swalOptions]="{ confirmButtonText: 'Confirmar' }" [showCancelButton]="true"
                   [focusCancel]="true" (confirm)="borrarNotasFiltradas()">
               </swal>
-          </button>
-
-          </form>
+            </button>
+          </div>
           <div>
             <table style="width: 100%;" mat-table [dataSource]="dataSource" matSort
               (matSortChange)="announceSortChange($event)" class="mat-elevation-z8">
@@ -96,8 +97,8 @@
             <div id="divChartPie">
               <canvas id="canvasChartPie">{{chartPie}}</canvas>
             </div>
-            <div id="divChartBar">
-              <canvas id="canvasChartBar">{{chartBar}}</canvas>
+            <div id="divChartBar" class="item">
+              <canvas class="item" id="canvasChartBar">{{chartBar}}</canvas>
             </div>
           </div>
 

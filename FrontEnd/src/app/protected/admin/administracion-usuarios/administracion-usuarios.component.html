@@ -11,7 +11,7 @@
         <div class="col">
             <div class="card overflow-auto">
                 <div class="card-body">
-                    <div style="display: flex; justify-content: space-between;flex-shrink: 0;">
+                    <div id="contenedorBotones" style="margin-bottom: 10px;">
                         <form (ngSubmit)="filtrarUsuarios()">
                             <input type="number" id="anioInput" placeholder="Buscar por año..." title="Type in a name" >
                             <input type="text" id="apellidoInput" oninput="filtrarUsuarios()" placeholder="Buscar por apellido..."
@@ -21,7 +21,7 @@
                             </button>
                         </form>
     
-                        <button class="btn btn-danger" [swal]="deleteFilteredUsers"> Eliminar usuarios filtrados
+                        <button class="btn btn-danger item" [swal]="deleteFilteredUsers"> Eliminar usuarios filtrados
 
                             <i class="bi-trash-fill"></i>
                             <swal #deleteFilteredUsers title="Esta seguro que desea eliminar todos los usuarios filtrados?"

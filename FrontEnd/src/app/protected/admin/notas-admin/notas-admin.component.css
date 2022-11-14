@@ -1,18 +1,84 @@
 #contenedorDatos {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:nowrap
+    
+}
+@media (max-width: 500px) {
+    #divChartPie {
+        width: 85%;
+        margin: auto;
+    }
+    #divChartBar {
+        width: 95%;
+        margin: auto;
+        margin-top: 30px;
+    }
+}
+@media (max-width: 800px) {
+    #contenedorDatos {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between
+    }
+    #divChartPie {
+        width: 70%;
+        margin: auto;
+    }
+    #divChartBar {
+        width: 80%;
+        margin: auto;
+        margin-top: 30px;
+    }
+    
+}
+@media (min-width: 800px) {
+
+    #divChartPie {
+        width: 40%;
+        margin: auto;
+    }
+    
+    #divChartBar {
+        width: 45%;
+        margin: auto;
+    }
+}
+@media (min-width: 1300px) {
+    
+    #divChartPie {
+        width: 30%;
+        margin: auto;
+    }
+    
+    #divChartBar {
+        width: 40%;
+        margin: auto;
+    }
+}
+
+
+
+#contenedorBotones {
     box-sizing: border-box;
     display: flex;
-    justify-content: center;
+    justify-content: space-between
+}
+@media (max-width: 710px) {
+    #contenedorBotones {
+        flex-direction: column;
+        display: flex;
+        
+        justify-content: left
+        
+    }
+    #contenedorBotones .item{
+        width:fit-content ;        
+    }
+
 }
 
-#divChartPie {
-    width: 30%;
-    margin: auto;
-}
 
-#divChartBar {
-    width: 40%;
-    margin: auto;
-}
 
 /* Large rounded green border */
 hr {

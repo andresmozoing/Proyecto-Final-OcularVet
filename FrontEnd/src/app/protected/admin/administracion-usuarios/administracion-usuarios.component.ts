@@ -14,7 +14,8 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 
 @Component({
   selector: 'app-administracion-usuarios',
-  templateUrl: './administracion-usuarios.component.html'
+  templateUrl: './administracion-usuarios.component.html',
+  styleUrls: ['./administracion-usuarios.component.css']
 })
 export class AdministracionUsuariosComponent {
 

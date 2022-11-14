@@ -1,0 +1,21 @@
+
+#contenedorBotones {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+@media (max-width: 760px) {
+    #contenedorBotones {
+        flex-direction: column;
+        display: flex;
+        
+        justify-content: left
+        
+    }
+    #contenedorBotones .item{
+        width:fit-content ;        
+    }
+    
+
+}
