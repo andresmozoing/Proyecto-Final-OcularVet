@@ -98,9 +98,12 @@ const loginUsuario = async (req,res = response)=>{
             uid: dbUser.id,
             msg:'Login existoso',
             name: dbUser.name,
+            surname: dbUser.surname,
+            DNI: dbUser.DNI,
             token,
             email,
-            isAdmin : dbUser.isAdmin
+            isAdmin : dbUser.isAdmin,
+
         })
     } catch (error) {
         return res.status(500).json({

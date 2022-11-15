@@ -57,7 +57,17 @@ export class AuthService {
         tap(resp => { 
           if (resp.ok){
             console.log("Volvio de hacer el post, resp es ", resp);
-            this._usuario.isAdmin = resp.isAdmin!
+            console.log("resp is admin es ", resp.isAdmin);
+            
+            this._usuario = {
+              uid: resp.uid!,
+              name: resp.name!,
+              surname: resp.surname!,
+              DNI: resp.DNI!,
+              email: resp.email!,
+              isAdmin: resp.isAdmin!
+            }
+            
             localStorage.setItem('token', resp.token!)
           }
         }),
@@ -86,12 +96,10 @@ export class AuthService {
               email: resp.email!,
               isAdmin: resp.isAdmin!
             }
-            console.log("Seteo al usuario, es ", this._usuario);
 
             //Obtenemos la configuracion del administrador
             this.usuarioService.obtenerConfigAdmin()
                 .subscribe((resp) => {
-                  console.log("Recargo satisfactoriamente la config del admin ", resp);
                   
                 })
             return resp.ok
