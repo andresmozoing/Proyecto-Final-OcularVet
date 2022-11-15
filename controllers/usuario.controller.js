@@ -28,7 +28,6 @@ const obtenerTodosLosUsuarios = async (req,res = response) => {
 
        const users = await Usuario.find({_id: {$ne: uid}}) 
        
-        console.log('users es ', users);
         return res.json({
             ok: true,
             users
@@ -90,7 +89,7 @@ const modificarPassword = async (req,res = response) => {
     try {
 
         const dbUser = await Usuario.findById(req.body._id)
-        console.log("usuario es", dbUser);
+        
         if (!dbUser){
             return res.status(400).json({
                 ok: false,
@@ -142,7 +141,6 @@ const reiniciarPassword = async (req,res = response) => {
         const salt = bcrypt.genSaltSync(10);
         dbUser.password = bcrypt.hashSync(req.body.passwordNueva, salt);
         
-        console.log("va a modificar el pass");
         const userModificado = await Usuario.updateOne(
                                 {_id : req.body._id},
                                 {password : dbUser.password})
@@ -192,10 +190,8 @@ const hacerAdmin = async (req,res = response) => {
 const eliminarUsuario = async (req,res = response) => {
     try {
         const _id = req.header('_id')
-        console.log("Llego al eliminarUsuario, el header es " , _id);
         
         const user = await Usuario.findByIdAndDelete(_id)
-        
         
         return res.json({
             ok: true,
