@@ -1,3 +1,4 @@
+const compression = require('compression');
 const express =  require('express');
 const cors = require('cors');
 const { dbConnection } = require('./db/config');
@@ -14,6 +15,9 @@ app.use( express.static('public'));
 
 //CORS
 app.use(cors());
+
+//Compression. Esto sirve para que se compriman los archivos (se "gzippen" los archivos) y pesen mucho menos a la hora de cargarlos
+app.use(compression())
 
 //Lectura y parseo del body
 app.use( express.json() );
