@@ -38,11 +38,12 @@ export class RegisterComponent {
 
   registrar() {
     const { name, surname, DNI, email, password, rePassword, codigoRegistro } = this.miFormularioRegistro.value
-
     if (password === rePassword) {
+      Swal.showLoading()	
       this.authservice.registro(name, surname, DNI, email, password, codigoRegistro)
-        .subscribe(ok => {
-          if (ok === true) {
+      .subscribe(ok => {
+        Swal.close()
+        if (ok === true) {
             this.router.navigateByUrl('/ocularVet');
           }
           else {

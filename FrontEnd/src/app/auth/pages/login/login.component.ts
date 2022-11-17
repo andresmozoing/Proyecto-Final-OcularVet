@@ -30,13 +30,12 @@ export class LoginComponent {
   login(){
     const {email,password} = this.miFormulario.value
     console.log("Entro al login() del component");
-    
+    Swal.showLoading()	
     this.authService.login(email,password)
       .subscribe((resp) => {
-        
+                	
         if (resp.ok === true){ //Si no le pones el ===true, evalua q exista el objeto, y siempre existe.
-
-          
+          Swal.close()
           if(resp.isAdmin){
             this.router.navigateByUrl('/ocularVet/admin/configAdmin')
           }
@@ -46,7 +45,6 @@ export class LoginComponent {
         }
         else{
           // console.log('resp es ', resp);
-          
           Swal.fire('Error' , resp, 'error')
           //mostrar error
         }

@@ -1,5 +1,5 @@
 {
-  "name": "12-auth-server",
+  "name": "OcularVet-BackEnd-server",
   "version": "1.0.0",
   "description": "auth MEAN",
   "main": "index.js",
