@@ -5,9 +5,9 @@
   scroll-behavior: smooth;
 }
 
-body  {
+body {
   font-family: "Open Sans", sans-serif;
-  background-image: url('../images/eXpresso.jpg');
+  background-image: url('../images/eXpresso.webp');
   background-size: cover;
   width: 100vw;
   height: 100vh;
@@ -15,7 +15,6 @@ body  {
   background-repeat: repeat-y;
   color: #444444;
 }
-
 
 a {
   color: #4154f1;
@@ -27,60 +26,40 @@ a:hover {
   text-decoration: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1,h2,h3,h4,h5,h6 {
   font-family: "Nunito", sans-serif;
 }
 
-/*--------------------------------------------------------------
-# Main
---------------------------------------------------------------*/
 #main {
-  /* margin-top: 6%; */
   padding-top: 11vh;
-  padding-left: 1vw ;
+  padding-left: 1vw;
   padding-right: 1vw;
   padding-bottom: 1vh;
   transition: all 0.3s;
 }
 
-/* @media (max-width: 1199px) {
-  #main {
-    padding: 20px;
-  }
-} */
-.btn-primary{
+.btn-primary {
   color: white;
   background: #7b1fa2;
   border-color: #7b1fa2;
 }
 
-.btn-info{
+.btn-info {
   color: white;
-  background: #4e94c7
-  ;
+  background: #4e94c7;
   border-color: #4e94c7;
 }
-.btn-info:disabled{
+
+.btn-info:disabled {
   color: white;
   background: #73bde2;
 }
 
 .btn-primary:disabled {
-  /*css declaration to make 
-  font-color of disable input
-  black*/
   background-color: #7b1fa2;
   border-color: #7b1fa2;
 }
 
-/*--------------------------------------------------------------
-# Back to top button
---------------------------------------------------------------*/
 .back-to-top {
   position: fixed;
   visibility: hidden;
@@ -111,10 +90,6 @@ h6 {
   opacity: 1;
 }
 
-/*--------------------------------------------------------------
-# Override some default Bootstrap stylings
---------------------------------------------------------------*/
-/* Dropdown menus */
 .dropdown-menu {
   border-radius: 4px;
   -webkit-animation-name: dropdown-animate;
@@ -132,7 +107,7 @@ h6 {
   text-align: center;
   font-size: 15px;
   padding: 2px 5px;
-  
+
 }
 
 .dropdown-menu .dropdown-footer a {
@@ -151,12 +126,10 @@ h6 {
 
 .dropdown-menu .dropdown-item {
   font-size: 16px;
-  /* padding: 10px 15px; */
   transition: 0.3s;
 }
 
 .dropdown-menu .dropdown-item i {
-  /* margin-right: 10px; */
   font-size: 18px;
   line-height: 0;
 }
@@ -209,7 +182,6 @@ h6 {
 }
 
 
-/* Card */
 .card {
   margin-bottom: 0;
   border: none;
@@ -224,13 +196,15 @@ h6 {
   color: #798eb3;
   padding: 15px;
 }
-.card-header{
+
+.card-header {
   font-size: 26px;
   font-weight: 700;
   color: #021c49;
   font-family: "Nunito", sans-serif;
 }
-.card-header span{
+
+.card-header span {
   font-size: 26px;
   font-weight: 700;
   color: #012970;
@@ -258,12 +232,6 @@ h6 {
   background-color: rgba(255, 255, 255, 0.6);
 }
 
-/* Alerts */
-.alert-heading {
-  font-weight: 500;
-  font-family: "Poppins", sans-serif;
-  font-size: 20px;
-}
 
 /* Close Button */
 .btn-close {
@@ -365,8 +333,8 @@ h6 {
 }
 
 @media (max-width: 580px) {
-  
-  
+
+
   .logo span {
     display: none;
   }
@@ -391,7 +359,7 @@ h6 {
   background-color: #fff;
   width: 100vw;
   margin-top: 1vh;
-  margin-bottom: 1vh; 
+  margin-bottom: 1vh;
   /* Toggle Sidebar Button */
   /* Search Bar */
 }
@@ -419,6 +387,7 @@ h6 {
   margin-right: 0px;
   position: relative;
 }
+
 .header-nav .nav-options {
   color: #012970;
   margin: 10px;
@@ -433,13 +402,14 @@ h6 {
   font-weight: 600;
   margin-left: 8px;
 }
+
 @media (max-width: 480px) {
-  
-  
+
+
   .header-nav .nav-profile span {
     display: none;
   }
-  
+
   .header-nav .nav-options span {
     display: none;
   }
@@ -478,7 +448,7 @@ h6 {
 
 .header-nav .profile .dropdown-item {
   font-size: 16px;
-  padding: 1px ;
+  padding: 1px;
   transition: 0.3s;
 }
 
@@ -492,7 +462,7 @@ h6 {
   background-color: #f6f9ff;
 }
 
-th{
+th {
   text-align: center;
 }
 
@@ -524,5 +494,3 @@ table {
 th.mat-sort-header-sorted {
   color: rgb(255, 255, 255);
 }
-
-
