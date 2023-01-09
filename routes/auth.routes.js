@@ -15,7 +15,7 @@ router.post('/new',
         check('DNI','El DNI es obligatorio').not().isEmpty().isNumeric(),
         check('email','El email es obligatorio').isEmail(),
         check('password','La contraseña es obligatoria y debe poseer 6 caracteres').isLength({min:6}),
-        check('codigoRegistro','El codigo de registro no puede estar vacion').not().isEmpty(),
+        check('codigoRegistro','El codigo de registro no puede estar vacio').not().isEmpty(),
         validarCampos
     ] 
     ,crearUsuario);

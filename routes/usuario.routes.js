@@ -5,40 +5,35 @@ const controllerUsuario  = require('../controllers/usuario.controller');
 const router = Router();
 
 //RUTAS
-router.get('/obtenerUsuario', 
-            [],
-            controllerUsuario.obtenerUsuario)
+//Obtener un Usuario
+router.get('/obtenerUsuario',[], controllerUsuario.obtenerUsuario)
 
-router.get('/obtenerTodosLosUsuarios', 
-            [],
-            controllerUsuario.obtenerTodosLosUsuarios)
+//Obtener un Usuario
+router.get('/obtenerTodosLosUsuarios',[], controllerUsuario.obtenerTodosLosUsuarios)
 
-router.put('/modificarUsuario',
-            [],
-            controllerUsuario.modificarUsuario)
+//Modificar un Usuario
+router.put('/modificarUsuario',[], controllerUsuario.modificarUsuario)
 
+//Modificar password de un Usuario
 router.put('/modificarPassword',
-            [check('passwordNueva','La contraseña es obligatoria y debe poseer 6 caracteres').isLength({min:6})],
-            controllerUsuario.modificarPassword)
-            
+[check('passwordNueva','La contraseña es obligatoria y debe poseer 6 caracteres').isLength({min:6})],
+controllerUsuario.modificarPassword)
+
+//Reiniciar password de un Usuario
 router.put('/reiniciarPassword',
             [check('passwordNueva','La contraseña es obligatoria y debe poseer 6 caracteres').isLength({min:6})],
             controllerUsuario.reiniciarPassword)
 
-router.put('/hacerAdmin',
-            [],
-            controllerUsuario.hacerAdmin)
+//Modificar usuario  y convertir en administrador
+router.put('/hacerAdmin',[], controllerUsuario.hacerAdmin)
 
-router.delete('/eliminarUsuario',
-               [],
-               controllerUsuario.eliminarUsuario)
+//Eliminar Usuario
+router.delete('/eliminarUsuario',[], controllerUsuario.eliminarUsuario)
 
-router.put('/modificarConfigAdmin',
-            [],
-            controllerUsuario.modificarConfiguracionAdmin)
+//Obtener la configuracion de Administrador
+router.get('/obtenerConfigAdmin',[], controllerUsuario.obtenerConfigAdmin)
 
-router.get('/obtenerConfigAdmin', 
-            [],
-            controllerUsuario.obtenerConfigAdmin)
+//Modificar la configuarion de Administrador
+router.put('/modificarConfigAdmin',[], controllerUsuario.modificarConfiguracionAdmin)
 
 module.exports = router;
